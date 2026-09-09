@@ -1,7 +1,7 @@
 table ProductRegion
 	lineageTag: c9eb0aef-8d72-43e9-8da5-f493016d2c64
 
-	measure 'Revenue Amount' = SUM(ProductRegion[Revenue])
+	measure 'Market Revenue' = SUM(ProductRegion[Revenue])
 		formatString: $#,##0;($#,##0);$0
 		lineageTag: 66d6d8d4-5089-4663-8367-6378e553b32b
 

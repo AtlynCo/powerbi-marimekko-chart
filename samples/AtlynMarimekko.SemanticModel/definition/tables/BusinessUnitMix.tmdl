@@ -1,7 +1,7 @@
 table BusinessUnitMix
 	lineageTag: d15a9c25-c79b-4b8b-85d8-f7cbdcb44746
 
-	measure 'Revenue Amount' = SUM(BusinessUnitMix[Revenue])
+	measure 'Mix Revenue' = SUM(BusinessUnitMix[Revenue])
 		formatString: $#,##0;($#,##0);$0
 		lineageTag: a50fcd37-a55b-43d6-bc84-6e534db798e6
 

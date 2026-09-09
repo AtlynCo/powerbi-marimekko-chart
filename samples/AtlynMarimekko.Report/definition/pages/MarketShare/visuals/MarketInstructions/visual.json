@@ -1,19 +1,59 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "MarketInstructions",
-  "position": { "x": 24, "y": 16, "z": 0, "width": 1232, "height": 128, "tabOrder": 0 },
+  "position": {
+    "x": 80,
+    "y": 16,
+    "z": 1,
+    "width": 1336,
+    "height": 128,
+    "tabOrder": 1
+  },
   "visual": {
     "visualType": "textbox",
     "objects": {
-      "general": [{
-        "properties": {
-          "paragraphs": [
-            { "textRuns": [{ "value": "Atlyn Marimekko | Product-region market share", "textStyle": { "fontSize": "20pt", "fontWeight": "bold" } }] },
-            { "textRuns": [{ "value": "Synthetic offline data. Set SampleDataFolder and refresh. Expected total: $1,000,000; region widths: 60%, 30%, 10%.", "textStyle": { "fontSize": "11pt" } }] },
-            { "textRuns": [{ "value": "Import the .pbiviz and add it below left. Bind ProductRegion: Region -> Segment, Product -> Component, Revenue Amount -> Additive value. Confirm additivity in Format > Data contract. Reconcile with the native table at right.", "textStyle": { "fontSize": "11pt" } }] }
-          ]
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Product-region market share",
+                    "textStyle": {
+                      "fontSize": "24pt",
+                      "fontWeight": "bold",
+                      "color": "#172B3A"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Synthetic revenue · $1,000,000 total · North America 60% / Europe 30% / Asia Pacific 10%",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#374151"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Width = segment share  •  Height = within-segment mix  •  Area = overall contribution",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#374151"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
         }
-      }]
+      ]
     }
   }
 }

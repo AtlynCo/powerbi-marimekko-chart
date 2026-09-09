@@ -1,20 +1,27 @@
 {
   "name": "atlyn-marimekko",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Offline, additive variable-width composition visual for Power BI",
   "license": "UNLICENSED",
-  "engines": { "node": ">=22.12.0" },
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "typecheck": "tsc --noEmit",
     "lint": "eslint src tests scripts",
+    "eslint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "node --import tsx --test tests/*.test.ts",
     "test:browser": "playwright test",
     "build": "node scripts/build.mjs",
     "package": "npm run build && node scripts/verify-package.mjs",
     "audit:dependencies": "npm audit && node scripts/notices.mjs --check",
     "audit:certification": "node scripts/certification-audit.mjs",
-    "notices": "node scripts/notices.mjs"
+    "notices": "node scripts/notices.mjs",
+    "assets:icons": "node scripts/icon.mjs",
+    "sample:assemble": "node scripts/assemble-sample.mjs",
+    "sample:check": "node scripts/assemble-sample.mjs --check",
+    "release:freeze": "node scripts/freeze-release.mjs"
   },
   "dependencies": {
     "powerbi-visuals-utils-formattingutils": "7.0.0"
@@ -33,7 +40,9 @@
     "typescript-eslint": "8.57.0"
   },
   "overrides": {
-    "sockjs": { "uuid": "11.1.1" },
+    "sockjs": {
+      "uuid": "11.1.1"
+    },
     "qs": "^6.16.0"
   }
 }

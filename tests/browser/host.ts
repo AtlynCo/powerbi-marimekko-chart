@@ -1,7 +1,8 @@
 import type powerbi from "powerbi-visuals-api";
-import type { Page } from "@playwright/test";
+import { test, type Page } from "@playwright/test";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
+import { createHash } from "node:crypto";
 import JSZip from "jszip";
 
 export const GUID = "AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472";
@@ -28,6 +29,8 @@ export interface Fixture {
     showLabels?: boolean;
     labelContent?: "raw" | "segmentShare" | "overallShare";
     direction?: "auto" | "ltr" | "rtl";
+    fontSize?: number;
+    minLabelWidth?: number;
     noCategoryIdentity?: boolean;
     noSeriesIdentity?: boolean;
     duplicateCategoryIdentity?: boolean;
@@ -40,6 +43,7 @@ export interface HostOptions {
     fetchResult?: boolean;
     rejectInteractions?: boolean;
     tooltipEnabled?: boolean;
+    instanceId?: string;
 }
 export interface HostLog {
     select: { key: string; multiple: boolean }[];
@@ -47,19 +51,52 @@ export interface HostLog {
     context: { key: string; x: number; y: number }[];
     fetch: (boolean | undefined)[];
     tooltip: { kind: string; keys?: string[]; dataItems?: powerbi.extensibility.VisualTooltipDataItem[];
-        coordinates?: number[]; immediately?: boolean }[];
+        coordinates?: number[]; immediately?: boolean; isTouchEvent?: boolean }[];
     events: string[];
     failures: string[];
     localization: string[];
+    persisted: powerbi.VisualObjectInstancesToPersist[];
 }
-interface BrowserHarness {
+export interface BrowserHarness {
     visual: powerbi.extensibility.visual.IVisual;
     log: HostLog;
     update(fixture?: Fixture, width?: number, height?: number, append?: boolean): void;
     resize(width: number, height: number): void;
     clearData(): void;
     external(parts: Parts[]): void;
+    setHostOptions(options: HostOptions): void;
+    resetHistory(): void;
+    prepare(fixture: Fixture, width: number, height: number): void;
+    updatePrepared(): void;
     ids: Identity[];
+}
+export interface PackageInfo { path: string; sha256: string; bytes: number; guid: string; version: string }
+async function loadPackagedVisual() {
+    const manifest = JSON.parse(await readFile(resolve("pbiviz.json"), "utf8")) as { visual: { guid: string; version: string } };
+    const path = resolve(process.env.PBIVIZ_PACKAGE ?? resolve("dist", `${manifest.visual.guid}.${manifest.visual.version}.pbiviz`));
+    const bytes = await readFile(path);
+    const sha256 = createHash("sha256").update(bytes).digest("hex");
+    if (process.env.PBIVIZ_EXPECTED_SHA256 && sha256 !== process.env.PBIVIZ_EXPECTED_SHA256.toLowerCase()) {
+        throw new Error(`Package hash mismatch: expected ${process.env.PBIVIZ_EXPECTED_SHA256}, read ${sha256}`);
+    }
+    const zip = await JSZip.loadAsync(bytes);
+    const resource = zip.file(`resources/${manifest.visual.guid}.pbiviz.json`);
+    if (!resource) throw new Error("Packaged visual resource is missing");
+    const packaged = JSON.parse(await resource.async("string")) as {
+        visual: { guid: string; version: string }; content: { js: string; css: string }
+    };
+    if (!packaged.content.js || !packaged.content.css) throw new Error("PBIVIZ must include JavaScript and CSS");
+    if (packaged.visual.guid !== GUID) throw new Error("The frozen visual GUID changed");
+    if (!process.env.PBIVIZ_PACKAGE && packaged.visual.version !== manifest.visual.version) {
+        throw new Error("Packaged version differs from pbiviz.json; rebuild before testing");
+    }
+    return { ...packaged.content, archive: bytes, info: { path, sha256,
+        bytes: bytes.length, guid: packaged.visual.guid, version: packaged.visual.version } satisfies PackageInfo };
+}
+let packagedSnapshot: ReturnType<typeof loadPackagedVisual> | undefined;
+export function readPackagedVisual() {
+    // Pin one immutable archive per worker so a concurrent rebuild cannot mix package revisions in an evidence run.
+    return packagedSnapshot ??= loadPackagedVisual();
 }
 declare global {
     interface Window {
@@ -67,24 +104,29 @@ declare global {
             create(options: powerbi.extensibility.visual.VisualConstructorOptions): powerbi.extensibility.visual.IVisual
         }> } };
         harness: BrowserHarness;
+        harnesses: Record<string, BrowserHarness>;
+        packagedVisual: PackageInfo;
     }
 }
 
-export async function mount(page: Page, fixture: Fixture = {}, hostOptions: HostOptions = {}): Promise<string[]> {
+export async function mount(page: Page, fixture: Fixture = {}, hostOptions: HostOptions = {}, elementId = "visual"): Promise<string[]> {
     const requests: string[] = [];
-    page.on("request", request => requests.push(request.url()));
-    await page.route("**/*", route => route.abort());
-    await page.setContent("<!doctype html><html><head></head><body style='margin:0'><div id='visual'></div></body></html>");
-    const zip = await JSZip.loadAsync(await readFile(resolve("dist", `${GUID}.1.0.0.0.pbiviz`)));
-    const resource = zip.file(`resources/${GUID}.pbiviz.json`);
-    if (!resource) throw new Error("Packaged visual resource is missing");
-    const packaged = JSON.parse(await resource.async("string")) as { content: { js: string; css: string } };
-    if (!packaged.content.js || !packaged.content.css) throw new Error("PBIVIZ must include JavaScript and CSS");
-    await page.evaluate(() => { window.powerbi = { visuals: { plugins: {} } } as typeof window.powerbi; });
-    await page.addStyleTag({ content: packaged.content.css });
-    await page.addScriptTag({ content: packaged.content.js });
-    await page.evaluate(({ guid, fixture, options }) => {
-        const log: HostLog = { select: [], clear: 0, context: [], fetch: [], tooltip: [], events: [], failures: [], localization: [] };
+    if (elementId === "visual") {
+        page.on("request", request => requests.push(request.url()));
+        await page.route("**/*", route => route.abort());
+        await page.setContent("<!doctype html><html><head></head><body style='margin:0'></body></html>");
+        const packaged = await readPackagedVisual();
+        test.info().annotations.push({ type: "pbiviz", description: `${packaged.info.version} SHA256 ${packaged.info.sha256}` });
+        await page.evaluate(info => {
+            window.powerbi = { visuals: { plugins: {} } } as typeof window.powerbi;
+            window.harnesses = {};
+            window.packagedVisual = info;
+        }, packaged.info);
+        await page.addStyleTag({ content: packaged.css });
+        await page.addScriptTag({ content: packaged.js });
+    }
+    await page.evaluate(({ guid, fixture, options, elementId }) => {
+        const log: HostLog = { select: [], clear: 0, context: [], fetch: [], tooltip: [], events: [], failures: [], localization: [], persisted: [] };
         let selected: Identity[] = [];
         let callback: (ids: Identity[]) => void = () => undefined;
         const ids: Identity[] = [];
@@ -170,12 +212,12 @@ export async function mount(page: Page, fixture: Fixture = {}, hostOptions: Host
         };
         const host: Pick<powerbi.extensibility.visual.IVisualHost, "createSelectionIdBuilder" | "createSelectionManager" |
             "locale" | "instanceId" | "hostCapabilities" | "colorPalette" | "eventService" | "tooltipService" |
-            "fetchMoreData" | "createLocalizationManager"> = {
+            "fetchMoreData" | "createLocalizationManager" | "persistProperties"> = {
             createSelectionIdBuilder: builder,
             // Power BI's legacy IPromise declaration differs from the native Promise used by this host double.
             createSelectionManager: () => manager as unknown as powerbi.extensibility.ISelectionManager,
             locale: options.locale ?? "en-US",
-            instanceId: "browser:packaged-instance/one",
+            instanceId: options.instanceId ?? "browser:packaged-instance/one",
             hostCapabilities: { allowInteractions: options.allowInteractions ?? true },
             colorPalette: palette,
             eventService: {
@@ -186,12 +228,13 @@ export async function mount(page: Page, fixture: Fixture = {}, hostOptions: Host
             tooltipService: {
                 enabled: () => options.tooltipEnabled ?? true,
                 show: event => { log.tooltip.push({ kind: "show", keys: event.identities?.map(id => (id as Identity).getKey()),
-                    dataItems: event.dataItems, coordinates: event.coordinates }); },
+                    dataItems: event.dataItems, coordinates: event.coordinates, isTouchEvent: event.isTouchEvent }); },
                 move: event => { log.tooltip.push({ kind: "move", keys: event.identities?.map(id => (id as Identity).getKey()),
-                    coordinates: event.coordinates }); },
-                hide: event => { log.tooltip.push({ kind: "hide", immediately: event.immediately }); }
+                    coordinates: event.coordinates, isTouchEvent: event.isTouchEvent }); },
+                hide: event => { log.tooltip.push({ kind: "hide", immediately: event.immediately, isTouchEvent: event.isTouchEvent }); }
             },
             fetchMoreData: aggregate => { log.fetch.push(aggregate); return options.fetchResult ?? false; },
+            persistProperties: changes => { log.persisted.push(changes); },
             createLocalizationManager: () => ({
                 getDisplayName: key => { log.localization.push(key); return key; }
             })
@@ -227,18 +270,21 @@ export async function mount(page: Page, fixture: Fixture = {}, hostOptions: Host
                     segment: input.partial ? {} : undefined,
                     objects: { dataContract: { additiveConfirmed: input.additive ?? true }, appearance: {
                         showTable: input.showTable ?? false, showLabels: input.showLabels ?? true,
-                        labelContent: input.labelContent ?? "segmentShare", direction: input.direction ?? "auto"
+                        labelContent: input.labelContent ?? "segmentShare", direction: input.direction ?? "auto",
+                        fontSize: input.fontSize ?? 12, minLabelWidth: input.minLabelWidth ?? 48
                     } } },
                 categorical: { categories: [category], values }
             };
         };
         const plugin = window.powerbi.visuals.plugins[guid];
         if (!plugin) throw new Error("Packaged script did not register the Power BI visual plugin");
-        const element = document.getElementById("visual");
-        if (!element) throw new Error("Missing visual container");
+        const element = document.createElement("div");
+        element.id = elementId;
+        document.body.append(element);
         const visual = plugin.create({ element, host: host as powerbi.extensibility.visual.IVisualHost });
         let current = fixture;
         let viewport = { width: 900, height: 650 };
+        let preparedView: powerbi.DataView | undefined;
         window.harness = {
             visual, log, ids,
             update(next = current, width = viewport.width, height = viewport.height, append = false) {
@@ -251,10 +297,27 @@ export async function mount(page: Page, fixture: Fixture = {}, hostOptions: Host
                 visual.update({ dataViews: [], viewport, type: 4 });
             },
             clearData() { visual.update({ dataViews: [], viewport, type: 2 }); },
-            external(parts) { selected = parts.map(identity); callback(selected); }
+            external(parts) { selected = parts.map(identity); callback(selected); },
+            setHostOptions(next) { Object.assign(options, next); },
+            resetHistory() {
+                log.select.length = log.context.length = log.fetch.length = log.tooltip.length = 0;
+                log.events.length = log.failures.length = log.localization.length = ids.length = 0;
+                log.persisted.length = 0;
+                log.clear = 0;
+            },
+            prepare(next, width, height) {
+                current = next;
+                viewport = { width, height };
+                preparedView = dataView(next);
+            },
+            updatePrepared() {
+                if (!preparedView) throw new Error("Prepare the fixture before measuring");
+                visual.update({ dataViews: [preparedView], viewport, type: 2, operationKind: 0 });
+            }
         };
+        window.harnesses[elementId] = window.harness;
         window.harness.update();
-    }, { guid: GUID, fixture, options: hostOptions });
+    }, { guid: GUID, fixture, options: hostOptions, elementId });
     return requests;
 }
 

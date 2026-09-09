@@ -1,10 +1,45 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/2.0.0/schema.json",
   "themeCollection": {},
+  "resourcePackages": [
+    {
+      "name": "AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472.pbiviz.json",
+          "path": "AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "AtlynMarimekkoIcon.png",
+          "path": "AtlynMarimekkoIcon.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true
+  },
   "annotations": [
     {
       "name": "AtlynSampleStatus",
-      "value": "Synthetic offline starter. Set SampleDataFolder and refresh. Import the approved Atlyn Marimekko pbiviz and bind it in Desktop. Native validation is required; no custom visual is embedded."
+      "value": "Fully authored synthetic offline sample; native Power BI validation pending. Set SampleDataFolder and refresh."
+    },
+    {
+      "name": "AtlynPackageVersion",
+      "value": "1.0.1.0"
+    },
+    {
+      "name": "AtlynPackageSha256",
+      "value": "841f066f1a7696151f5e0803b86eac7abe5f87bc54be6f4701d850ebe0d6b2ae"
     }
   ]
 }

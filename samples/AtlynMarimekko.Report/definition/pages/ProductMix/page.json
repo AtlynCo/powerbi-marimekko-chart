@@ -3,6 +3,18 @@
   "name": "ProductMix",
   "displayName": "Business-unit product mix",
   "displayOption": "FitToPage",
-  "height": 720,
-  "width": 1280
+  "width": 1440,
+  "height": 900,
+  "visualInteractions": [
+    {
+      "source": "MixMarimekko",
+      "target": "MixBaseline",
+      "type": "DataFilter"
+    },
+    {
+      "source": "MixBaseline",
+      "target": "MixMarimekko",
+      "type": "HighlightFilter"
+    }
+  ]
 }

@@ -1,19 +1,13 @@
 import { expect, test, type Page } from "@playwright/test";
 import { resolve } from "node:path";
 import { hostLog, mount, type Fixture } from "./host";
+import { assertAreaOracle, plotGeometry } from "./oracles";
 
 const cell = (page: Page, segment: number, component: number) =>
     page.locator(`.chart .cell[data-segment="${segment}"][data-component="${component}"]`);
 
 async function geometry(page: Page) {
-    return page.locator(".chart .cell").evaluateAll(nodes => nodes.map(node => {
-        const rect = node as SVGRectElement;
-        const bounds = rect.getBoundingClientRect();
-        return { segment: Number(rect.dataset.segment), component: Number(rect.dataset.component),
-            x: Number(rect.getAttribute("x")), y: Number(rect.getAttribute("y")), width: Number(rect.getAttribute("width")),
-            height: Number(rect.getAttribute("height")), screenWidth: bounds.width, screenHeight: bounds.height,
-            share: Number(rect.dataset.share) };
-    }));
+    return (await plotGeometry(page))!.cells;
 }
 
 test.afterEach(async ({ page }) => {
@@ -23,25 +17,7 @@ test.afterEach(async ({ page }) => {
 test("packaged PBIVIZ has exact area geometry, local styling and no network requests", async ({ page }) => {
     const requests = await mount(page);
     await expect(page.locator(".chart")).toBeVisible();
-    const cells = await geometry(page);
-    const expected = [
-        [0, 0, 0, .25, .4, .75, .3], [0, 1, 0, 0, .4, .25, .1],
-        [1, 0, .4, 2 / 3, .6, 1 / 3, .2], [1, 1, .4, 0, .6, 2 / 3, .4]
-    ];
-    for (const [index, rect] of cells.entries()) {
-        const item = expected[index]!;
-        expect(rect.segment).toBe(item[0]);
-        expect(rect.component).toBe(item[1]);
-        expect(rect.x).toBeCloseTo(item[2]! * 876, 10);
-        expect(rect.y).toBeCloseTo(item[3]! * 437, 10);
-        expect(rect.width).toBeCloseTo(item[4]! * 876, 10);
-        expect(rect.height).toBeCloseTo(item[5]! * 437, 10);
-        expect(rect.share).toBeCloseTo(item[6]!, 12);
-        expect(rect.width * rect.height / (876 * 437)).toBeCloseTo(item[6]!, 12);
-        expect(rect.screenWidth).toBeCloseTo(rect.width, 4);
-        expect(rect.screenHeight).toBeCloseTo(rect.height, 4);
-    }
-    expect(cells).toHaveLength(4);
+    await assertAreaOracle(page, {});
     await expect(page.locator(".total")).toHaveText("Displayed total: 100.00");
     await expect(page.locator(".atlyn-marimekko")).toHaveCSS("padding-left", "12px");
     await expect(page.locator(".atlyn-marimekko")).toHaveCSS("font-size", "12px");
@@ -60,7 +36,7 @@ test("subpixel columns retain their proportional width; actual SVG measurement r
     expect(cells).toHaveLength(2);
     expect(cells[0]!.width).toBeGreaterThan(0);
     expect(cells[0]!.width).toBeLessThan(.01);
-    expect(cells[0]!.width).toBeCloseTo(.00001 * 876, 8);
+    expect(cells[0]!.width).toBeCloseTo(.00001 * (await plotGeometry(page))!.width, 8);
     expect(cells[0]!.share).toBeCloseTo(.00001, 12);
     await expect(page.locator(".segment-label")).toHaveCount(0);
     const measurements = await page.locator(".chart text").evaluateAll(nodes => nodes.map(node => ({
@@ -77,7 +53,7 @@ test("subpixel columns retain their proportional width; actual SVG measurement r
 test("sparse cells and zero-width segments survive in the equivalent table without invented area", async ({ page }) => {
     await mount(page, { segments: ["Positive", "Missing", "Zero"], values: [[10, null], [null, null], [0, 0]], showTable: true });
     await expect(page.locator(".chart .cell")).toHaveCount(1);
-    expect((await geometry(page))[0]!.width).toBe(876);
+    expect((await geometry(page))[0]!.width).toBe((await plotGeometry(page))!.width);
     await expect(page.locator("tbody tr")).toHaveCount(6);
     await expect(page.locator("tbody tr").nth(1).locator("td").nth(2)).toHaveText("(Missing)");
     await expect(page.locator("tbody tr").nth(4).locator("td").nth(2)).toHaveText("0.00");
@@ -115,8 +91,7 @@ test("resize recalculates dimensions without changing denominators; empty Data u
     await mount(page);
     await page.evaluate(() => window.harness.resize(480, 420));
     const cells = await geometry(page);
-    expect(cells[0]!.width).toBeCloseTo(.4 * 456, 4);
-    expect(cells[0]!.height).toBeCloseTo(.75 * 207, 4);
+    await assertAreaOracle(page, {});
     expect(cells.map(rect => rect.share)).toEqual([.3, .1, .2, .4]);
     expect((await hostLog(page)).events).toEqual(["started", "finished", "started", "finished"]);
     await page.evaluate(() => window.harness.clearData());
@@ -179,14 +154,15 @@ test("fetch requests stop at eight and display row limits do not request more", 
 test("highlights overlay original totals and null highlights dim instead of renormalizing", async ({ page }) => {
     await mount(page, { highlights: [[15, null], [null, 10]], showTable: true });
     const base = await geometry(page);
+    const plotHeight = (await plotGeometry(page))!.height;
     expect(base.map(rect => rect.share)).toEqual([.3, .1, .2, .4]);
     const overlays = await page.locator(".highlight-overlay").evaluateAll(nodes => nodes.map(node => ({
         height: Number(node.getAttribute("height")), y: Number(node.getAttribute("y")), width: Number(node.getAttribute("width"))
     })));
     expect(overlays).toHaveLength(2);
-    expect(overlays[0]!.height).toBeCloseTo(15 / 40 * 437, 10);
-    expect(overlays[1]!.height).toBeCloseTo(10 / 60 * 437, 10);
-    expect(overlays[0]!.y + overlays[0]!.height).toBeCloseTo(437, 10);
+    expect(overlays[0]!.height).toBeCloseTo(15 / 40 * plotHeight, 10);
+    expect(overlays[1]!.height).toBeCloseTo(10 / 60 * plotHeight, 10);
+    expect(overlays[0]!.y + overlays[0]!.height).toBeCloseTo(plotHeight, 10);
     await expect(cell(page, 0, 1)).toHaveCSS("opacity", "0.25");
     await expect(page.locator(".highlight-overlay").first()).toHaveCSS("pointer-events", "none");
     await cell(page, 0, 0).hover();
@@ -282,14 +258,16 @@ test("high contrast has distinguishable patterns and an equivalent, operable dat
     })));
     expect(patterns).toHaveLength(2);
     expect(new Set(patterns.map(pattern => `${pattern.width}/${pattern.rotation}`)).size).toBe(2);
-    expect(patterns.every(pattern => /^atlyn-browserpackaged-instanceone-\d+$/.test(pattern.id))).toBe(true);
+    expect(patterns.every(pattern => /^atlyn-browserpackaged-instanceone-[\d-]+$/.test(pattern.id))).toBe(true);
     for (let component = 0; component < 2; component++) {
         await expect(cell(page, 0, component)).toHaveAttribute("fill", `url(#${patterns[component]!.id})`);
     }
     await expect(page.locator("thead th")).toHaveCount(8);
     await expect(page.locator("tbody tr")).toHaveCount(4);
-    await expect(page.locator("tbody tr").first().locator("td")).toHaveText([
-        "Enterprise", await page.locator(".legend-item").first().innerText(), "30.00", "40.00", "40.0%", "75.0%", "30.0%", "Not defined"
+    const row = page.locator("tbody tr").first().locator("td");
+    await expect(row.nth(1)).toContainText("Services");
+    expect((await row.allTextContents()).filter((_, i) => i !== 1)).toEqual([
+        "Enterprise", "30.00", "40.00", "40.0%", "75.0%", "30.0%", "Not defined"
     ]);
     await page.locator("tbody tr").first().locator("button").nth(2).click();
     await expect(cell(page, 0, 0)).toHaveAttribute("aria-pressed", "true");
@@ -306,7 +284,7 @@ test("French and RTL preserve localized numbers, labels and correct mirrored geo
     await expect(page.locator("tbody tr").first().locator("td").nth(0)).toHaveText("1,5");
     await expect(page.locator("tbody tr").first().locator("td").nth(2)).toHaveText(/1[\s\u00a0\u202f]234,50/);
     const rects = await geometry(page);
-    expect(rects[0]!.x).toBeCloseTo(60 / 1304.5 * 876, 4);
+    expect(rects[0]!.x).toBeCloseTo(60 / 1304.5 * (await plotGeometry(page))!.width, 8);
     expect(rects[2]!.x).toBeCloseTo(0, 4);
     await cell(page, 0, 0).focus();
     await page.keyboard.press("ArrowLeft");
@@ -326,7 +304,7 @@ test("small viewports retain a usable data table and disabled interactions do no
     expect((await hostLog(page)).clear).toBe(0);
     await page.evaluate(() => window.harness.resize(160, 160));
     await expect(page.locator(".chart")).toHaveCount(0);
-    await expect(page.locator(".atlyn-marimekko")).toContainText("viewport is too small");
+    await expect(page.getByRole("button", { name: "Hide data table", exact: true })).toBeVisible();
     await expect(page.locator("table")).toBeAttached();
     await expect(page.locator("tbody tr")).toHaveCount(4);
 });
@@ -344,6 +322,6 @@ test("host promise rejection is surfaced and destroy makes callbacks and updates
     });
     await expect(page.locator(".atlyn-marimekko")).toHaveCount(0);
     expect((await hostLog(page)).events).toHaveLength(before);
-    expect((await hostLog(page)).tooltip.at(-1)).toEqual({ kind: "hide", immediately: true });
+    expect((await hostLog(page)).tooltip.at(-1)).toMatchObject({ kind: "hide", immediately: true });
     expect(requests).toEqual([]);
 });

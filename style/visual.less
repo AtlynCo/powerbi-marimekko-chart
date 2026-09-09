@@ -1,47 +1,94 @@
 .atlyn-marimekko {
     box-sizing: border-box;
-    overflow: auto;
-    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow: hidden;
+    padding: 12px;
     color: var(--ink);
     background: var(--paper);
     font-family: "Segoe UI", system-ui, sans-serif;
-    line-height: 1.4;
+    line-height: 1.35;
     * { box-sizing: border-box; }
-    p { margin: 5px 0; }
-    .header, .controls, .legend, .pager { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    > * { flex-shrink: 0; min-width: 0; }
+    p, h2 { margin: 0; }
+    h2 { font-size: 15px; }
+    .header, .controls, .legend, .pager { display: flex; gap: 6px; align-items: center; }
     .header { justify-content: space-between; }
-    .title { font-size: 16px; }
+    .controls { flex-shrink: 0; }
+    .title { font-size: 16px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     button {
         font: inherit; color: inherit; background: var(--paper); border: 1px solid currentColor;
         border-radius: 4px; padding: 4px 8px; cursor: pointer; max-width: 100%; overflow-wrap: anywhere;
     }
+    button[hidden] { display: none; }
     button:disabled { opacity: .55; cursor: default; }
-    button:focus-visible, [role="button"]:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
-    .encoding { font-size: .95em; }
-    .diagnostic { border-inline-start: 3px solid currentColor; padding-inline-start: 8px; }
+    button:focus-visible, [role="button"]:focus-visible, [tabindex]:focus-visible {
+        outline: 2px solid var(--ink); outline-offset: 1px;
+    }
+    .encoding { font-size: 11px; }
+    .status { max-height: 26%; overflow: auto; font-size: 11px; }
+    .status:empty { display: none; }
+    .diagnostic { border-inline-start: 3px solid currentColor; padding-inline-start: 6px; margin: 2px 0; }
     .denominator, .total { font-weight: 600; }
-    .legend { margin: 8px 0; max-height: 108px; overflow: auto; padding: 3px; }
-    .legend-item { display: flex; align-items: center; gap: 6px; text-align: start; }
+    .total { font-size: 12px; }
+    .legend { flex-wrap: wrap; max-height: 70px; overflow: auto; padding: 2px; gap: 4px 10px; }
+    .legend-item { display: flex; align-items: center; gap: 5px; text-align: start; border: none; padding: 3px 2px; min-height: 28px; }
+    .legend-item span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 220px; }
+    .legend-caption { font-size: 11px; opacity: .85; flex-shrink: 0; }
+    .legend-share { font-weight: 600; }
     .swatch { width: 12px; height: 12px; flex: 0 0 12px; border: 1px solid currentColor; }
+    .plot-container { flex: 1 1 0; min-height: 0; }
     .chart { display: block; overflow: visible; font: inherit; }
     .cell, .segment-label { cursor: pointer; }
-    .cell-label { fill: #172b3a; stroke: #fff; stroke-width: 3px; paint-order: stroke; stroke-linejoin: round; }
-    .segment-label { fill: var(--ink); }
+    .cell-label, .cell-name { fill: #172b3a; stroke: #fff; stroke-width: 2px; paint-order: stroke; stroke-linejoin: round; }
+    .value-label { font-weight: 650; font-size: 1.12em; }
+    .cell-name { font-size: .95em; }
+    .segment-label, .width-label { fill: var(--ink); }
+    .segment-label { font-weight: 600; }
+    .width-label { font-size: 11px; }
     .selected { outline: 2px solid var(--ink); outline-offset: -2px; }
     .muted { opacity: .3; }
     .highlight-base { opacity: .25; }
     .highlight-base.muted { opacity: .12; }
-    .high-contrast {
-        .cell-label { fill: var(--ink); stroke: var(--paper); }
+    &.high-contrast {
+        .cell-label, .cell-name { fill: var(--ink); stroke: var(--paper); }
         .selected { outline: 3px double var(--ink); }
     }
-    .table-container { overflow: auto; max-height: 460px; margin-top: 12px; }
-    .pager { padding: 4px 0; }
-    .notices { max-height: 240px; overflow: auto; white-space: pre-wrap; font-size: 11px; }
+    .table-container { overflow: auto; flex: 1 1 0; min-height: 0; }
+    .table-container:not(.sr-only) ~ .plot-container { flex-basis: 35%; }
+    .pager { padding: 4px 0; position: sticky; top: 0; background: var(--paper); }
     table { border-collapse: collapse; width: 100%; text-align: start; }
-    caption { text-align: start; padding: 5px 0; }
+    caption { text-align: start; padding: 5px 0; font-size: 11px; }
     th, td { border-bottom: 1px solid currentColor; padding: 5px; vertical-align: top; }
     th { text-align: start; }
     .table-select { border: 0; text-align: start; padding: 0; }
+    .information, .onboarding { flex: 1 1 0; min-height: 0; overflow: auto; }
+    .information > * { margin-bottom: 10px; }
+    .onboarding { border: 1px solid currentColor; border-radius: 6px; padding: 14px; }
+    .onboarding p { margin-top: 8px; }
+    .notices { white-space: pre-wrap; font-size: 11px; }
+    .small-state { overflow: auto; font-size: 11px; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); }
+    &.compact {
+        padding: 8px; gap: 4px;
+        .title { font-size: 13px; }
+        .header button { padding: 3px 5px; font-size: 11px; min-height: 26px; }
+        .legend { flex-wrap: nowrap; max-height: 42px; overflow-y: hidden; scrollbar-width: thin; }
+        .legend-item { flex-shrink: 0; font-size: 11px; }
+        .legend-item span { max-width: 130px; }
+        .status { max-height: 42px; }
+        .total { font-size: 11px; }
+        .width-label { font-size: 10px; }
+        .segment-label { font-size: 11px; }
+        .pager { position: static; }
+    }
+    &.no-geometry .status { max-height: none; flex: 0 1 auto; }
+    &.no-geometry.table-open .status { max-height: min(26%, 42px); }
+    &.micro {
+        .header { justify-content: flex-start; }
+        .controls { gap: 3px; }
+        .status { max-height: 30px; }
+        .encoding { display: none; }
+    }
 }

@@ -1,0 +1,2158 @@
+{
+  "label": "final",
+  "purpose": "Packaged visual sample capture",
+  "generatedAt": "2026-09-09T22:52:06.973Z",
+  "package": {
+    "path": "C:\\Users\\ghamers\\.copilot\\repos\\copilot-worktrees\\powerbi-marimekko-chart\\garrett-hamers-laughing-umbrella\\dist\\AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472.1.0.1.0.pbiviz",
+    "sha256": "841f066f1a7696151f5e0803b86eac7abe5f87bc54be6f4701d850ebe0d6b2ae",
+    "bytes": 125085,
+    "guid": "AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472",
+    "version": "1.0.1.0"
+  },
+  "archivedPackage": "AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472.1.0.1.0.841f066f1a76.pbiviz",
+  "chromium": "153.0.8010.12",
+  "provenance": "Actual extracted PBIVIZ JS/CSS in isolated local Playwright Chromium. Mock SDK host, not native Power BI. Final scenario values and measure formats are read from the shipped CSVs/semantic model; earlier report scenarios are synthetic fixtures.",
+  "screenshotsNotNativeHostProof": true,
+  "captures": [
+    {
+      "image": "final-market-1366x768.png",
+      "size": {
+        "width": 1366,
+        "height": 768
+      },
+      "fixture": {
+        "segments": [
+          "North America",
+          "Europe",
+          "Asia Pacific"
+        ],
+        "components": [
+          "Atlas",
+          "Beacon",
+          "Comet"
+        ],
+        "values": [
+          [
+            360000,
+            180000,
+            60000
+          ],
+          [
+            120000,
+            120000,
+            60000
+          ],
+          [
+            20000,
+            30000,
+            50000
+          ]
+        ],
+        "format": "$#,##0;($#,##0);$0",
+        "additive": true
+      },
+      "source": {
+        "csv": "C:\\Users\\ghamers\\.copilot\\repos\\copilot-worktrees\\powerbi-marimekko-chart\\garrett-hamers-laughing-umbrella\\samples\\data\\product-region-market-share.csv",
+        "csvSha256": "658bdc3c4a11a16c3ecf0f3cf7fbd902716a2d6d602dd939f25c156f57bc82fa",
+        "rows": 9,
+        "semanticModel": "C:\\Users\\ghamers\\.copilot\\repos\\copilot-worktrees\\powerbi-marimekko-chart\\garrett-hamers-laughing-umbrella\\samples\\AtlynMarimekko.SemanticModel\\definition\\tables\\ProductRegion.tmdl",
+        "modelFormat": "$#,##0;($#,##0);$0",
+        "dimensionOrder": [
+          "Region",
+          "RegionOrder",
+          "Product",
+          "ProductOrder"
+        ],
+        "total": 1000000,
+        "missingCells": 0,
+        "observedZeroCells": 0
+      },
+      "layout": {
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "scrollWidth": 1366,
+        "scrollHeight": 768,
+        "clientWidth": 1366,
+        "clientHeight": 768,
+        "text": "Atlyn MarimekkoClear selectionData tableInfoWidth = segment share; height = within-segment share; area = overall contribution.Displayed total: $1,000,000Components (% of shown total)1. Atlas50.0%2. Beacon33.0%3. Comet17.0%Atlas60.0%Beacon30.0%Comet10.0%North America$600,000 | 60.0%Atlas40.0%Beacon40.0%Comet20.0%Europe$300,000 | 30.0%Atlas20.0%Beacon30.0%Comet50.0%Asia Pacific$100,000 | 10.0%Displayed total: 1000000. 3 Segment, 3 Component. Data table.",
+        "labels": [
+          {
+            "className": "cell-name",
+            "text": "Atlas",
+            "measured": 24.625,
+            "available": 793.1999999999999,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 401.2875061035156,
+            "y": 513.3187255859375,
+            "width": 25.77740478515625,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "60.0%",
+            "measured": 38.5,
+            "available": 793.1999999999999,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 395.3500061035156,
+            "y": 533.71875,
+            "width": 38.83404541015625,
+            "height": 18
+          },
+          {
+            "className": "cell-name",
+            "text": "Beacon",
+            "measured": 36.703125,
+            "available": 793.1999999999999,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 396.2484436035156,
+            "y": 249.1687469482422,
+            "width": 36.703125,
+            "height": 15.000015258789062
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "30.0%",
+            "measured": 38.5,
+            "available": 793.1999999999999,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 395.3500061035156,
+            "y": 269.5687561035156,
+            "width": 38.83404541015625,
+            "height": 18
+          },
+          {
+            "className": "cell-name",
+            "text": "Comet",
+            "measured": 33.390625,
+            "available": 793.1999999999999,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 397.9046936035156,
+            "y": 131.7687530517578,
+            "width": 33.518646240234375,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "10.0%",
+            "measured": 38.5,
+            "available": 793.1999999999999,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 395.3500061035156,
+            "y": 152.1687469482422,
+            "width": 38.83404541015625,
+            "height": 18
+          },
+          {
+            "className": "segment-label",
+            "text": "North America",
+            "measured": 80.328125,
+            "available": 795.1999999999999,
+            "fontSize": "12px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "none",
+            "withinViewport": true,
+            "x": 374.4359436035156,
+            "y": 716.21875,
+            "width": 80.328125,
+            "height": 16
+          },
+          {
+            "className": "width-label",
+            "text": "$600,000 | 60.0%",
+            "measured": 81.734375,
+            "available": 795.1999999999999,
+            "fontSize": "11px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "none",
+            "withinViewport": true,
+            "x": 373.7328186035156,
+            "y": 735.21875,
+            "width": 81.734375,
+            "height": 15
+          },
+          {
+            "className": "cell-name",
+            "text": "Atlas",
+            "measured": 24.625,
+            "available": 390.6000000000001,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1005.1875,
+            "y": 572.0187377929688,
+            "width": 25.77734375,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "40.0%",
+            "measured": 38.5,
+            "available": 390.6000000000001,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 998.25,
+            "y": 592.4187622070312,
+            "width": 39.833984375,
+            "height": 18
+          },
+          {
+            "className": "cell-name",
+            "text": "Beacon",
+            "measured": 36.703125,
+            "available": 390.6000000000001,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1000.1484375,
+            "y": 337.21875,
+            "width": 36.703125,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "40.0%",
+            "measured": 38.5,
+            "available": 390.6000000000001,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 998.25,
+            "y": 357.6187438964844,
+            "width": 39.833984375,
+            "height": 18
+          },
+          {
+            "className": "cell-name",
+            "text": "Comet",
+            "measured": 33.390625,
+            "available": 390.6000000000001,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1001.8046875,
+            "y": 161.11874389648438,
+            "width": 33.5185546875,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "20.0%",
+            "measured": 38.5,
+            "available": 390.6000000000001,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 999.25,
+            "y": 181.5187530517578,
+            "width": 38.833984375,
+            "height": 18
+          },
+          {
+            "className": "segment-label",
+            "text": "Europe",
+            "measured": 38.328125,
+            "available": 392.6000000000001,
+            "fontSize": "12px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "none",
+            "withinViewport": true,
+            "x": 999.3359375,
+            "y": 716.21875,
+            "width": 38.9453125,
+            "height": 16
+          },
+          {
+            "className": "width-label",
+            "text": "$300,000 | 30.0%",
+            "measured": 81.734375,
+            "available": 392.6000000000001,
+            "fontSize": "11px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "none",
+            "withinViewport": true,
+            "x": 977.6328125,
+            "y": 735.21875,
+            "width": 81.734375,
+            "height": 15
+          },
+          {
+            "className": "cell-name",
+            "text": "Atlas",
+            "measured": 24.625,
+            "available": 122.19999999999996,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1273.5875244140625,
+            "y": 630.71875,
+            "width": 25.7774658203125,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "20.0%",
+            "measured": 38.5,
+            "available": 122.19999999999996,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1267.6500244140625,
+            "y": 651.1187744140625,
+            "width": 38.8341064453125,
+            "height": 18
+          },
+          {
+            "className": "cell-name",
+            "text": "Beacon",
+            "measured": 36.703125,
+            "available": 122.19999999999996,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1268.5484619140625,
+            "y": 483.96875,
+            "width": 36.703125,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "30.0%",
+            "measured": 38.5,
+            "available": 122.19999999999996,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1267.6500244140625,
+            "y": 504.3687438964844,
+            "width": 38.8341064453125,
+            "height": 18.000030517578125
+          },
+          {
+            "className": "cell-name",
+            "text": "Comet",
+            "measured": 33.390625,
+            "available": 122.19999999999996,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1270.2047119140625,
+            "y": 249.1687469482422,
+            "width": 33.5186767578125,
+            "height": 15.000015258789062
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "50.0%",
+            "measured": 38.5,
+            "available": 122.19999999999996,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1267.6500244140625,
+            "y": 269.5687561035156,
+            "width": 38.8341064453125,
+            "height": 18
+          },
+          {
+            "className": "segment-label",
+            "text": "Asia Pacific",
+            "measured": 60.5625,
+            "available": 124.19999999999996,
+            "fontSize": "12px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "none",
+            "withinViewport": true,
+            "x": 1255.6187744140625,
+            "y": 716.21875,
+            "width": 61.908203125,
+            "height": 16
+          },
+          {
+            "className": "width-label",
+            "text": "$100,000 | 10.0%",
+            "measured": 81.734375,
+            "available": 124.19999999999996,
+            "fontSize": "11px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "none",
+            "withinViewport": true,
+            "x": 1246.0328369140625,
+            "y": 735.21875,
+            "width": 81.734375,
+            "height": 15
+          }
+        ],
+        "controls": [
+          {
+            "text": "Clear selection",
+            "name": "Clear selection",
+            "fontSize": "12px",
+            "withinViewport": true,
+            "x": 1135.765625,
+            "y": 12,
+            "width": 95.0625,
+            "height": 26.1875
+          },
+          {
+            "text": "Data table",
+            "name": "Data table",
+            "fontSize": "12px",
+            "withinViewport": true,
+            "x": 1236.828125,
+            "y": 12,
+            "width": 72.390625,
+            "height": 26.1875
+          },
+          {
+            "text": "Info",
+            "name": "Chart information",
+            "fontSize": "12px",
+            "withinViewport": true,
+            "x": 1315.21875,
+            "y": 12,
+            "width": 38.78125,
+            "height": 26.1875
+          }
+        ],
+        "chart": {
+          "withinViewport": true,
+          "x": 12,
+          "y": 125.21875,
+          "width": 1342,
+          "height": 631
+        }
+      },
+      "geometry": {
+        "width": 1342,
+        "height": 587,
+        "x": 0,
+        "y": 0,
+        "cells": [
+          {
+            "segment": 0,
+            "component": 0,
+            "x": 0,
+            "y": 234.8,
+            "width": 805.1999999999999,
+            "height": 352.2,
+            "share": 0.36,
+            "value": 360000,
+            "screenWidth": 805.2000122070312,
+            "screenHeight": 352.20001220703125
+          },
+          {
+            "segment": 0,
+            "component": 1,
+            "x": 0,
+            "y": 58.69999999999999,
+            "width": 805.1999999999999,
+            "height": 176.10000000000002,
+            "share": 0.18,
+            "value": 180000,
+            "screenWidth": 805.2000122070312,
+            "screenHeight": 176.09999084472656
+          },
+          {
+            "segment": 0,
+            "component": 2,
+            "x": 0,
+            "y": 0,
+            "width": 805.1999999999999,
+            "height": 58.69999999999999,
+            "share": 0.06,
+            "value": 60000,
+            "screenWidth": 805.2000122070312,
+            "screenHeight": 58.69999694824219
+          },
+          {
+            "segment": 1,
+            "component": 0,
+            "x": 805.1999999999999,
+            "y": 352.2,
+            "width": 402.6000000000001,
+            "height": 234.8,
+            "share": 0.12,
+            "value": 120000,
+            "screenWidth": 402.60003662109375,
+            "screenHeight": 234.79998779296875
+          },
+          {
+            "segment": 1,
+            "component": 1,
+            "x": 805.1999999999999,
+            "y": 117.39999999999998,
+            "width": 402.6000000000001,
+            "height": 234.8,
+            "share": 0.12,
+            "value": 120000,
+            "screenWidth": 402.60003662109375,
+            "screenHeight": 234.80001831054688
+          },
+          {
+            "segment": 1,
+            "component": 2,
+            "x": 805.1999999999999,
+            "y": 0,
+            "width": 402.6000000000001,
+            "height": 117.39999999999998,
+            "share": 0.06,
+            "value": 60000,
+            "screenWidth": 402.60003662109375,
+            "screenHeight": 117.39999389648438
+          },
+          {
+            "segment": 2,
+            "component": 0,
+            "x": 1207.8,
+            "y": 469.6,
+            "width": 134.19999999999996,
+            "height": 117.39999999999998,
+            "share": 0.02,
+            "value": 20000,
+            "screenWidth": 134.199951171875,
+            "screenHeight": 117.4000244140625
+          },
+          {
+            "segment": 2,
+            "component": 1,
+            "x": 1207.8,
+            "y": 293.5,
+            "width": 134.19999999999996,
+            "height": 176.10000000000002,
+            "share": 0.03,
+            "value": 30000,
+            "screenWidth": 134.199951171875,
+            "screenHeight": 176.0999755859375
+          },
+          {
+            "segment": 2,
+            "component": 2,
+            "x": 1207.8,
+            "y": 0,
+            "width": 134.19999999999996,
+            "height": 293.5,
+            "share": 0.05,
+            "value": 50000,
+            "screenWidth": 134.199951171875,
+            "screenHeight": 293.5
+          }
+        ]
+      }
+    },
+    {
+      "image": "final-market-1280x720.png",
+      "size": {
+        "width": 1280,
+        "height": 720
+      },
+      "fixture": {
+        "segments": [
+          "North America",
+          "Europe",
+          "Asia Pacific"
+        ],
+        "components": [
+          "Atlas",
+          "Beacon",
+          "Comet"
+        ],
+        "values": [
+          [
+            360000,
+            180000,
+            60000
+          ],
+          [
+            120000,
+            120000,
+            60000
+          ],
+          [
+            20000,
+            30000,
+            50000
+          ]
+        ],
+        "format": "$#,##0;($#,##0);$0",
+        "additive": true
+      },
+      "source": {
+        "csv": "C:\\Users\\ghamers\\.copilot\\repos\\copilot-worktrees\\powerbi-marimekko-chart\\garrett-hamers-laughing-umbrella\\samples\\data\\product-region-market-share.csv",
+        "csvSha256": "658bdc3c4a11a16c3ecf0f3cf7fbd902716a2d6d602dd939f25c156f57bc82fa",
+        "rows": 9,
+        "semanticModel": "C:\\Users\\ghamers\\.copilot\\repos\\copilot-worktrees\\powerbi-marimekko-chart\\garrett-hamers-laughing-umbrella\\samples\\AtlynMarimekko.SemanticModel\\definition\\tables\\ProductRegion.tmdl",
+        "modelFormat": "$#,##0;($#,##0);$0",
+        "dimensionOrder": [
+          "Region",
+          "RegionOrder",
+          "Product",
+          "ProductOrder"
+        ],
+        "total": 1000000,
+        "missingCells": 0,
+        "observedZeroCells": 0
+      },
+      "layout": {
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "scrollWidth": 1280,
+        "scrollHeight": 720,
+        "clientWidth": 1280,
+        "clientHeight": 720,
+        "text": "Atlyn MarimekkoClear selectionData tableInfoWidth = segment share; height = within-segment share; area = overall contribution.Displayed total: $1,000,000Components (% of shown total)1. Atlas50.0%2. Beacon33.0%3. Comet17.0%Atlas60.0%Beacon30.0%Comet10.0%North America$600,000 | 60.0%Atlas40.0%Beacon40.0%Comet20.0%Europe$300,000 | 30.0%Atlas20.0%Beacon30.0%Comet50.0%Asia Pacific$100,000 | 10.0%Displayed total: 1000000. 3 Segment, 3 Component. Data table.",
+        "labels": [
+          {
+            "className": "cell-name",
+            "text": "Atlas",
+            "measured": 24.625,
+            "available": 741.6,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 375.48748779296875,
+            "y": 479.71875,
+            "width": 25.77740478515625,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "60.0%",
+            "measured": 38.5,
+            "available": 741.6,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 369.54998779296875,
+            "y": 500.1187438964844,
+            "width": 38.83404541015625,
+            "height": 18.000030517578125
+          },
+          {
+            "className": "cell-name",
+            "text": "Beacon",
+            "measured": 36.703125,
+            "available": 741.6,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 370.44842529296875,
+            "y": 237.1687469482422,
+            "width": 36.703125,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "30.0%",
+            "measured": 38.5,
+            "available": 741.6,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 369.54998779296875,
+            "y": 257.5687561035156,
+            "width": 38.83404541015625,
+            "height": 18
+          },
+          {
+            "className": "cell-name",
+            "text": "Comet",
+            "measured": 33.390625,
+            "available": 741.6,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 372.10467529296875,
+            "y": 129.36874389648438,
+            "width": 33.51861572265625,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "10.0%",
+            "measured": 38.5,
+            "available": 741.6,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 369.54998779296875,
+            "y": 149.7687530517578,
+            "width": 38.83404541015625,
+            "height": 18
+          },
+          {
+            "className": "segment-label",
+            "text": "North America",
+            "measured": 80.328125,
+            "available": 743.6,
+            "fontSize": "12px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "none",
+            "withinViewport": true,
+            "x": 348.63592529296875,
+            "y": 668.21875,
+            "width": 80.328125,
+            "height": 16
+          },
+          {
+            "className": "width-label",
+            "text": "$600,000 | 60.0%",
+            "measured": 81.734375,
+            "available": 743.6,
+            "fontSize": "11px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "none",
+            "withinViewport": true,
+            "x": 347.93280029296875,
+            "y": 687.21875,
+            "width": 81.734375,
+            "height": 15
+          },
+          {
+            "className": "cell-name",
+            "text": "Atlas",
+            "measured": 24.625,
+            "available": 364.80000000000007,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 940.6875,
+            "y": 533.6187744140625,
+            "width": 25.77740478515625,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "40.0%",
+            "measured": 38.5,
+            "available": 364.80000000000007,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 933.75,
+            "y": 554.0187377929688,
+            "width": 39.83404541015625,
+            "height": 18
+          },
+          {
+            "className": "cell-name",
+            "text": "Beacon",
+            "measured": 36.703125,
+            "available": 364.80000000000007,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 935.6484375,
+            "y": 318.01873779296875,
+            "width": 36.703125,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "40.0%",
+            "measured": 38.5,
+            "available": 364.80000000000007,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 933.75,
+            "y": 338.41876220703125,
+            "width": 39.83404541015625,
+            "height": 18
+          },
+          {
+            "className": "cell-name",
+            "text": "Comet",
+            "measured": 33.390625,
+            "available": 364.80000000000007,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 937.3046875,
+            "y": 156.31875610351562,
+            "width": 33.51861572265625,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "20.0%",
+            "measured": 38.5,
+            "available": 364.80000000000007,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 934.75,
+            "y": 176.71875,
+            "width": 38.83404541015625,
+            "height": 18
+          },
+          {
+            "className": "segment-label",
+            "text": "Europe",
+            "measured": 38.328125,
+            "available": 366.80000000000007,
+            "fontSize": "12px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "none",
+            "withinViewport": true,
+            "x": 934.8359375,
+            "y": 668.21875,
+            "width": 38.9453125,
+            "height": 16
+          },
+          {
+            "className": "width-label",
+            "text": "$300,000 | 30.0%",
+            "measured": 81.734375,
+            "available": 366.80000000000007,
+            "fontSize": "11px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "none",
+            "withinViewport": true,
+            "x": 913.1328125,
+            "y": 687.21875,
+            "width": 81.734375,
+            "height": 15
+          },
+          {
+            "className": "cell-name",
+            "text": "Atlas",
+            "measured": 24.625,
+            "available": 113.59999999999997,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1191.887451171875,
+            "y": 587.5187377929688,
+            "width": 25.77734375,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "20.0%",
+            "measured": 38.5,
+            "available": 113.59999999999997,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1185.949951171875,
+            "y": 607.9187622070312,
+            "width": 38.833984375,
+            "height": 18
+          },
+          {
+            "className": "cell-name",
+            "text": "Beacon",
+            "measured": 36.703125,
+            "available": 113.59999999999997,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1186.848388671875,
+            "y": 452.76873779296875,
+            "width": 36.703125,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "30.0%",
+            "measured": 38.5,
+            "available": 113.59999999999997,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1185.949951171875,
+            "y": 473.16876220703125,
+            "width": 38.833984375,
+            "height": 18
+          },
+          {
+            "className": "cell-name",
+            "text": "Comet",
+            "measured": 33.390625,
+            "available": 113.59999999999997,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1188.504638671875,
+            "y": 237.1687469482422,
+            "width": 33.5186767578125,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "50.0%",
+            "measured": 38.5,
+            "available": 113.59999999999997,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1185.949951171875,
+            "y": 257.5687561035156,
+            "width": 38.833984375,
+            "height": 18
+          },
+          {
+            "className": "segment-label",
+            "text": "Asia Pacific",
+            "measured": 60.5625,
+            "available": 115.59999999999997,
+            "fontSize": "12px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "none",
+            "withinViewport": true,
+            "x": 1173.918701171875,
+            "y": 668.21875,
+            "width": 61.908203125,
+            "height": 16
+          },
+          {
+            "className": "width-label",
+            "text": "$100,000 | 10.0%",
+            "measured": 81.734375,
+            "available": 115.59999999999997,
+            "fontSize": "11px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "none",
+            "withinViewport": true,
+            "x": 1164.332763671875,
+            "y": 687.21875,
+            "width": 81.734375,
+            "height": 15
+          }
+        ],
+        "controls": [
+          {
+            "text": "Clear selection",
+            "name": "Clear selection",
+            "fontSize": "12px",
+            "withinViewport": true,
+            "x": 1049.765625,
+            "y": 12,
+            "width": 95.0625,
+            "height": 26.1875
+          },
+          {
+            "text": "Data table",
+            "name": "Data table",
+            "fontSize": "12px",
+            "withinViewport": true,
+            "x": 1150.828125,
+            "y": 12,
+            "width": 72.390625,
+            "height": 26.1875
+          },
+          {
+            "text": "Info",
+            "name": "Chart information",
+            "fontSize": "12px",
+            "withinViewport": true,
+            "x": 1229.21875,
+            "y": 12,
+            "width": 38.78125,
+            "height": 26.1875
+          }
+        ],
+        "chart": {
+          "withinViewport": true,
+          "x": 12,
+          "y": 125.21875,
+          "width": 1256,
+          "height": 583
+        }
+      },
+      "geometry": {
+        "width": 1256,
+        "height": 539,
+        "x": 0,
+        "y": 0,
+        "cells": [
+          {
+            "segment": 0,
+            "component": 0,
+            "x": 0,
+            "y": 215.60000000000002,
+            "width": 753.6,
+            "height": 323.4,
+            "share": 0.36,
+            "value": 360000,
+            "screenWidth": 753.5999755859375,
+            "screenHeight": 323.3999938964844
+          },
+          {
+            "segment": 0,
+            "component": 1,
+            "x": 0,
+            "y": 53.89999999999999,
+            "width": 753.6,
+            "height": 161.70000000000005,
+            "share": 0.18,
+            "value": 180000,
+            "screenWidth": 753.5999755859375,
+            "screenHeight": 161.70001220703125
+          },
+          {
+            "segment": 0,
+            "component": 2,
+            "x": 0,
+            "y": 0,
+            "width": 753.6,
+            "height": 53.89999999999999,
+            "share": 0.06,
+            "value": 60000,
+            "screenWidth": 753.5999755859375,
+            "screenHeight": 53.899993896484375
+          },
+          {
+            "segment": 1,
+            "component": 0,
+            "x": 753.6,
+            "y": 323.4,
+            "width": 376.80000000000007,
+            "height": 215.60000000000002,
+            "share": 0.12,
+            "value": 120000,
+            "screenWidth": 376.7999267578125,
+            "screenHeight": 215.60000610351562
+          },
+          {
+            "segment": 1,
+            "component": 1,
+            "x": 753.6,
+            "y": 107.79999999999998,
+            "width": 376.80000000000007,
+            "height": 215.6,
+            "share": 0.12,
+            "value": 120000,
+            "screenWidth": 376.7999267578125,
+            "screenHeight": 215.6000213623047
+          },
+          {
+            "segment": 1,
+            "component": 2,
+            "x": 753.6,
+            "y": 0,
+            "width": 376.80000000000007,
+            "height": 107.79999999999998,
+            "share": 0.06,
+            "value": 60000,
+            "screenWidth": 376.7999267578125,
+            "screenHeight": 107.80000305175781
+          },
+          {
+            "segment": 2,
+            "component": 0,
+            "x": 1130.4,
+            "y": 431.20000000000005,
+            "width": 125.59999999999997,
+            "height": 107.79999999999995,
+            "share": 0.02,
+            "value": 20000,
+            "screenWidth": 125.5999755859375,
+            "screenHeight": 107.79998779296875
+          },
+          {
+            "segment": 2,
+            "component": 1,
+            "x": 1130.4,
+            "y": 269.5,
+            "width": 125.59999999999997,
+            "height": 161.70000000000005,
+            "share": 0.03,
+            "value": 30000,
+            "screenWidth": 125.5999755859375,
+            "screenHeight": 161.70001220703125
+          },
+          {
+            "segment": 2,
+            "component": 2,
+            "x": 1130.4,
+            "y": 0,
+            "width": 125.59999999999997,
+            "height": 269.5,
+            "share": 0.05,
+            "value": 50000,
+            "screenWidth": 125.5999755859375,
+            "screenHeight": 269.5
+          }
+        ]
+      }
+    },
+    {
+      "image": "final-product-mix-1366x768.png",
+      "size": {
+        "width": 1366,
+        "height": 768
+      },
+      "fixture": {
+        "segments": [
+          "Enterprise",
+          "SMB",
+          "Public sector",
+          "Incubator",
+          "Retired"
+        ],
+        "components": [
+          "Atlas",
+          "Beacon",
+          "Comet"
+        ],
+        "values": [
+          [
+            400000,
+            300000,
+            100000
+          ],
+          [
+            90000,
+            45000,
+            15000
+          ],
+          [
+            15000,
+            20000,
+            10000
+          ],
+          [
+            5000,
+            0,
+            null
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "format": "$#,##0;($#,##0);$0",
+        "additive": true
+      },
+      "source": {
+        "csv": "C:\\Users\\ghamers\\.copilot\\repos\\copilot-worktrees\\powerbi-marimekko-chart\\garrett-hamers-laughing-umbrella\\samples\\data\\business-unit-product-mix.csv",
+        "csvSha256": "eb89f513c8ff4b9d7f4e662c056eb8b4bd6c7fd4de415607a1ce6743c24a4892",
+        "rows": 15,
+        "semanticModel": "C:\\Users\\ghamers\\.copilot\\repos\\copilot-worktrees\\powerbi-marimekko-chart\\garrett-hamers-laughing-umbrella\\samples\\AtlynMarimekko.SemanticModel\\definition\\tables\\BusinessUnitMix.tmdl",
+        "modelFormat": "$#,##0;($#,##0);$0",
+        "dimensionOrder": [
+          "BusinessUnit",
+          "BusinessUnitOrder",
+          "Product",
+          "ProductOrder"
+        ],
+        "total": 1000000,
+        "missingCells": 1,
+        "observedZeroCells": 4
+      },
+      "layout": {
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "scrollWidth": 1366,
+        "scrollHeight": 768,
+        "clientWidth": 1366,
+        "clientHeight": 768,
+        "text": "Atlyn MarimekkoClear selectionData tableInfoWidth = segment share; height = within-segment share; area = overall contribution.Blank values are missing, not observed zeroes. They have no area; the table preserves them. (1)Displayed total: $1,000,000Components (% of shown total)1. Atlas51.0%2. Beacon36.5%3. Comet12.5%Atlas50.0%Beacon37.5%Comet12.5%Enterprise$800,000 | 80.0%Atlas60.0%Beacon30.0%Comet10.0%SMB$150,000 | 15.0%1: 33.3%2: 44.4%3: 22.2%Displayed total: 1000000. 5 Segment, 3 Component. Data table.",
+        "labels": [
+          {
+            "className": "cell-name",
+            "text": "Atlas",
+            "measured": 24.625,
+            "available": 1061.6000000000001,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 535.4874877929688,
+            "y": 548.7625122070312,
+            "width": 25.77740478515625,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "50.0%",
+            "measured": 38.5,
+            "available": 1061.6000000000001,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 529.5499877929688,
+            "y": 569.1624755859375,
+            "width": 38.83404541015625,
+            "height": 18
+          },
+          {
+            "className": "cell-name",
+            "text": "Beacon",
+            "measured": 36.703125,
+            "available": 1061.6000000000001,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 530.4484252929688,
+            "y": 302.88751220703125,
+            "width": 36.703125,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "37.5%",
+            "measured": 38.5,
+            "available": 1061.6000000000001,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 529.5499877929688,
+            "y": 323.2875061035156,
+            "width": 38.83404541015625,
+            "height": 18
+          },
+          {
+            "className": "cell-name",
+            "text": "Comet",
+            "measured": 33.390625,
+            "available": 1061.6000000000001,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 532.1046752929688,
+            "y": 162.3874969482422,
+            "width": 33.51861572265625,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "12.5%",
+            "measured": 38.5,
+            "available": 1061.6000000000001,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 529.5499877929688,
+            "y": 182.78750610351562,
+            "width": 38.83404541015625,
+            "height": 18
+          },
+          {
+            "className": "segment-label",
+            "text": "Enterprise",
+            "measured": 54.65625,
+            "available": 1063.6000000000001,
+            "fontSize": "12px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "none",
+            "withinViewport": true,
+            "x": 521.4718627929688,
+            "y": 716.0625,
+            "width": 55.275390625,
+            "height": 16
+          },
+          {
+            "className": "width-label",
+            "text": "$800,000 | 80.0%",
+            "measured": 81.734375,
+            "available": 1063.6000000000001,
+            "fontSize": "11px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "none",
+            "withinViewport": true,
+            "x": 507.93280029296875,
+            "y": 735.0625,
+            "width": 81.734375,
+            "height": 15
+          },
+          {
+            "className": "cell-name",
+            "text": "Atlas",
+            "measured": 24.625,
+            "available": 189.29999999999987,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1172.9375,
+            "y": 520.6624755859375,
+            "width": 25.77734375,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "60.0%",
+            "measured": 38.5,
+            "available": 189.29999999999987,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1167,
+            "y": 541.0625,
+            "width": 38.833984375,
+            "height": 18
+          },
+          {
+            "className": "cell-name",
+            "text": "Beacon",
+            "measured": 36.703125,
+            "available": 189.29999999999987,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1167.8984375,
+            "y": 267.76251220703125,
+            "width": 36.703125,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "30.0%",
+            "measured": 38.5,
+            "available": 189.29999999999987,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1167,
+            "y": 288.1625061035156,
+            "width": 38.833984375,
+            "height": 18
+          },
+          {
+            "className": "cell-name",
+            "text": "Comet",
+            "measured": 33.390625,
+            "available": 189.29999999999987,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1169.5546875,
+            "y": 155.3625030517578,
+            "width": 33.5186767578125,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "10.0%",
+            "measured": 38.5,
+            "available": 189.29999999999987,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1167,
+            "y": 175.7624969482422,
+            "width": 38.833984375,
+            "height": 18
+          },
+          {
+            "className": "segment-label",
+            "text": "SMB",
+            "measured": 24.875,
+            "available": 191.29999999999987,
+            "fontSize": "12px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "none",
+            "withinViewport": true,
+            "x": 1173.8125,
+            "y": 716.0625,
+            "width": 24.875,
+            "height": 16
+          },
+          {
+            "className": "width-label",
+            "text": "$150,000 | 15.0%",
+            "measured": 81.734375,
+            "available": 191.29999999999987,
+            "fontSize": "11px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "none",
+            "withinViewport": true,
+            "x": 1145.3828125,
+            "y": 735.0625,
+            "width": 81.734375,
+            "height": 15
+          },
+          {
+            "className": "cell-label",
+            "text": "1: 33.3%",
+            "measured": 44.1875,
+            "available": 48.39000000000005,
+            "fontSize": "12px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1295.001220703125,
+            "y": 610.3958740234375,
+            "width": 44.365234375,
+            "height": 16
+          },
+          {
+            "className": "cell-label",
+            "text": "2: 44.4%",
+            "measured": 44.1875,
+            "available": 48.39000000000005,
+            "fontSize": "12px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1295.001220703125,
+            "y": 391.84027099609375,
+            "width": 44.365234375,
+            "height": 16
+          },
+          {
+            "className": "cell-label",
+            "text": "3: 22.2%",
+            "measured": 44.1875,
+            "available": 48.39000000000005,
+            "fontSize": "12px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1295.001220703125,
+            "y": 204.50694274902344,
+            "width": 44.365234375,
+            "height": 16
+          }
+        ],
+        "controls": [
+          {
+            "text": "Clear selection",
+            "name": "Clear selection",
+            "fontSize": "12px",
+            "withinViewport": true,
+            "x": 1135.765625,
+            "y": 12,
+            "width": 95.0625,
+            "height": 26.1875
+          },
+          {
+            "text": "Data table",
+            "name": "Data table",
+            "fontSize": "12px",
+            "withinViewport": true,
+            "x": 1236.828125,
+            "y": 12,
+            "width": 72.390625,
+            "height": 26.1875
+          },
+          {
+            "text": "Info",
+            "name": "Chart information",
+            "fontSize": "12px",
+            "withinViewport": true,
+            "x": 1315.21875,
+            "y": 12,
+            "width": 38.78125,
+            "height": 26.1875
+          }
+        ],
+        "chart": {
+          "withinViewport": true,
+          "x": 12,
+          "y": 150.0625,
+          "width": 1342,
+          "height": 606
+        }
+      },
+      "geometry": {
+        "width": 1342,
+        "height": 562,
+        "x": 0,
+        "y": 0,
+        "cells": [
+          {
+            "segment": 0,
+            "component": 0,
+            "x": 0,
+            "y": 281,
+            "width": 1073.6000000000001,
+            "height": 281,
+            "share": 0.4,
+            "value": 400000,
+            "screenWidth": 1073.5999755859375,
+            "screenHeight": 281
+          },
+          {
+            "segment": 0,
+            "component": 1,
+            "x": 0,
+            "y": 70.25,
+            "width": 1073.6000000000001,
+            "height": 210.75,
+            "share": 0.3,
+            "value": 300000,
+            "screenWidth": 1073.5999755859375,
+            "screenHeight": 210.75
+          },
+          {
+            "segment": 0,
+            "component": 2,
+            "x": 0,
+            "y": 0,
+            "width": 1073.6000000000001,
+            "height": 70.25,
+            "share": 0.1,
+            "value": 100000,
+            "screenWidth": 1073.5999755859375,
+            "screenHeight": 70.25
+          },
+          {
+            "segment": 1,
+            "component": 0,
+            "x": 1073.6000000000001,
+            "y": 224.8,
+            "width": 201.29999999999987,
+            "height": 337.2,
+            "share": 0.09,
+            "value": 90000,
+            "screenWidth": 201.300048828125,
+            "screenHeight": 337.20001220703125
+          },
+          {
+            "segment": 1,
+            "component": 1,
+            "x": 1073.6000000000001,
+            "y": 56.19999999999999,
+            "width": 201.29999999999987,
+            "height": 168.60000000000002,
+            "share": 0.045,
+            "value": 45000,
+            "screenWidth": 201.300048828125,
+            "screenHeight": 168.59999084472656
+          },
+          {
+            "segment": 1,
+            "component": 2,
+            "x": 1073.6000000000001,
+            "y": 0,
+            "width": 201.29999999999987,
+            "height": 56.19999999999999,
+            "share": 0.015,
+            "value": 15000,
+            "screenWidth": 201.300048828125,
+            "screenHeight": 56.19999694824219
+          },
+          {
+            "segment": 2,
+            "component": 0,
+            "x": 1274.8999999999999,
+            "y": 374.6666666666667,
+            "width": 60.39000000000005,
+            "height": 187.33333333333331,
+            "share": 0.015,
+            "value": 15000,
+            "screenWidth": 60.3900146484375,
+            "screenHeight": 187.3333740234375
+          },
+          {
+            "segment": 2,
+            "component": 1,
+            "x": 1274.8999999999999,
+            "y": 124.88888888888889,
+            "width": 60.39000000000005,
+            "height": 249.7777777777778,
+            "share": 0.02,
+            "value": 20000,
+            "screenWidth": 60.3900146484375,
+            "screenHeight": 249.77774047851562
+          },
+          {
+            "segment": 2,
+            "component": 2,
+            "x": 1274.8999999999999,
+            "y": 0,
+            "width": 60.39000000000005,
+            "height": 124.88888888888889,
+            "share": 0.01,
+            "value": 10000,
+            "screenWidth": 60.3900146484375,
+            "screenHeight": 124.88888549804688
+          },
+          {
+            "segment": 3,
+            "component": 0,
+            "x": 1335.29,
+            "y": 0,
+            "width": 6.710000000000006,
+            "height": 562,
+            "share": 0.005,
+            "value": 5000,
+            "screenWidth": 6.7099609375,
+            "screenHeight": 562
+          }
+        ]
+      }
+    },
+    {
+      "image": "final-product-mix-1280x720.png",
+      "size": {
+        "width": 1280,
+        "height": 720
+      },
+      "fixture": {
+        "segments": [
+          "Enterprise",
+          "SMB",
+          "Public sector",
+          "Incubator",
+          "Retired"
+        ],
+        "components": [
+          "Atlas",
+          "Beacon",
+          "Comet"
+        ],
+        "values": [
+          [
+            400000,
+            300000,
+            100000
+          ],
+          [
+            90000,
+            45000,
+            15000
+          ],
+          [
+            15000,
+            20000,
+            10000
+          ],
+          [
+            5000,
+            0,
+            null
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "format": "$#,##0;($#,##0);$0",
+        "additive": true
+      },
+      "source": {
+        "csv": "C:\\Users\\ghamers\\.copilot\\repos\\copilot-worktrees\\powerbi-marimekko-chart\\garrett-hamers-laughing-umbrella\\samples\\data\\business-unit-product-mix.csv",
+        "csvSha256": "eb89f513c8ff4b9d7f4e662c056eb8b4bd6c7fd4de415607a1ce6743c24a4892",
+        "rows": 15,
+        "semanticModel": "C:\\Users\\ghamers\\.copilot\\repos\\copilot-worktrees\\powerbi-marimekko-chart\\garrett-hamers-laughing-umbrella\\samples\\AtlynMarimekko.SemanticModel\\definition\\tables\\BusinessUnitMix.tmdl",
+        "modelFormat": "$#,##0;($#,##0);$0",
+        "dimensionOrder": [
+          "BusinessUnit",
+          "BusinessUnitOrder",
+          "Product",
+          "ProductOrder"
+        ],
+        "total": 1000000,
+        "missingCells": 1,
+        "observedZeroCells": 4
+      },
+      "layout": {
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "scrollWidth": 1280,
+        "scrollHeight": 720,
+        "clientWidth": 1280,
+        "clientHeight": 720,
+        "text": "Atlyn MarimekkoClear selectionData tableInfoWidth = segment share; height = within-segment share; area = overall contribution.Blank values are missing, not observed zeroes. They have no area; the table preserves them. (1)Displayed total: $1,000,000Components (% of shown total)1. Atlas51.0%2. Beacon36.5%3. Comet12.5%Atlas50.0%Beacon37.5%Comet12.5%Enterprise$800,000 | 80.0%Atlas60.0%Beacon30.0%Comet10.0%SMB$150,000 | 15.0%1: 33.3%2: 44.4%3: 22.2%Displayed total: 1000000. 5 Segment, 3 Component. Data table.",
+        "labels": [
+          {
+            "className": "cell-name",
+            "text": "Atlas",
+            "measured": 24.625,
+            "available": 992.8000000000001,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 501.08746337890625,
+            "y": 512.7625122070312,
+            "width": 25.77740478515625,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "50.0%",
+            "measured": 38.5,
+            "available": 992.8000000000001,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 495.14996337890625,
+            "y": 533.1624755859375,
+            "width": 38.83404541015625,
+            "height": 18
+          },
+          {
+            "className": "cell-name",
+            "text": "Beacon",
+            "measured": 36.703125,
+            "available": 992.8000000000001,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 496.04840087890625,
+            "y": 287.88751220703125,
+            "width": 36.703125,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "37.5%",
+            "measured": 38.5,
+            "available": 992.8000000000001,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 495.14996337890625,
+            "y": 308.2875061035156,
+            "width": 38.83404541015625,
+            "height": 18
+          },
+          {
+            "className": "cell-name",
+            "text": "Comet",
+            "measured": 33.390625,
+            "available": 992.8000000000001,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 497.70465087890625,
+            "y": 159.3874969482422,
+            "width": 33.51861572265625,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "12.5%",
+            "measured": 38.5,
+            "available": 992.8000000000001,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 495.14996337890625,
+            "y": 179.78750610351562,
+            "width": 38.83404541015625,
+            "height": 18
+          },
+          {
+            "className": "segment-label",
+            "text": "Enterprise",
+            "measured": 54.65625,
+            "available": 994.8000000000001,
+            "fontSize": "12px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "none",
+            "withinViewport": true,
+            "x": 487.07183837890625,
+            "y": 668.0625,
+            "width": 55.275390625,
+            "height": 16
+          },
+          {
+            "className": "width-label",
+            "text": "$800,000 | 80.0%",
+            "measured": 81.734375,
+            "available": 994.8000000000001,
+            "fontSize": "11px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "none",
+            "withinViewport": true,
+            "x": 473.53277587890625,
+            "y": 687.0625,
+            "width": 81.734375,
+            "height": 15
+          },
+          {
+            "className": "cell-name",
+            "text": "Atlas",
+            "measured": 24.625,
+            "available": 176.3999999999999,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1097.6875,
+            "y": 487.0625,
+            "width": 25.77734375,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "60.0%",
+            "measured": 38.5,
+            "available": 176.3999999999999,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1091.75,
+            "y": 507.4624938964844,
+            "width": 38.833984375,
+            "height": 18.000030517578125
+          },
+          {
+            "className": "cell-name",
+            "text": "Beacon",
+            "measured": 36.703125,
+            "available": 176.3999999999999,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1092.6484375,
+            "y": 255.7624969482422,
+            "width": 36.703125,
+            "height": 15.000015258789062
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "30.0%",
+            "measured": 38.5,
+            "available": 176.3999999999999,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1091.75,
+            "y": 276.1625061035156,
+            "width": 38.833984375,
+            "height": 18
+          },
+          {
+            "className": "cell-name",
+            "text": "Comet",
+            "measured": 33.390625,
+            "available": 176.3999999999999,
+            "fontSize": "11.4px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1094.3046875,
+            "y": 152.96249389648438,
+            "width": 33.5186767578125,
+            "height": 15
+          },
+          {
+            "className": "cell-label value-label",
+            "text": "10.0%",
+            "measured": 38.5,
+            "available": 176.3999999999999,
+            "fontSize": "13.44px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1091.75,
+            "y": 173.3625030517578,
+            "width": 38.833984375,
+            "height": 18
+          },
+          {
+            "className": "segment-label",
+            "text": "SMB",
+            "measured": 24.875,
+            "available": 178.3999999999999,
+            "fontSize": "12px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "none",
+            "withinViewport": true,
+            "x": 1098.5625,
+            "y": 668.0625,
+            "width": 24.875,
+            "height": 16
+          },
+          {
+            "className": "width-label",
+            "text": "$150,000 | 15.0%",
+            "measured": 81.734375,
+            "available": 178.3999999999999,
+            "fontSize": "11px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "none",
+            "withinViewport": true,
+            "x": 1070.1328125,
+            "y": 687.0625,
+            "width": 81.734375,
+            "height": 15
+          },
+          {
+            "className": "cell-label",
+            "text": "1: 33.3%",
+            "measured": 44.1875,
+            "available": 44.52000000000005,
+            "fontSize": "12px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1211.3662109375,
+            "y": 570.3958740234375,
+            "width": 44.365234375,
+            "height": 16
+          },
+          {
+            "className": "cell-label",
+            "text": "2: 44.4%",
+            "measured": 44.1875,
+            "available": 44.52000000000005,
+            "fontSize": "12px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1211.3662109375,
+            "y": 370.5069580078125,
+            "width": 44.365234375,
+            "height": 16
+          },
+          {
+            "className": "cell-label",
+            "text": "3: 22.2%",
+            "measured": 44.1875,
+            "available": 44.52000000000005,
+            "fontSize": "12px",
+            "fill": "rgb(23, 43, 58)",
+            "stroke": "rgb(255, 255, 255)",
+            "withinViewport": true,
+            "x": 1211.3662109375,
+            "y": 199.17361450195312,
+            "width": 44.365234375,
+            "height": 16
+          }
+        ],
+        "controls": [
+          {
+            "text": "Clear selection",
+            "name": "Clear selection",
+            "fontSize": "12px",
+            "withinViewport": true,
+            "x": 1049.765625,
+            "y": 12,
+            "width": 95.0625,
+            "height": 26.1875
+          },
+          {
+            "text": "Data table",
+            "name": "Data table",
+            "fontSize": "12px",
+            "withinViewport": true,
+            "x": 1150.828125,
+            "y": 12,
+            "width": 72.390625,
+            "height": 26.1875
+          },
+          {
+            "text": "Info",
+            "name": "Chart information",
+            "fontSize": "12px",
+            "withinViewport": true,
+            "x": 1229.21875,
+            "y": 12,
+            "width": 38.78125,
+            "height": 26.1875
+          }
+        ],
+        "chart": {
+          "withinViewport": true,
+          "x": 12,
+          "y": 150.0625,
+          "width": 1256,
+          "height": 558
+        }
+      },
+      "geometry": {
+        "width": 1256,
+        "height": 514,
+        "x": 0,
+        "y": 0,
+        "cells": [
+          {
+            "segment": 0,
+            "component": 0,
+            "x": 0,
+            "y": 257,
+            "width": 1004.8000000000001,
+            "height": 257,
+            "share": 0.4,
+            "value": 400000,
+            "screenWidth": 1004.7999877929688,
+            "screenHeight": 257
+          },
+          {
+            "segment": 0,
+            "component": 1,
+            "x": 0,
+            "y": 64.25,
+            "width": 1004.8000000000001,
+            "height": 192.75,
+            "share": 0.3,
+            "value": 300000,
+            "screenWidth": 1004.7999877929688,
+            "screenHeight": 192.75
+          },
+          {
+            "segment": 0,
+            "component": 2,
+            "x": 0,
+            "y": 0,
+            "width": 1004.8000000000001,
+            "height": 64.25,
+            "share": 0.1,
+            "value": 100000,
+            "screenWidth": 1004.7999877929688,
+            "screenHeight": 64.25
+          },
+          {
+            "segment": 1,
+            "component": 0,
+            "x": 1004.8000000000001,
+            "y": 205.60000000000002,
+            "width": 188.3999999999999,
+            "height": 308.4,
+            "share": 0.09,
+            "value": 90000,
+            "screenWidth": 188.39996337890625,
+            "screenHeight": 308.3999938964844
+          },
+          {
+            "segment": 1,
+            "component": 1,
+            "x": 1004.8000000000001,
+            "y": 51.39999999999999,
+            "width": 188.3999999999999,
+            "height": 154.20000000000005,
+            "share": 0.045,
+            "value": 45000,
+            "screenWidth": 188.39996337890625,
+            "screenHeight": 154.20001220703125
+          },
+          {
+            "segment": 1,
+            "component": 2,
+            "x": 1004.8000000000001,
+            "y": 0,
+            "width": 188.3999999999999,
+            "height": 51.39999999999999,
+            "share": 0.015,
+            "value": 15000,
+            "screenWidth": 188.39996337890625,
+            "screenHeight": 51.399993896484375
+          },
+          {
+            "segment": 2,
+            "component": 0,
+            "x": 1193.2,
+            "y": 342.6666666666667,
+            "width": 56.52000000000005,
+            "height": 171.33333333333331,
+            "share": 0.015,
+            "value": 15000,
+            "screenWidth": 56.52001953125,
+            "screenHeight": 171.33334350585938
+          },
+          {
+            "segment": 2,
+            "component": 1,
+            "x": 1193.2,
+            "y": 114.22222222222221,
+            "width": 56.52000000000005,
+            "height": 228.44444444444446,
+            "share": 0.02,
+            "value": 20000,
+            "screenWidth": 56.52001953125,
+            "screenHeight": 228.44442749023438
+          },
+          {
+            "segment": 2,
+            "component": 2,
+            "x": 1193.2,
+            "y": 0,
+            "width": 56.52000000000005,
+            "height": 114.22222222222221,
+            "share": 0.01,
+            "value": 10000,
+            "screenWidth": 56.52001953125,
+            "screenHeight": 114.22222900390625
+          },
+          {
+            "segment": 3,
+            "component": 0,
+            "x": 1249.72,
+            "y": 0,
+            "width": 6.280000000000006,
+            "height": 514,
+            "share": 0.005,
+            "value": 5000,
+            "screenWidth": 6.280029296875,
+            "screenHeight": 514
+          }
+        ]
+      }
+    }
+  ]
+}

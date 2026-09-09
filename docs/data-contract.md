@@ -1,6 +1,6 @@
 # Data and geometry contract
 
-This contract describes v1.0.0.0. It applies to the values supplied to the visual in the current report filter context, not automatically to all rows in the underlying model.
+This contract describes v1.0.1.0. It applies to the values supplied to the visual in the current report filter context, not automatically to all rows in the underlying model.
 
 ## Field contract
 
@@ -31,7 +31,9 @@ Widths, heights, and areas above are fractions of the plot dimensions, not data 
 - Report filters can legitimately change the input and its denominator. A full visual result means complete **for the current filter context**, not for the business universe.
 - Cross-highlighting is an overlay relative to the original base segment totals. It does not renormalize highlighted values into a new 100% composition or resize base columns. Invalid highlights disable the overlay rather than altering valid base values.
 - Raw values use model formatting. Within-segment and overall/displayed-subset shares are derived by the visual. Rounded text may not add to exactly 100%; geometry is not calculated from rounded labels.
-- Extreme numeric ranges that cannot produce reliable geometry are diagnosed rather than silently coerced. Rescale the additive measure in the semantic model if needed.
+- Compensated sums and shared cumulative boundaries avoid independently rounded gaps; the last positive boundary closes the plot extent. Geometry still uses IEEE-754 floating-point arithmetic, not arbitrary-precision real numbers.
+- Totals above the largest safely represented integer trigger a precision warning. The visual retains the host's numeric values; it cannot recover digits already rounded upstream. Reconcile exact amounts in the model, especially for 16-digit numbers.
+- Extreme numeric ranges that cannot produce reliable positive geometry are diagnosed rather than inflated. A common unit change can prevent total overflow but does not fix unrepresentable relative differences; reduce the filter scope instead.
 
 ## Missing, zero, and invalid are different states
 
@@ -70,4 +72,4 @@ Component colors use a deterministic hash of each native host series key into th
 
 Segment and component display labels are capped at **2,048 characters** (JavaScript UTF-16 string units). This is a display-string limit, not a truncation of host identities or numeric values: long labels do not cause categories to be merged. Use shorter dimensional labels in the model for readable legends, tables, and tooltips.
 
-Column widths remain mathematically exact. `appearance.minLabelWidth` controls whether a label is eligible, **not** a minimum column width. Labels that cannot fit are omitted. The legend and paginated table keep tiny, zero, and missing observations discoverable.
+Column widths follow the quantitative ratios, subject to floating-point precision, with no deliberate inflation. `appearance.minLabelWidth` controls whether a label is eligible, **not** a minimum column width. Labels that cannot fit are omitted. The legend and paginated table keep tiny, zero, and missing observations discoverable.

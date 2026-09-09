@@ -1,0 +1,204 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "MarketMarimekko",
+  "position": {
+    "x": 24,
+    "y": 160,
+    "z": 2,
+    "width": 930,
+    "height": 620,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472",
+    "query": {
+      "queryState": {
+        "segment": {
+          "showAll": true,
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProductRegion"
+                    }
+                  },
+                  "Property": "Region"
+                }
+              },
+              "queryRef": "ProductRegion.Region",
+              "nativeQueryRef": "Region"
+            }
+          ]
+        },
+        "component": {
+          "showAll": true,
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProductRegion"
+                    }
+                  },
+                  "Property": "Product"
+                }
+              },
+              "queryRef": "ProductRegion.Product",
+              "nativeQueryRef": "Product"
+            }
+          ]
+        },
+        "value": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProductRegion"
+                    }
+                  },
+                  "Property": "Market Revenue"
+                }
+              },
+              "queryRef": "ProductRegion.Market Revenue",
+              "nativeQueryRef": "Market Revenue"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "ProductRegion"
+                  }
+                },
+                "Property": "Region"
+              }
+            },
+            "direction": "Ascending"
+          },
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "ProductRegion"
+                  }
+                },
+                "Property": "Product"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "objects": {
+      "dataContract": [
+        {
+          "properties": {
+            "additiveConfirmed": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "appearance": [
+        {
+          "properties": {
+            "showLabels": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "labelContent": {
+              "expr": {
+                "Literal": {
+                  "Value": "'segmentShare'"
+                }
+              }
+            },
+            "minLabelWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "48"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12"
+                }
+              }
+            },
+            "direction": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ltr'"
+                }
+              }
+            },
+            "showTable": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Revenue size and composition'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Product-region market share. Width is segment revenue share, height is product mix, and area is overall contribution. Synthetic additive SUM measure. Use the visual''s data table for tiny, zero, and missing cells.'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
