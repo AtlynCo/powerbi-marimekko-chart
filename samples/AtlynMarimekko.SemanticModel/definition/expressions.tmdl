@@ -1,0 +1,2 @@
+expression SampleDataFolder = "C:\AtlynMarimekko\samples\data" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 88fc17f7-cb2a-4bc3-8e23-71b80866a39c

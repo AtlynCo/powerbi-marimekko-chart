@@ -1,0 +1,39 @@
+{
+  "name": "atlyn-marimekko",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Offline, additive variable-width composition visual for Power BI",
+  "license": "UNLICENSED",
+  "engines": { "node": ">=22.12.0" },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src tests scripts",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "test:browser": "playwright test",
+    "build": "node scripts/build.mjs",
+    "package": "npm run build && node scripts/verify-package.mjs",
+    "audit:dependencies": "npm audit && node scripts/notices.mjs --check",
+    "audit:certification": "node scripts/certification-audit.mjs",
+    "notices": "node scripts/notices.mjs"
+  },
+  "dependencies": {
+    "powerbi-visuals-utils-formattingutils": "7.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.4",
+    "@playwright/test": "1.63.0",
+    "@types/node": "24.10.1",
+    "eslint": "9.39.4",
+    "eslint-plugin-powerbi-visuals": "1.1.1",
+    "jszip": "3.10.1",
+    "powerbi-visuals-api": "5.11.1",
+    "powerbi-visuals-tools": "7.2.1",
+    "tsx": "4.23.13",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.57.0"
+  },
+  "overrides": {
+    "sockjs": { "uuid": "11.1.1" },
+    "qs": "^6.16.0"
+  }
+}

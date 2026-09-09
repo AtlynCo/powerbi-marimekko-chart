@@ -1,0 +1,47 @@
+.atlyn-marimekko {
+    box-sizing: border-box;
+    overflow: auto;
+    padding: 10px 12px;
+    color: var(--ink);
+    background: var(--paper);
+    font-family: "Segoe UI", system-ui, sans-serif;
+    line-height: 1.4;
+    * { box-sizing: border-box; }
+    p { margin: 5px 0; }
+    .header, .controls, .legend, .pager { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .header { justify-content: space-between; }
+    .title { font-size: 16px; }
+    button {
+        font: inherit; color: inherit; background: var(--paper); border: 1px solid currentColor;
+        border-radius: 4px; padding: 4px 8px; cursor: pointer; max-width: 100%; overflow-wrap: anywhere;
+    }
+    button:disabled { opacity: .55; cursor: default; }
+    button:focus-visible, [role="button"]:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+    .encoding { font-size: .95em; }
+    .diagnostic { border-inline-start: 3px solid currentColor; padding-inline-start: 8px; }
+    .denominator, .total { font-weight: 600; }
+    .legend { margin: 8px 0; max-height: 108px; overflow: auto; padding: 3px; }
+    .legend-item { display: flex; align-items: center; gap: 6px; text-align: start; }
+    .swatch { width: 12px; height: 12px; flex: 0 0 12px; border: 1px solid currentColor; }
+    .chart { display: block; overflow: visible; font: inherit; }
+    .cell, .segment-label { cursor: pointer; }
+    .cell-label { fill: #172b3a; stroke: #fff; stroke-width: 3px; paint-order: stroke; stroke-linejoin: round; }
+    .segment-label { fill: var(--ink); }
+    .selected { outline: 2px solid var(--ink); outline-offset: -2px; }
+    .muted { opacity: .3; }
+    .highlight-base { opacity: .25; }
+    .highlight-base.muted { opacity: .12; }
+    .high-contrast {
+        .cell-label { fill: var(--ink); stroke: var(--paper); }
+        .selected { outline: 3px double var(--ink); }
+    }
+    .table-container { overflow: auto; max-height: 460px; margin-top: 12px; }
+    .pager { padding: 4px 0; }
+    .notices { max-height: 240px; overflow: auto; white-space: pre-wrap; font-size: 11px; }
+    table { border-collapse: collapse; width: 100%; text-align: start; }
+    caption { text-align: start; padding: 5px 0; }
+    th, td { border-bottom: 1px solid currentColor; padding: 5px; vertical-align: top; }
+    th { text-align: start; }
+    .table-select { border: 0; text-align: start; padding: 0; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); }
+}

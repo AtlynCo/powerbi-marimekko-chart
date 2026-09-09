@@ -1,0 +1,19 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "MarketInstructions",
+  "position": { "x": 24, "y": 16, "z": 0, "width": 1232, "height": 128, "tabOrder": 0 },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [{
+        "properties": {
+          "paragraphs": [
+            { "textRuns": [{ "value": "Atlyn Marimekko | Product-region market share", "textStyle": { "fontSize": "20pt", "fontWeight": "bold" } }] },
+            { "textRuns": [{ "value": "Synthetic offline data. Set SampleDataFolder and refresh. Expected total: $1,000,000; region widths: 60%, 30%, 10%.", "textStyle": { "fontSize": "11pt" } }] },
+            { "textRuns": [{ "value": "Import the .pbiviz and add it below left. Bind ProductRegion: Region -> Segment, Product -> Component, Revenue Amount -> Additive value. Confirm additivity in Format > Data contract. Reconcile with the native table at right.", "textStyle": { "fontSize": "11pt" } }] }
+          ]
+        }
+      }]
+    }
+  }
+}

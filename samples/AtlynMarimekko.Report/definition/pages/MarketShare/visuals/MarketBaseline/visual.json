@@ -1,0 +1,47 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "MarketBaseline",
+  "position": { "x": 800, "y": 160, "z": 1, "width": 456, "height": 520, "tabOrder": 1 },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "showAll": true,
+          "projections": [
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "ProductRegion" } }, "Property": "Region" } },
+              "queryRef": "ProductRegion.Region",
+              "nativeQueryRef": "Region"
+            },
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "ProductRegion" } }, "Property": "Product" } },
+              "queryRef": "ProductRegion.Product",
+              "nativeQueryRef": "Product"
+            },
+            {
+              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "ProductRegion" } }, "Property": "Revenue Amount" } },
+              "queryRef": "ProductRegion.Revenue Amount",
+              "nativeQueryRef": "Revenue Amount"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [{
+          "field": { "Column": { "Expression": { "SourceRef": { "Entity": "ProductRegion" } }, "Property": "Region" } },
+          "direction": "Ascending"
+        }],
+        "isDefaultSort": false
+      }
+    },
+    "visualContainerObjects": {
+      "title": [{
+        "properties": {
+          "show": { "expr": { "Literal": { "Value": "true" } } },
+          "text": { "expr": { "Literal": { "Value": "'Native reconciliation table'" } } }
+        }
+      }]
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/2.0.0/schema.json",
+  "themeCollection": {},
+  "annotations": [
+    {
+      "name": "AtlynSampleStatus",
+      "value": "Synthetic offline starter. Set SampleDataFolder and refresh. Import the approved Atlyn Marimekko pbiviz and bind it in Desktop. Native validation is required; no custom visual is embedded."
+    }
+  ]
+}

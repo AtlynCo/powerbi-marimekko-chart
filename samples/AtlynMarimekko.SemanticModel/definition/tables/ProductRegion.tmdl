@@ -1,0 +1,53 @@
+table ProductRegion
+	lineageTag: c9eb0aef-8d72-43e9-8da5-f493016d2c64
+
+	measure 'Revenue Amount' = SUM(ProductRegion[Revenue])
+		formatString: $#,##0;($#,##0);$0
+		lineageTag: 66d6d8d4-5089-4663-8367-6378e553b32b
+
+	column Region
+		dataType: string
+		sourceColumn: Region
+		sortByColumn: RegionOrder
+		summarizeBy: none
+		lineageTag: 759f37ed-2ba8-40e2-88fd-23dcf2e75913
+
+	column RegionOrder
+		dataType: int64
+		isHidden
+		sourceColumn: RegionOrder
+		summarizeBy: none
+		lineageTag: 4c7bca5c-cdae-4fa3-8ad1-f72176db1656
+
+	column Product
+		dataType: string
+		sourceColumn: Product
+		sortByColumn: ProductOrder
+		summarizeBy: none
+		lineageTag: 9fd0914a-02c2-46ec-b099-387c4fb67f95
+
+	column ProductOrder
+		dataType: int64
+		isHidden
+		sourceColumn: ProductOrder
+		summarizeBy: none
+		lineageTag: 93caea31-4aa5-42d7-bd3c-79d6a5e56fa9
+
+	column Revenue
+		dataType: double
+		isHidden
+		sourceColumn: Revenue
+		summarizeBy: sum
+		formatString: $#,##0;($#,##0);$0
+		lineageTag: 9f41d76e-d08d-493f-afd6-8ba7be854882
+
+	partition ProductRegion = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(SampleDataFolder & "\product-region-market-share.csv"), [Delimiter=",", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Headers, {{"Region", type text}, {"RegionOrder", Int64.Type}, {"Product", type text}, {"ProductOrder", Int64.Type}}, "en-US"),
+					Amounts = Table.TransformColumns(Typed, {{"Revenue", each if _ = null or Text.Trim(_) = "" then null else Number.FromText(_, "en-US"), type nullable number}})
+				in
+					Amounts
