@@ -171,11 +171,18 @@ describe("authored offline sample source (not native Power BI acceptance)", () =
         });
     }
 
-    it("keeps local CSV import, explicit SUM measures, sorting and missing-versus-zero values", () => {
+    it("uses top-level TMDL references and no external-source parameter", () => {
+        const definition = join(samples, "AtlynMarimekko.SemanticModel", "definition");
+        const model = readFileSync(join(definition, "model.tmdl"), "utf8");
+        assert.match(model, /^ref table ProductRegion\r?$/m);
+        assert.match(model, /^ref table BusinessUnitMix\r?$/m);
+        assert.doesNotMatch(model, /^[\t ]+ref /m);
+        assert.doesNotMatch(model, /SampleDataFolder/);
+        assert.equal(existsSync(join(definition, "expressions.tmdl")), false);
+    });
+
+    it("keeps inline M rows equal to the offline CSV reference, with SUM measures, sorting and missing-versus-zero values", () => {
         const measureNames = new Set<string>();
-        const expression = readFileSync(join(samples, "AtlynMarimekko.SemanticModel", "definition", "expressions.tmdl"), "utf8");
-        assert.match(expression, /expression SampleDataFolder = "C:\\AtlynMarimekko\\samples\\data"/);
-        assert.match(expression, /IsParameterQuery=true/);
         for (const page of samplePages) {
             const table = readFileSync(join(samples, "AtlynMarimekko.SemanticModel", "definition", "tables", `${page.entity}.tmdl`), "utf8");
             assert(table.includes(`measure '${page.measure}' = SUM(${page.entity}[Revenue])`));
@@ -190,12 +197,16 @@ describe("authored offline sample source (not native Power BI acceptance)", () =
                 assert.match(table, new RegExp(`^\\tcolumn ${property}\\r?$`, "m"));
             }
             assert(table.includes("mode: import"));
-            assert(table.includes(`File.Contents(SampleDataFolder & "\\${page.csv}")`));
-            assert(table.includes('then null else Number.FromText(_, "en-US")'));
-            assert.doesNotMatch(table, /Web\.Contents|https?:\/\//);
+            assert(table.includes("Source = #table("));
+            assert(table.includes('{"Revenue", type nullable number}'));
+            assert.doesNotMatch(table, /File\.Contents|Folder\.Files|Web\.Contents|SampleDataFolder|https?:\/\//);
             const lines = readFileSync(join(samples, "data", page.csv), "utf8").trim().split(/\r?\n/);
             const headers = lines.shift()!.split(",");
             const rows = lines.map(line => Object.fromEntries(line.split(",").map((value, index) => [headers[index]!, value])));
+            const inlineRows = [...table.matchAll(/^\s+\{"([^"]+)", (\d+), "([^"]+)", (\d+), (null|\d+)\},?\r?$/gm)]
+                .map(match => [match[1], Number(match[2]), match[3], Number(match[4]), match[5] === "null" ? null : Number(match[5])]);
+            assert.deepEqual(inlineRows, rows.map(row => [row[page.segment], Number(row[page.order]), row.Product,
+                Number(row.ProductOrder), row.Revenue === "" ? null : Number(row.Revenue)]));
             const values = rows.map(row => row.Revenue === "" ? null : Number(row.Revenue));
             assert(values.every(value => value === null || (Number.isFinite(value) && value >= 0)));
             assert.equal(values.reduce<number>((total, value) => total + (value ?? 0), 0), 1_000_000);

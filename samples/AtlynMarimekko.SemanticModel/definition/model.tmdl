@@ -3,6 +3,5 @@ model Model
 	defaultPowerBIDataSourceVersion: powerBI_V3
 	sourceQueryCulture: en-US
 
-	ref table ProductRegion
-	ref table BusinessUnitMix
-	ref expression SampleDataFolder
+ref table ProductRegion
+ref table BusinessUnitMix

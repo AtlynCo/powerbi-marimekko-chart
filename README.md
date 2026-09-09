@@ -21,7 +21,7 @@ This is a private-repository first-release implementation, **not a claim of Micr
    | **Additive value** (`value`) | One nonnegative additive measure | `ProductRegion[Market Revenue]` |
 
 4. Review the measure's meaning. Enable **Format → Data contract → Value is additive, not a ratio or distinct count** only if it can safely be summed across both dimensions. The setting is off by default; no geometry is drawn before confirmation.
-5. Use the included [offline CSVs and fully authored PBIP](samples/README.md). Both market-share and product-mix pages include a bound custom visual, the exact embedded package, and native reconciliation tables. Set the local CSV folder and refresh in Desktop. The source has not been accepted as a native-tested PBIX; only the coordinator may perform that conversion and acceptance.
+5. Use the included [self-contained PBIP and offline reference CSVs](samples/README.md). Both market-share and product-mix pages include a bound custom visual, the exact embedded package, inline M literal data and native reconciliation tables. The provisional sample corrects a native TMDL parsing failure; refresh it in Desktop without setting a file path. Native rendering/PBIX acceptance remains with the coordinator. The sealed package is rendering-only evidence, not a final paid/submission build.
 
 There is **no width-measure role in v1**. Do not bind precomputed market-share percentages, averages, ratios, or overlapping distinct counts. Known percentage-formatted measures are blocked even after confirmation. Power BI's visual API cannot reliably identify every nonadditive DAX expression; the author must verify semantics.
 

@@ -78,7 +78,7 @@ Below 440 pixels wide or 340 pixels tall, compact controls and shorter visible d
 | Labels disappear | Widen the visual or reduce font/label threshold. Use the table; exact column widths are not enlarged. |
 | Displayed-subset warning persists | Filter/aggregate below all three bounds; host reduction may also affect component totals. Never report subset shares as full totals. |
 | Selection does not affect another visual | Check report interactions, compatible model fields, and host identities. Reproduce in native Power BI, not only in browser mocks. |
-| PBIP refresh cannot find CSV files | Set the absolute `SampleDataFolder` parameter as described in [samples](../samples/README.md). |
+| PBIP asks for a CSV folder or fails at an indented `ref table` | Use the provisional corrected [sample](../samples/README.md), not the original sealed sample. It uses document-scope references and inline M data with no folder parameter. |
 | Import, publish, or export is blocked | Check organization policy and host support for uncertified visuals. Do not bypass policy. |
 
 Report issues through the [support process](privacy-and-support.md), including a minimal nonsensitive reproduction and the precise Desktop/Service version.

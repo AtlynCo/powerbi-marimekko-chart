@@ -116,7 +116,7 @@ emitReport("definition/report.json", {
     ],
     settings: { useStylableVisualContainerHeader: true },
     annotations: [
-        { name: "AtlynSampleStatus", value: "Fully authored synthetic offline sample; native Power BI validation pending. Set SampleDataFolder and refresh." },
+        { name: "AtlynSampleStatus", value: "Provisional native-retry sample with self-contained inline M data. Native refresh/render validation pending; rendering-only package, not final paid build." },
         { name: "AtlynPackageVersion", value: manifest.version },
         { name: "AtlynPackageSha256", value: packageHash }
     ]
@@ -250,7 +250,8 @@ emit("PACKAGE.md", Buffer.from(`# Embedded package provenance\n\n` +
     `Both chart instances bind the native \`segment\`, \`component\` and \`value\` roles and confirm the synthetic additive SUM measure.\n\n` +
     `See [assembly-manifest.json](assembly-manifest.json) for per-file hashes and source references. ` +
     `The assembly command and consistency checks are local/offline; they do not invoke Power BI, a browser, hosted CI or publication APIs.\n\n` +
-    `**Native status: not validated here.** The owner must open, set the local CSV folder, refresh, inspect and save in Desktop; Service acceptance is also pending. ` +
+    `**Native status: provisional correction awaiting owner retry.** The source uses inline M literal data, with no external file connection or folder parameter. The owner must open, refresh, inspect and save in Desktop; Service acceptance is also pending. ` +
+    `The embedded package remains sealed rendering-only evidence without paid entitlement integration, not a final paid or submission build. ` +
     `No binary PBIX is generated or claimed. Package and source checks are not native-host evidence.\n`, "utf8"));
 
 // Validate all intended bytes before the first write; --check never modifies authored or local Desktop files.

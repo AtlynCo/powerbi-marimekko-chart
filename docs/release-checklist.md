@@ -24,7 +24,7 @@ Record the responsible reviewer, date, tested version/environment, result, and e
 - [ ] Record exact Desktop build, Windows version, locale, tenant policy, and artifact SHA-256.
 - [ ] Import the packaged file into a clean report. Verify binding, default unconfirmed state, confirmation persistence, formatting reset, resizing, save/reopen, and replacing/upgrading the visual without changing its GUID.
 - [ ] Verify the advertised landing/empty-data, keyboard-focus, highlight, and native multi-visual-selection capabilities in the host rather than relying only on manifest flags.
-- [ ] Open `samples\AtlynMarimekko.pbip` with supported PBIP/TMDL/PBIR features, set `SampleDataFolder`, refresh both CSV tables, and verify sample totals/order/missing/zero semantics.
+- [ ] Deserialize the corrected sample with `scripts\validate-sample-tmdl.ps1`, then open `samples\AtlynMarimekko.pbip` in an editable copy with supported PBIP/TMDL/PBIR features. Refresh both inline M tables without a source-path edit and verify totals/order/missing/zero semantics.
 - [ ] Verify both already-bound custom visuals and native reconciliation tables load from the embedded official package on the market/product pages. Save and reopen, then create the actual same-version offline PBIX in Desktop. A PBIP, fabricated binary, or schema-only validation does not satisfy the PBIX gate.
 - [ ] Check sum measures, genuine zeros, missing combinations, missing measures, blanks in category labels, negative/nonfinite/invalid data, zero-only data, percentage formats, and additivity confirmation.
 - [ ] Verify all-blank input reports missing/empty rather than observed all-zero. For invalid/unconfirmed/unsupported percentage input, verify the table preserves available raw values/status while hiding untrusted derived totals/shares.
@@ -43,7 +43,7 @@ Record the responsible reviewer, date, tested version/environment, result, and e
 - [ ] Test required browser/device targets; do not infer them from a single Chromium harness.
 - [ ] Verify native Chrome, Edge and Firefox routes as applicable, multiple instances and pages, focus mode, dashboard pinning, read/edit modes and saved bookmarks. Record any unsupported surface explicitly.
 - [ ] Test PDF/PowerPoint export, printing, subscriptions, and other required host output paths. Uncertified visuals may be omitted or restricted by Power BI. Record each actual outcome; do not claim unsupported export paths work.
-- [ ] For the local CSV sample, either publish already-imported demonstration data without scheduled refresh or configure an approved gateway/source accessible to the Service. A Service cannot refresh a developer's local path by itself.
+- [ ] Confirm the corrected inline M sample has no external file connection or folder parameter in the actual PBIX. Verify Service behavior separately; CSVs are reference artifacts, not refresh sources.
 - [ ] Verify rollback/reimport to the previous approved package and document any report compatibility implications.
 
 ## 4. Accessibility and localization

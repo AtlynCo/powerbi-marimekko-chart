@@ -81,8 +81,8 @@
     },
     {
       "path": "AtlynMarimekko.Report/definition/report.json",
-      "sha256": "a0605ff14f3726656ba0d4b1455734611c7ba314cb1254a8f867596d628df720",
-      "bytes": 1242
+      "sha256": "d8c7f1efcee21e3bf41fe72388ef06fc4239c1f2cd66999973c517d9b8561a84",
+      "bytes": 1286
     },
     {
       "path": "AtlynMarimekko.Report/definition/version.json",

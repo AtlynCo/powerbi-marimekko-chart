@@ -14,4 +14,4 @@ The official SDK manifest and complete JSON payload are extracted unchanged unde
 
 See [assembly-manifest.json](assembly-manifest.json) for per-file hashes and source references. The assembly command and consistency checks are local/offline; they do not invoke Power BI, a browser, hosted CI or publication APIs.
 
-**Native status: not validated here.** The owner must open, set the local CSV folder, refresh, inspect and save in Desktop; Service acceptance is also pending. No binary PBIX is generated or claimed. Package and source checks are not native-host evidence.
+**Native status: provisional correction awaiting owner retry.** The source uses inline M literal data, with no external file connection or folder parameter. The owner must open, refresh, inspect and save in Desktop; Service acceptance is also pending. The embedded package remains sealed rendering-only evidence without paid entitlement integration, not a final paid or submission build. No binary PBIX is generated or claimed. Package and source checks are not native-host evidence.

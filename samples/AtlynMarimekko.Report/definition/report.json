@@ -31,7 +31,7 @@
   "annotations": [
     {
       "name": "AtlynSampleStatus",
-      "value": "Fully authored synthetic offline sample; native Power BI validation pending. Set SampleDataFolder and refresh."
+      "value": "Provisional native-retry sample with self-contained inline M data. Native refresh/render validation pending; rendering-only package, not final paid build."
     },
     {
       "name": "AtlynPackageVersion",

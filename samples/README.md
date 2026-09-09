@@ -1,26 +1,28 @@
 # Atlyn Marimekko — authored offline sample
 
-This is a **fully authored, locally packaged PBIP/PBIR/TMDL source sample**, with both Atlyn Marimekko instances already embedded, bound, formatted, and connected to native reconciliation tables. Set the local CSV folder and refresh; **no manual custom-visual import or field binding is required by the authored source**.
+This is a **provisional native-retry PBIP/PBIR/TMDL sample**, with both Atlyn Marimekko instances already embedded, bound, formatted, and connected to native reconciliation tables. Its import partitions contain inline M literal tables: **no folder parameter, external file connection, manual custom-visual import or field binding is required by the authored source**.
 
-The release candidate is **1.0.1.0**, with frozen visual identity `AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472`. [PACKAGE.md](PACKAGE.md) and [assembly-manifest.json](assembly-manifest.json) identify the exact embedded package version, SHA-256, payload resources, and generated source files.
+The unchanged embedded package is **1.0.1.0**, with frozen visual identity `AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472`. It is sealed rendering-only evidence without paid entitlement integration, **not a final paid/submission build**. [PACKAGE.md](PACKAGE.md) and [assembly-manifest.json](assembly-manifest.json) identify the exact embedded package version, SHA-256, payload resources, and generated source files.
 
 **Native validation has not been performed by this source assembly.** The owner must open, refresh, inspect, save, and reopen in Power BI Desktop and perform Service acceptance. Public-schema and source-consistency checks do not prove native custom-visual loading, TMDL/M evaluation, host interactions, accessibility, or export behavior. No binary PBIX is generated or represented as validated here.
 
 All organizations, products, and amounts are **synthetic demonstration data**. The examples use additive revenue amounts in illustrative USD, not real market research or customer data.
 
-## Open, set the folder, and refresh
+## Native defect correction and parser evidence
+
+The coordinator's actual Desktop 2.157.1354.0 preflight rejected the sealed sample before rendering: `InvalidLineType`, `Unexpected line type: ReferenceObject!`, document `./model`, line 6. The table references were incorrectly indented under the model object. This correction moves `ref table` declarations to document scope and removes the obsolete `SampleDataFolder` expression.
+
+The error was reproduced with Desktop's installed official TOM parser. The corrected folder deserializes through both that parser (file version 17.0.83.18) and installed official Microsoft.AnalysisServices 19.117.0: two tables, zero relationships, zero shared expressions and zero external data sources. This validates TMDL syntax/object structure, **not M/DAX execution, native rendering or PBIX acceptance**. The coordinator must retry those separately; the original sealed baseline and certification ref are not overwritten.
+
+## Open and refresh
 
 1. Keep this entire `samples` folder together. Use a current Desktop build supporting PBIP, TMDL, and enhanced PBIR. Enable those preview options if your build requires them and restart Desktop.
 2. Open `AtlynMarimekko.pbip`, or `AtlynMarimekko.Report\definition.pbir`. Both report pages and their custom/native visuals are already authored. The semantic model has no checked-in data cache.
-3. In **Transform data → Manage parameters**, set `SampleDataFolder` to the absolute path of this checkout's `samples\data` directory, **without a trailing backslash**. For example: `C:\Work\powerbi-marimekko-chart\samples\data`.
-   - The checked-in `C:\AtlynMarimekko\samples\data` value is an intentional placeholder, not automatic path discovery.
-   - If needed, close Desktop, edit that string in `AtlynMarimekko.SemanticModel\definition\expressions.tmdl`, and reopen. M strings use literal backslashes; do not double them as if editing JSON.
-   - Apply an appropriate local-source privacy level if prompted. Do not disable privacy protections or bypass your organization's custom-visual restrictions.
-4. **Apply changes and refresh.** Both pages use local CSV Import partitions and explicit `SUM` measures. There is no remote source or custom-visual runtime resource fetch.
-5. Reconcile the expected totals below, inspect the rendered chart/native table, and test interactions. If Desktop rejects a resource, model, or query, record the exact build/error and stop treating the report as native-validated. Reassembly is not a substitute for investigating the host error.
-6. Save a working copy through Desktop. Only the owner should use Desktop's native **Save As** route if a PBIX deliverable is needed. Do not commit local `.pbi` caches/settings, credentials, or your machine-specific parameter value.
+3. **Apply changes and refresh.** Both pages use self-contained `#table` M Import partitions, explicit types and `SUM` measures. No source-path edits, credentials or gateway should be needed for these literal queries. Do not bypass organization policy if the host restricts custom visuals.
+4. Reconcile the expected totals below, inspect the rendered chart/native table, and test interactions. If Desktop rejects a resource, model, or query, record the exact build/error and stop treating the report as native-validated. Reassembly is not a substitute for investigating the host error.
+5. Save a working copy through Desktop. Only the owner should use Desktop's native **Save As** route for a PBIX deliverable. Do not commit local `.pbi` caches/settings or credentials.
 
-For Service use, imported demonstration data can be viewed without refreshing its local files. Scheduled refresh requires an approved accessible source/gateway; the Service cannot automatically read your developer path. A successful local source check is not a Service or publication claim.
+The M source itself is embedded and has no external file dependency. The CSVs are offline reference copies for inspection and consistency tests, not runtime connections. Service evaluation and publication remain separate native acceptance gates.
 
 ## Authored pages
 
@@ -93,10 +95,10 @@ samples\
         AtlynMarimekkoIcon.png         Decoded from that same package's PNG
   AtlynMarimekko.SemanticModel\
     definition.pbism
-    definition\                       CSV-backed TMDL model and SampleDataFolder parameter
+    definition\                       TMDL model with self-contained inline M tables
 ```
 
-The two fact tables are independent, with no relationships. Each imports UTF-8 CSV via `Csv.Document(File.Contents(...))`, applies explicit types, converts empty revenue to null, and raises errors for invalid non-empty numeric text. Revenue/order columns are hidden; the explicit `Market Revenue` and `Mix Revenue` measures remain visible. Their names are model-wide unique, as required by [DAX measure naming](https://learn.microsoft.com/en-us/dax/dax-syntax-reference#measures). `Region → RegionOrder`, `BusinessUnit → BusinessUnitOrder`, and `Product → ProductOrder` define model sorting.
+The two fact tables are independent, with no relationships. Each imports an inline M `#table`, applies explicit types and retains missing revenue as literal `null`. Tests compare every literal row against the offline CSV reference, including order keys and measured zeros. Revenue/order columns are hidden; the explicit `Market Revenue` and `Mix Revenue` measures remain visible. Their names are model-wide unique, as required by [DAX measure naming](https://learn.microsoft.com/en-us/dax/dax-syntax-reference#measures). `Region → RegionOrder`, `BusinessUnit → BusinessUnitOrder`, and `Product → ProductOrder` define model sorting.
 
 The **official SDK package is consumed, not modified**. Its `package.json` and complete type-5 `resources\…pbiviz.json` payload are extracted byte-for-byte. That JSON already contains JavaScript, CSS, icon, capabilities, and localized strings; splitting or synthesizing substitute JavaScript/CSS metadata is unnecessary. PBIR registers the payload under a `CustomVisual` resource package with a `CustomVisualMetadata` item, and each chart's `visualType` references the same GUID.
 
@@ -114,6 +116,7 @@ From the repository root, after the owner produces the final package:
 node .\scripts\assemble-sample.mjs
 node .\scripts\assemble-sample.mjs --check
 node --import tsx --test .\tests\sample.test.ts
+powershell.exe -NoProfile -NonInteractive -File .\scripts\validate-sample-tmdl.ps1
 ```
 
 If dependency installation or rebuilding is needed, scope npm's environment before those commands:
@@ -125,7 +128,9 @@ npm run package
 node .\scripts\assemble-sample.mjs
 ```
 
-Reassembly overwrites **generated report definitions, embedded package resources, PACKAGE.md, and assembly-manifest.json**. It does not change CSVs, TMDL, your `SampleDataFolder` parameter, or Desktop's `.pbi` local files. Keep owner-customized native work in a separate copy before regenerating. Identical package inputs produce identical generated bytes; `--check` performs no writes. Final source is tied to the exact package hash, so rebuilds require reassembly even if the version string stays the same.
+Reassembly overwrites **generated report definitions, embedded package resources, PACKAGE.md, and assembly-manifest.json**. It does not change CSVs, TMDL or Desktop's `.pbi` local files. Keep owner-customized native work in a separate copy before regenerating. Identical package inputs produce identical generated bytes; `--check` performs no writes. This correction consumes the sealed package without rebuilding it.
+
+The TOM command uses Windows PowerShell 5.1 and the official assemblies in an existing Power BI Desktop installation; `-DesktopBin` can select another installed bin directory. It deserializes the folder and asserts table/measure/sort/partition structure without connecting, saving, refreshing or driving Desktop. It prints a JSON result including assembly identities, versions and hashes. No installation is performed.
 
 The local Node tests independently inspect roles, field expressions, sample-specific confirmation, interactions, model/source references, missing/zero data, resource registration, PNG equality, and generated-file hashes. If the official `dist` file exists, they additionally compare every embedded archive file byte-for-byte and run the assembler's read-only consistency check. That final artifact comparison is explicitly skipped if the build output is absent; the checked-in source tests still run. These tests do not launch Desktop, a browser, hosted CI, or publishing tools.
 
