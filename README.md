@@ -2,7 +2,7 @@
 
 An offline Power BI custom visual for comparing **segment size and component mix at the same time**. Segment totals determine column widths; each column is stacked to 100%; each rectangle's area represents its contribution to the displayed total.
 
-**Release:** `1.0.0.0` · **Visual name:** `AtlynMarimekko`
+**Release candidate:** `1.0.1.0` · **Visual name:** `AtlynMarimekko`
 
 **Frozen visual GUID:** `AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472`
 
@@ -11,17 +11,17 @@ This is a private-repository first-release implementation, **not a claim of Micr
 ## Install and try it
 
 1. Obtain the approved `.pbiviz` from your release owner, or [build it](#development).
-2. In Power BI Desktop, use the Visualizations pane's **… → Import a visual from a file** and select `dist\AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472.1.0.0.0.pbiviz`. Tenant policy may restrict custom or uncertified visuals; do not bypass it.
+2. In Power BI Desktop, use the Visualizations pane's **… → Import a visual from a file** and select `dist\AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472.1.0.1.0.pbiviz`. Tenant policy may restrict custom or uncertified visuals; do not bypass it.
 3. Add Atlyn Marimekko to the canvas and bind exactly these three fields:
 
    | Field well | What to bind | Market-share sample |
    | --- | --- | --- |
    | **Segment** (`segment`) | One categorical column | `ProductRegion[Region]` |
    | **Component** (`component`) | One categorical column, used as dynamic series | `ProductRegion[Product]` |
-   | **Additive value** (`value`) | One nonnegative additive measure | `ProductRegion[Revenue Amount]` |
+   | **Additive value** (`value`) | One nonnegative additive measure | `ProductRegion[Market Revenue]` |
 
 4. Review the measure's meaning. Enable **Format → Data contract → Value is additive, not a ratio or distinct count** only if it can safely be summed across both dimensions. The setting is off by default; no geometry is drawn before confirmation.
-5. Use the included [offline CSVs and PBIP starter](samples/README.md). The PBIP includes local CSV import queries, two native table pages, and binding instructions. Import and place the custom visual in Desktop; the starter does **not** pretend to contain an embedded custom-visual package or a generated PBIX.
+5. Use the included [self-contained PBIP and offline reference CSVs](samples/README.md). Both market-share and product-mix pages include a bound custom visual, the exact embedded package, inline M literal data and native reconciliation tables. The provisional sample corrects a native TMDL parsing failure; refresh it in Desktop without setting a file path. Native rendering/PBIX acceptance remains with the coordinator. The sealed package is rendering-only evidence, not a final paid/submission build.
 
 There is **no width-measure role in v1**. Do not bind precomputed market-share percentages, averages, ratios, or overlapping distinct counts. Known percentage-formatted measures are blocked even after confirmation. Power BI's visual API cannot reliably identify every nonadditive DAX expression; the author must verify semantics.
 
@@ -31,7 +31,7 @@ There is **no width-measure role in v1**. Do not bind precomputed market-share p
 - For invalid, unconfirmed, or unsupported percentage-measure input, the table preserves available raw values/status while withholding untrusted derived totals and shares.
 - Host category and component order is preserved, including the received **Sort by column** order. No local value/alphabetical sort changes the story.
 - Component colors use a deterministic host series-key hash into the visual's fixed palette, not the visible position or report theme palette. High contrast uses host colors and patterns.
-- Exact mathematical widths are retained, including very narrow columns. Labels hide when they do not fit; widths never expand to make labels fit.
+- Quantitative widths are retained, including very narrow columns, subject to floating-point precision. Labels hide when they do not fit; widths never expand to make labels fit. Shared cumulative boundaries close the extent without independently accumulated gaps.
 - Native SDK selection identities support cell, segment, and component selection, Ctrl/Cmd multiselect, host context menus, and tooltips. Highlights retain the original base-value denominators.
 - The accessible table is always available through its toggle and is paginated at 100 rows. Keyboard navigation, English/French UI strings, RTL layout, and no animation are part of v1.
 - The capability manifest enables landing/empty-data views, keyboard focus, highlights, and native multi-visual selection. Actual host behavior remains a native acceptance gate.
@@ -43,7 +43,7 @@ Read the [data contract](docs/data-contract.md) and [authoring/accessibility gui
 
 ## Development
 
-Use Node.js **22.12 or newer** and npm. The package targets visual API **5.11.0** and uses **powerbi-visuals-tools 7.2.1**. Packaging on Windows requires Windows PowerShell/.NET with `CertificateRequest`; other operating systems require `openssl`. From the repository root:
+Use Node.js **22.12 or newer** and npm. The package targets visual API **5.11.0** (the contract exported by the current **5.11.1** API declarations) and uses **powerbi-visuals-tools 7.2.1**. Packaging on Windows requires Windows PowerShell/.NET with `CertificateRequest`; other operating systems require `openssl`. From the repository root:
 
 ```powershell
 $env:NPM_CONFIG_CACHE = Join-Path (Get-Location) '.tmp\npm-cache'
@@ -51,10 +51,12 @@ $env:PLAYWRIGHT_BROWSERS_PATH = Join-Path (Get-Location) '.tmp\browsers'
 npm ci
 npm run typecheck
 npm run lint
+npm run eslint
 npm test
 npm run audit:dependencies
 npm run audit:certification
 npm run package
+npm run sample:assemble
 npm run test:browser
 ```
 
@@ -65,7 +67,7 @@ The Playwright browser suite executes the **actual extracted packaged visual cod
 `npm run package` builds and verifies the `.pbiviz`; its companion SHA-256 file is written in `dist`. `npm run build` is the wrapper's build-only route. Run the normal package command after the SDK certification audit so the final candidate is a normal distributable package. PowerShell can independently inspect the package hash:
 
 ```powershell
-Get-FileHash .\dist\AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472.1.0.0.0.pbiviz -Algorithm SHA256
+Get-FileHash .\dist\AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472.1.0.1.0.pbiviz -Algorithm SHA256
 ```
 
 **Use `npm run package`, not a direct `pbiviz` invocation.** The `scripts\build.mjs` wrapper runs the standard SDK package command with `--all-locales --no-stats`, scopes the SDK home/cache under the worktree's `.tmp` directory, and keeps normal package output in `dist`.
@@ -76,18 +78,20 @@ The SDK checks for a development certificate even during offline packaging. On W
 
 Unit tests, browser-host mocks, static audits, and package inspection provide engineering evidence, **not proof of Power BI Desktop/Service/export compatibility or certification**.
 
-The private GitHub workflow runs on `windows-latest`, packages normally after the SDK audit, and executes the packaged-code browser tests. Its artifact upload is limited to `dist` package, SHA-256, and audit JSON files, retained for **14 days**. Workflow configuration is not evidence that a particular run passed or that a release was published.
+Validation and packaging run **locally only**. This repository has no hosted-CI workflow; do not run GitHub Actions, cloud coding, Codespaces, or another hosted build service. Git push and pull-request review are delivery steps, not permission to run remote validation. Preserve the exact candidate package and local evidence through the owner's release process.
 
 ## Open-source notices
 
-The visual's **Open-source notices** button displays bundled runtime dependency license texts offline. These are embedded through generated `src\notices.ts` and also recorded in the tracked [THIRD-PARTY-NOTICES.txt](THIRD-PARTY-NOTICES.txt). When dependencies change, run `npm run notices` and review both generated files; `npm run audit:dependencies` checks that they match the installed locked dependency tree. These notices license the identified third-party code, not the Atlyn product.
+Under **Info**, the visual's **Open-source notices** button displays bundled runtime dependency license texts offline. These are embedded through generated `src\notices.ts` and also recorded in the tracked [THIRD-PARTY-NOTICES.txt](THIRD-PARTY-NOTICES.txt). When dependencies change, run `npm run notices` and review both generated files; `npm run audit:dependencies` checks that they match the installed locked dependency tree. These notices license the identified third-party code, not the Atlyn product.
 
 ## Documentation
 
 - [Data, mathematics, completeness, and bounds](docs/data-contract.md)
 - [Field binding, formatting, selection, accessibility, troubleshooting](docs/authoring.md)
-- [Offline datasets and native PBIP starter](samples/README.md)
+- [Offline datasets and bound PBIP source](samples/README.md)
 - [Release, certification, and submission checklist](docs/release-checklist.md)
+- [Release-quality review and primary-source comparison](docs/quality-review.md)
+- [Marketplace listing and certification dossier](docs/marketplace-dossier.md)
 - [Maintenance and compatibility policy](docs/maintenance.md)
 - [Runtime privacy facts and support readiness](docs/privacy-and-support.md)
 

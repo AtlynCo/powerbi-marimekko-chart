@@ -3,7 +3,7 @@ import type powerbi from "powerbi-visuals-api";
 export type Identity = powerbi.visuals.ISelectionId;
 export const LIMITS = Object.freeze({ segments: 200, components: 40, cells: 4000, fetches: 8, tablePage: 100 });
 export type DiagnosticCode = "binding" | "confirm" | "ratio" | "invalid" | "blank" | "zero" | "empty" |
-    "partial" | "limit" | "identity" | "range" | "highlight" | "fetchStopped";
+    "partial" | "limit" | "identity" | "range" | "highlight" | "fetchStopped" | "precision";
 export interface Diagnostic { code: DiagnosticCode; count?: number }
 export interface Entity { key: string; label: string; identity: Identity }
 export interface InputCell { value: unknown; highlight?: unknown; identity: Identity; format?: string }
@@ -42,7 +42,7 @@ export interface ChartModel {
     diagnostics: Diagnostic[];
 }
 
-function sum(values: number[]): number {
+export function sum(values: number[]): number {
     let total = 0;
     let correction = 0;
     for (const value of values) {
@@ -52,6 +52,21 @@ function sum(values: number[]): number {
         total = next;
     }
     return total;
+}
+
+function boundaries(values: number[], total: number): number[] {
+    let cumulative = 0;
+    let correction = 0;
+    const lastPositive = values.reduce((last, value, index) => value > 0 ? index : last, -1);
+    return [0, ...values.map((value, index) => {
+        if (value > 0) {
+            const adjusted = value - correction;
+            const next = cumulative + adjusted;
+            correction = (next - cumulative) - adjusted;
+            cumulative = next;
+        }
+        return index >= lastPositive ? 1 : cumulative / total;
+    })];
 }
 
 export function isPercentageFormat(format = ""): boolean {
@@ -98,6 +113,7 @@ export function buildModel(input: ModelInput): ChartModel {
             total: sum(cells.map(cell => cell.value ?? 0)), x: 0, width: 0, cells };
     });
     const total = sum(segments.map(segment => segment.total));
+    if (Number.isFinite(total) && total > Number.MAX_SAFE_INTEGER) diagnostics.push({ code: "precision" });
     if (!segments.length || !components.length) diagnostics.push({ code: "empty" });
     if (invalid) diagnostics.push({ code: "invalid", count: invalid });
     if (blanks) diagnostics.push({ code: "blank", count: blanks });
@@ -106,22 +122,21 @@ export function buildModel(input: ModelInput): ChartModel {
     let drawable = segments.length > 0 && components.length > 0 && input.additiveConfirmed &&
         !input.percentageMeasure && input.identityValid && !invalid && !rangeError && total > 0;
     if (drawable) {
-        let x = 0;
-        for (const segment of segments) {
-            segment.x = x;
-            segment.width = segment.total / total;
-            x += segment.width;
-            let height = 0;
-            for (const cell of segment.cells) {
+        // Shared cumulative boundaries close the plot exactly without independently rounding cell widths.
+        const columns = boundaries(segments.map(segment => segment.total), total);
+        for (const [segmentIndex, segment] of segments.entries()) {
+            segment.x = columns[segmentIndex]!;
+            segment.width = columns[segmentIndex + 1]! - segment.x;
+            const levels = segment.total > 0 ? boundaries(segment.cells.map(cell => cell.value ?? 0), segment.total) : [];
+            for (const [componentIndex, cell] of segment.cells.entries()) {
                 cell.overallShare = cell.value === null ? null : cell.value / total;
                 cell.segmentShare = cell.value === null || segment.total === 0 ? null : cell.value / segment.total;
-                cell.height = cell.segmentShare ?? 0;
-                cell.y = 1 - height - cell.height;
-                const previousHeight = height;
-                height += cell.height;
-                if ((cell.value ?? 0) > 0 && (!cell.height || !cell.overallShare || height === previousHeight)) rangeError = true;
+                const bottom = 1 - (levels[componentIndex] ?? 0);
+                cell.y = 1 - (levels[componentIndex + 1] ?? 0);
+                cell.height = bottom - cell.y;
+                if ((cell.value ?? 0) > 0 && (cell.height <= 0 || !cell.overallShare)) rangeError = true;
             }
-            if (segment.total > 0 && (!segment.width || x === segment.x)) rangeError = true;
+            if (segment.total > 0 && segment.width <= 0) rangeError = true;
         }
     }
     if (rangeError) {

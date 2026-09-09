@@ -1,7 +1,7 @@
 table BusinessUnitMix
 	lineageTag: d15a9c25-c79b-4b8b-85d8-f7cbdcb44746
 
-	measure 'Revenue Amount' = SUM(BusinessUnitMix[Revenue])
+	measure 'Mix Revenue' = SUM(BusinessUnitMix[Revenue])
 		formatString: $#,##0;($#,##0);$0
 		lineageTag: a50fcd37-a55b-43d6-bc84-6e534db798e6
 
@@ -45,9 +45,25 @@ table BusinessUnitMix
 		mode: import
 		source =
 				let
-					Source = Csv.Document(File.Contents(SampleDataFolder & "\business-unit-product-mix.csv"), [Delimiter=",", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
-					Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-					Typed = Table.TransformColumnTypes(Headers, {{"BusinessUnit", type text}, {"BusinessUnitOrder", Int64.Type}, {"Product", type text}, {"ProductOrder", Int64.Type}}, "en-US"),
-					Amounts = Table.TransformColumns(Typed, {{"Revenue", each if _ = null or Text.Trim(_) = "" then null else Number.FromText(_, "en-US"), type nullable number}})
+					Source = #table(
+						{"BusinessUnit", "BusinessUnitOrder", "Product", "ProductOrder", "Revenue"},
+						{
+							{"Enterprise", 1, "Atlas", 1, 400000},
+							{"Enterprise", 1, "Beacon", 2, 300000},
+							{"Enterprise", 1, "Comet", 3, 100000},
+							{"SMB", 2, "Atlas", 1, 90000},
+							{"SMB", 2, "Beacon", 2, 45000},
+							{"SMB", 2, "Comet", 3, 15000},
+							{"Public sector", 3, "Atlas", 1, 15000},
+							{"Public sector", 3, "Beacon", 2, 20000},
+							{"Public sector", 3, "Comet", 3, 10000},
+							{"Incubator", 4, "Atlas", 1, 5000},
+							{"Incubator", 4, "Beacon", 2, 0},
+							{"Incubator", 4, "Comet", 3, null},
+							{"Retired", 5, "Atlas", 1, 0},
+							{"Retired", 5, "Beacon", 2, 0},
+							{"Retired", 5, "Comet", 3, 0}
+						}),
+					Typed = Table.TransformColumnTypes(Source, {{"BusinessUnit", type text}, {"BusinessUnitOrder", Int64.Type}, {"Product", type text}, {"ProductOrder", Int64.Type}, {"Revenue", type nullable number}}, "en-US")
 				in
-					Amounts
+					Typed

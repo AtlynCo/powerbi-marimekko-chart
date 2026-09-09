@@ -13,7 +13,8 @@ const en = {
     partial: "Incomplete denominator: shares refer only to displayed data. Do not interpret them as whole-market shares.",
     limit: "Display limit reached: at most 200 segments, 40 components and 4,000 cells. Filter the report to reduce data.",
     identity: "Missing or duplicate host identities. Bind model columns and one measure; no geometry is drawn.",
-    range: "Values exceed the reliable numeric range. Rescale the additive measure in the model.",
+    range: "Values exceed the reliable numeric range. Filter extreme differences or change units for overflowing totals in the model.",
+    precision: "Large totals use floating-point precision. The visual cannot restore digits already rounded by the host; verify exact amounts in the model.",
     highlight: "Invalid highlights received. Highlight overlay is disabled; base values are unchanged.",
     fetchStopped: "More data exists, but fetching was refused, stopped making progress, or reached the request limit. Filter to reduce data.",
     fetchPending: "Loading more data; the current denominator is incomplete.",
@@ -30,7 +31,18 @@ const en = {
     appearance: "Presentation", showLabels: "Show labels", labelContent: "Label content",
     minLabelWidth: "Minimum label width (px)", fontSize: "Font size (px)", direction: "Text direction",
     auto: "Automatic", ltr: "Left to right", rtl: "Right to left",
-    count: "Count", zeroSegment: "Zero-width segment", selection: "Selected", notices: "Open-source notices"
+    count: "Count", zeroSegment: "Zero-width segment", selection: "Selected", notices: "Open-source notices",
+    info: "Chart information", infoShort: "Info", clearShort: "Clear", dataShort: "Data", chartShort: "Chart",
+    encodingShort: "Width: size. Height: mix. Area: contribution.",
+    partialShort: "Partial data: shares of shown subset only.",
+    blankShort: "Missing values, not observed zeroes.", limitShort: "Display limit reached.",
+    loadingShort: "Loading more data...", stoppedShort: "Loading stopped; subset only.",
+    totalShort: "Shown total", smallShort: "Resize to see the chart.",
+    getStarted: "Compare size and mix together",
+    bindingHelp: "1. Segment: regions or business units. 2. Component: products or suppliers. 3. Value: additive revenue or counts.",
+    sampleHelp: "Then confirm additivity in Format > Data contract. Try the included market-share and product-mix report.",
+    narrowHelp: "Labels are shown only when they fit. Column widths never expand for labels. The Data table includes tiny, zero and missing cells. Legend numbers identify components without relying on color.",
+    legendShares: "Components (% of shown total)", legendShort: "Shown %"
 };
 type Dictionary = typeof en;
 const fr: Dictionary = {
@@ -48,7 +60,8 @@ const fr: Dictionary = {
     partial: "Denominateur incomplet : les parts concernent uniquement les donnees affichees, pas le marche entier.",
     limit: "Limite : 200 segments, 40 composantes et 4 000 cellules au maximum. Filtrez le rapport.",
     identity: "Identites de l'hote manquantes ou dupliquees. Utilisez des colonnes du modele et une mesure. Aucun trace.",
-    range: "Valeurs hors de la plage numerique fiable. Changez l'echelle de la mesure additive dans le modele.",
+    range: "Valeurs hors de la plage numerique fiable. Filtrez les differences extremes ou changez les unites des totaux trop grands.",
+    precision: "Les grands totaux utilisent la pr\u00e9cision flottante. Les chiffres d\u00e9j\u00e0 arrondis par l'h\u00f4te ne peuvent pas \u00eatre restaur\u00e9s ; v\u00e9rifiez les montants dans le mod\u00e8le.",
     highlight: "Surbrillances non valides. Superposition desactivee ; valeurs de base inchangees.",
     fetchStopped: "Donnees supplementaires : chargement refuse, sans progression ou limite de requetes atteinte. Filtrez les donnees.",
     fetchPending: "Chargement des donnees ; denominateur actuellement incomplet.",
@@ -65,7 +78,18 @@ const fr: Dictionary = {
     appearance: "Presentation", showLabels: "Afficher les etiquettes", labelContent: "Contenu des etiquettes",
     minLabelWidth: "Largeur minimale des etiquettes (px)", fontSize: "Taille du texte (px)", direction: "Sens du texte",
     auto: "Automatique", ltr: "De gauche a droite", rtl: "De droite a gauche",
-    count: "Nombre", zeroSegment: "Segment de largeur nulle", selection: "Selectionne", notices: "Mentions open source"
+    count: "Nombre", zeroSegment: "Segment de largeur nulle", selection: "Selectionne", notices: "Mentions open source",
+    info: "Informations du graphique", infoShort: "Infos", clearShort: "Effacer", dataShort: "Donn\u00e9es", chartShort: "Graphique",
+    encodingShort: "Largeur : taille. Hauteur : mix. Aire : contribution.",
+    partialShort: "Donn\u00e9es partielles : parts du sous-ensemble affich\u00e9.",
+    blankShort: "Valeurs manquantes, pas des z\u00e9ros.", limitShort: "Limite d'affichage atteinte.",
+    loadingShort: "Chargement...", stoppedShort: "Chargement arr\u00eat\u00e9 ; sous-ensemble uniquement.",
+    totalShort: "Total affich\u00e9", smallShort: "Agrandissez le graphique ou consultez les donn\u00e9es.",
+    getStarted: "Comparez la taille et la composition",
+    bindingHelp: "1. Segment : r\u00e9gions ou unit\u00e9s. 2. Composante : produits ou fournisseurs. 3. Valeur : revenus ou nombres additifs.",
+    sampleHelp: "Confirmez l'additivit\u00e9 dans Format > Contrat des donnees. Essayez le rapport de d\u00e9monstration fourni.",
+    narrowHelp: "Les \u00e9tiquettes sont masqu\u00e9es si l'espace manque. Les largeurs restent proportionnelles. Le tableau inclut les cellules \u00e9troites, nulles ou manquantes. Les num\u00e9ros identifient les composantes sans d\u00e9pendre des couleurs.",
+    legendShares: "Composantes (% du total affich\u00e9)", legendShort: "Total %"
 };
 export type TextKey = keyof Dictionary;
 export function dictionary(locale: string): Dictionary { return locale.toLowerCase().startsWith("fr") ? fr : en; }

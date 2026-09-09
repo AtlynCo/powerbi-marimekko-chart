@@ -2,6 +2,7 @@ import { mkdirSync, readFileSync, writeFileSync, rmSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import { randomBytes } from "node:crypto";
+import { pathToFileURL } from "node:url";
 
 const root = process.cwd();
 const home = resolve(".tmp", "tool-home");
@@ -16,12 +17,16 @@ function run(command, args, extraEnv = {}) {
     if (result.status !== 0) throw new Error(`${command} failed with exit code ${result.status}`);
 }
 
-// The SDK resolves a development certificate even for offline packaging.
-// Create it in memory and export only into this worktree: never touch a user's certificate store or home.
-if (process.platform === "win32") {
-    const password = randomBytes(24).toString("hex");
-    const file = join(certFolder, "PowerBICustomVisualTest_public.pfx");
-    run("powershell.exe", ["-NoProfile", "-NonInteractive", "-Command", `
+const args = process.argv.slice(2);
+if (args.some(arg => arg !== "--certification-audit")) throw new Error("Unsupported build argument");
+const manifest = JSON.parse(readFileSync("package.json", "utf8"));
+if (manifest.private !== true) throw new Error("This release must remain private");
+try {
+    // The SDK resolves a certificate even for offline packaging. Export it in memory, never to a user store.
+    if (process.platform === "win32") {
+        const password = randomBytes(24).toString("hex");
+        const file = join(certFolder, "PowerBICustomVisualTest_public.pfx");
+        run("powershell.exe", ["-NoProfile", "-NonInteractive", "-Command", `
         $ErrorActionPreference = 'Stop'
         $rsa = [System.Security.Cryptography.RSA]::Create(2048)
         $request = [System.Security.Cryptography.X509Certificates.CertificateRequest]::new(
@@ -32,19 +37,15 @@ if (process.platform === "win32") {
             $certificate.Export([System.Security.Cryptography.X509Certificates.X509ContentType]::Pfx, $env:ATLYN_CERTIFICATE_PASSWORD))
         $certificate.Dispose()
         $rsa.Dispose()
-    `], { ATLYN_CERTIFICATE_FILE: file, ATLYN_CERTIFICATE_PASSWORD: password });
-    writeFileSync(join(certFolder, "PowerBICustomVisualTestPass.txt"), password);
-} else {
-    run("openssl", ["req", "-newkey", "rsa:2048", "-nodes", "-x509", "-days", "30", "-subj", "/CN=localhost",
-        "-keyout", join(certFolder, "PowerBICustomVisualTest_private.key"),
-        "-out", join(certFolder, "PowerBICustomVisualTest_public.crt")]);
-}
-const args = process.argv.slice(2);
-if (args.some(arg => arg !== "--certification-audit")) throw new Error("Unsupported build argument");
-const manifest = JSON.parse(readFileSync("package.json", "utf8"));
-if (manifest.private !== true) throw new Error("This release must remain private");
-try {
-    run(process.execPath, [join("node_modules", "powerbi-visuals-tools", "bin", "pbiviz.js"),
+        `], { ATLYN_CERTIFICATE_FILE: file, ATLYN_CERTIFICATE_PASSWORD: password });
+        writeFileSync(join(certFolder, "PowerBICustomVisualTestPass.txt"), password);
+    } else {
+        run("openssl", ["req", "-newkey", "rsa:2048", "-nodes", "-x509", "-days", "30", "-subj", "/CN=localhost",
+            "-keyout", join(certFolder, "PowerBICustomVisualTest_private.key"),
+            "-out", join(certFolder, "PowerBICustomVisualTest_public.crt")]);
+    }
+    run(process.execPath, ["--import", pathToFileURL(join(root, "scripts", "zip-defaults.mjs")).href,
+        join("node_modules", "powerbi-visuals-tools", "bin", "pbiviz.js"),
         "package", "--no-stats", "--all-locales", ...args]);
 } finally {
     for (const file of ["PowerBICustomVisualTest_public.pfx", "PowerBICustomVisualTestPass.txt",

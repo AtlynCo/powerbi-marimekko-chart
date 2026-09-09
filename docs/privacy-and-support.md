@@ -8,7 +8,7 @@ This is technical release documentation, **not an approved legal privacy notice,
 - The visual computes geometry and renders its SVG, controls, legend, tooltips, and accessible table locally within the Power BI visual environment.
 - `capabilities.json` declares an empty `privileges` array. The visual does not request web access, local storage, or file-export privileges. It has no runtime telemetry, network calls, or externally loaded resources.
 - Selection, context menus, tooltip services, formatting persistence, and additional-data requests are interactions with the **Power BI host**. They are not promises that Power BI itself is offline or that it never persists/processes report data.
-- The sample semantic model imports CSVs with Power Query `File.Contents`. That file access belongs to model refresh, not the custom visual. The sample needs no external data service.
+- The provisional corrected sample semantic model uses inline Power Query `#table` literal data, with no external file connection or folder parameter. Bundled CSVs are reference artifacts only. Native M evaluation and report acceptance remain separate checks.
 - Source dependency installation, package audits, and browser installation can use network services during development. They are not part of the packaged visual's runtime.
 - The **Open-source notices** button reads license text embedded in the package; it does not fetch notices or other external resources.
 - Build-only localhost certificates satisfy an SDK packaging check. The wrapper exports generated files only inside the worktree and cleans them up after packaging; it neither installs a certificate nor modifies the user's certificate store. This does not grant runtime privileges.

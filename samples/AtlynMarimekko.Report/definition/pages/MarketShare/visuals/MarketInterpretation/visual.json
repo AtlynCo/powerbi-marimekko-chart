@@ -1,0 +1,47 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "MarketInterpretation",
+  "position": {
+    "x": 24,
+    "y": 800,
+    "z": 4,
+    "width": 1392,
+    "height": 84,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Read both size and mix: North America / Atlas is $360,000, 60% of its region and 36% of the total. Select a cell or a table row to compare the same revenue across both views.",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#172B3A"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Atlyn Marimekko 1.0.1.0 · Synthetic offline sample · Source authored; native Desktop/Service acceptance pending",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#4B5563"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

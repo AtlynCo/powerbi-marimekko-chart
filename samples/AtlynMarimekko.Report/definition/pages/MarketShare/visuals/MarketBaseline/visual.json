@@ -1,7 +1,14 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "MarketBaseline",
-  "position": { "x": 800, "y": 160, "z": 1, "width": 456, "height": 520, "tabOrder": 1 },
+  "position": {
+    "x": 978,
+    "y": 160,
+    "z": 3,
+    "width": 438,
+    "height": 620,
+    "tabOrder": 3
+  },
   "visual": {
     "visualType": "tableEx",
     "query": {
@@ -10,38 +17,116 @@
           "showAll": true,
           "projections": [
             {
-              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "ProductRegion" } }, "Property": "Region" } },
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProductRegion"
+                    }
+                  },
+                  "Property": "Region"
+                }
+              },
               "queryRef": "ProductRegion.Region",
               "nativeQueryRef": "Region"
             },
             {
-              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "ProductRegion" } }, "Property": "Product" } },
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProductRegion"
+                    }
+                  },
+                  "Property": "Product"
+                }
+              },
               "queryRef": "ProductRegion.Product",
               "nativeQueryRef": "Product"
             },
             {
-              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "ProductRegion" } }, "Property": "Revenue Amount" } },
-              "queryRef": "ProductRegion.Revenue Amount",
-              "nativeQueryRef": "Revenue Amount"
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProductRegion"
+                    }
+                  },
+                  "Property": "Market Revenue"
+                }
+              },
+              "queryRef": "ProductRegion.Market Revenue",
+              "nativeQueryRef": "Market Revenue"
             }
           ]
         }
       },
       "sortDefinition": {
-        "sort": [{
-          "field": { "Column": { "Expression": { "SourceRef": { "Entity": "ProductRegion" } }, "Property": "Region" } },
-          "direction": "Ascending"
-        }],
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "ProductRegion"
+                  }
+                },
+                "Property": "Region"
+              }
+            },
+            "direction": "Ascending"
+          },
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "ProductRegion"
+                  }
+                },
+                "Property": "Product"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
         "isDefaultSort": false
       }
     },
     "visualContainerObjects": {
-      "title": [{
-        "properties": {
-          "show": { "expr": { "Literal": { "Value": "true" } } },
-          "text": { "expr": { "Literal": { "Value": "'Native reconciliation table'" } } }
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Reconcile revenue · USD'"
+                }
+              }
+            }
+          }
         }
-      }]
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Native table: Region, Product, and the same Market Revenue SUM measure as the Marimekko. Select rows to highlight the chart.'"
+                }
+              }
+            }
+          }
+        }
+      ]
     }
   }
 }

@@ -1,0 +1,158 @@
+{
+  "formatVersion": 1,
+  "visual": {
+    "guid": "AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472",
+    "name": "AtlynMarimekko",
+    "version": "1.0.1.0",
+    "apiVersion": "5.11.0"
+  },
+  "package": {
+    "file": "dist/AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472.1.0.1.0.pbiviz",
+    "sha256": "841f066f1a7696151f5e0803b86eac7abe5f87bc54be6f4701d850ebe0d6b2ae",
+    "bytes": 125085,
+    "modified": false
+  },
+  "embedding": {
+    "type": "CustomVisualMetadata",
+    "root": "AtlynMarimekko.Report/CustomVisuals/AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472",
+    "metadataResource": "resources/AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472.pbiviz.json",
+    "javascriptSha256": "5bb61305a10614cd2eba69242128056973de86d0b47f3cbb3b50f327821d1632",
+    "cssSha256": "7b450dd188f9bcba5cbb63d370d0b1c640cb8b2f700b4481c365aa59f4c2fa1f",
+    "iconSha256": "86daf29f9df95caea9f3f6fa3b75d3316536d67c64f57d53830af3e09292d9c6",
+    "locales": [
+      "en-US",
+      "fr-FR"
+    ]
+  },
+  "pages": [
+    {
+      "name": "MarketShare",
+      "visualName": "MarketMarimekko",
+      "entity": "ProductRegion",
+      "bindings": {
+        "segment": "Region",
+        "component": "Product",
+        "value": "Market Revenue"
+      },
+      "additiveConfirmed": true
+    },
+    {
+      "name": "ProductMix",
+      "visualName": "MixMarimekko",
+      "entity": "BusinessUnitMix",
+      "bindings": {
+        "segment": "BusinessUnit",
+        "component": "Product",
+        "value": "Mix Revenue"
+      },
+      "additiveConfirmed": true
+    }
+  ],
+  "nativeValidation": {
+    "desktop": "pending-owner-validation",
+    "service": "pending-owner-validation",
+    "pbixGenerated": false
+  },
+  "sources": {
+    "reportFolder": "https://learn.microsoft.com/en-us/power-bi/developer/projects/projects-report",
+    "reportResources": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/2.0.0/schema.json#/definitions/ResourcePackage",
+    "reportResourceItems": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/2.0.0/schema.json#/definitions/ResourcePackageItem",
+    "visualQuery": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualConfiguration/2.0.0/schema-embedded.json#/definitions/Query",
+    "fieldExpressions": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/semanticQuery/1.2.0/schema.json#/definitions/QueryExpressionContainer",
+    "sdkPackageTemplate": "https://github.com/microsoft/PowerBI-visuals-tools/blob/v7.2.1/templates/package.json.template",
+    "microsoftImageReference": "https://github.com/microsoft/Analysis-Services/blob/d3ccb5032c9029b097276b88412f7b61df6e73b8/pbidevmode/fabricps-pbip/SamplePBIP/Sales.Report/report.json",
+    "publicPrivateVisualExample": "https://github.com/ProdataSQL/FinancialModelling/blob/ec738ceb6a801f416b88b93c1dcfddbbe89426b7/Workspace/Finance-GL.Report/definition/report.json"
+  },
+  "generatedFiles": [
+    {
+      "path": "AtlynMarimekko.Report/CustomVisuals/AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472/package.json",
+      "sha256": "179dd39859ac4558b466aa5d6fe9d69dce6ac24ce50b635d33d92317ee0cc03a",
+      "bytes": 781
+    },
+    {
+      "path": "AtlynMarimekko.Report/CustomVisuals/AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472/resources/AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472.pbiviz.json",
+      "sha256": "d332fdd436e19d9d537c41b9bcf45e2110fa888499620593278e6b10a0b420ac",
+      "bytes": 719455
+    },
+    {
+      "path": "AtlynMarimekko.Report/StaticResources/RegisteredResources/AtlynMarimekkoIcon.png",
+      "sha256": "86daf29f9df95caea9f3f6fa3b75d3316536d67c64f57d53830af3e09292d9c6",
+      "bytes": 114
+    },
+    {
+      "path": "AtlynMarimekko.Report/definition/report.json",
+      "sha256": "d8c7f1efcee21e3bf41fe72388ef06fc4239c1f2cd66999973c517d9b8561a84",
+      "bytes": 1286
+    },
+    {
+      "path": "AtlynMarimekko.Report/definition/version.json",
+      "sha256": "0f9f217a60981bf882d7b1963977fc72cc051078df8512b46caa607aff2e5220",
+      "bytes": 150
+    },
+    {
+      "path": "AtlynMarimekko.Report/definition/pages/pages.json",
+      "sha256": "07ed3c84431b25fef41a1260b1e101c585ccaa23bc04fc872aeaa9b9bbe3c2f2",
+      "bytes": 219
+    },
+    {
+      "path": "AtlynMarimekko.Report/definition/pages/MarketShare/page.json",
+      "sha256": "aea79d7c0e8e2c44c1bf2d666d7d866d2a389939c75ef7435908df9b1feb08ff",
+      "bytes": 509
+    },
+    {
+      "path": "AtlynMarimekko.Report/definition/pages/MarketShare/visuals/MarketIcon/visual.json",
+      "sha256": "c172574169e44553b87e624be1ae8587e35eaca949c3993a5e3b573cbd0bd21c",
+      "bytes": 1001
+    },
+    {
+      "path": "AtlynMarimekko.Report/definition/pages/MarketShare/visuals/MarketInstructions/visual.json",
+      "sha256": "cdbe107258234630e81fc82f81ffabfd6855b11f096ffb030249d00d045ec2eb",
+      "bytes": 1604
+    },
+    {
+      "path": "AtlynMarimekko.Report/definition/pages/MarketShare/visuals/MarketMarimekko/visual.json",
+      "sha256": "20c0f6e41390875d2836d90416ddfd282d0c909b73959fb355a54e50557d5b1e",
+      "bytes": 4960
+    },
+    {
+      "path": "AtlynMarimekko.Report/definition/pages/MarketShare/visuals/MarketBaseline/visual.json",
+      "sha256": "9c16d31593749dffb94fb0172123ed825387df75990c88b84079c6c8f0b58037",
+      "bytes": 3295
+    },
+    {
+      "path": "AtlynMarimekko.Report/definition/pages/MarketShare/visuals/MarketInterpretation/visual.json",
+      "sha256": "b3409b2f4b8db484e113cbdf0989a4328f389f7c983d12399df7f1bd4d0ed710",
+      "bytes": 1349
+    },
+    {
+      "path": "AtlynMarimekko.Report/definition/pages/ProductMix/page.json",
+      "sha256": "5750bba0e18b094d60c6c5f21d05ce5cf09736a641844f9695516a5b722ae0af",
+      "bytes": 494
+    },
+    {
+      "path": "AtlynMarimekko.Report/definition/pages/ProductMix/visuals/MixIcon/visual.json",
+      "sha256": "974e382e9e7f8da193d77960981926d7eb1958d874da1d39cf960f311532db3f",
+      "bytes": 998
+    },
+    {
+      "path": "AtlynMarimekko.Report/definition/pages/ProductMix/visuals/MixInstructions/visual.json",
+      "sha256": "afcd8c1d061ccbbd7d0075e1747e0e502c98482ad7f256f93657e648d2b7bc2d",
+      "bytes": 1612
+    },
+    {
+      "path": "AtlynMarimekko.Report/definition/pages/ProductMix/visuals/MixMarimekko/visual.json",
+      "sha256": "8a5a543d22299bd5aee6c364ab7f98ca18c54574fd1bd4104987a09a6f42c5b3",
+      "bytes": 4986
+    },
+    {
+      "path": "AtlynMarimekko.Report/definition/pages/ProductMix/visuals/MixBaseline/visual.json",
+      "sha256": "00fe88ae43689f08b87f033405382b0d6bd4711248b2263dd2e1a052723fe9ab",
+      "bytes": 3326
+    },
+    {
+      "path": "AtlynMarimekko.Report/definition/pages/ProductMix/visuals/MixInterpretation/visual.json",
+      "sha256": "f96e66ab84f67f6749b2194a66d362c5accb8187d1fddf26f2971c2210171572",
+      "bytes": 1351
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 table ProductRegion
 	lineageTag: c9eb0aef-8d72-43e9-8da5-f493016d2c64
 
-	measure 'Revenue Amount' = SUM(ProductRegion[Revenue])
+	measure 'Market Revenue' = SUM(ProductRegion[Revenue])
 		formatString: $#,##0;($#,##0);$0
 		lineageTag: 66d6d8d4-5089-4663-8367-6378e553b32b
 
@@ -45,9 +45,19 @@ table ProductRegion
 		mode: import
 		source =
 				let
-					Source = Csv.Document(File.Contents(SampleDataFolder & "\product-region-market-share.csv"), [Delimiter=",", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
-					Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-					Typed = Table.TransformColumnTypes(Headers, {{"Region", type text}, {"RegionOrder", Int64.Type}, {"Product", type text}, {"ProductOrder", Int64.Type}}, "en-US"),
-					Amounts = Table.TransformColumns(Typed, {{"Revenue", each if _ = null or Text.Trim(_) = "" then null else Number.FromText(_, "en-US"), type nullable number}})
+					Source = #table(
+						{"Region", "RegionOrder", "Product", "ProductOrder", "Revenue"},
+						{
+							{"North America", 1, "Atlas", 1, 360000},
+							{"North America", 1, "Beacon", 2, 180000},
+							{"North America", 1, "Comet", 3, 60000},
+							{"Europe", 2, "Atlas", 1, 120000},
+							{"Europe", 2, "Beacon", 2, 120000},
+							{"Europe", 2, "Comet", 3, 60000},
+							{"Asia Pacific", 3, "Atlas", 1, 20000},
+							{"Asia Pacific", 3, "Beacon", 2, 30000},
+							{"Asia Pacific", 3, "Comet", 3, 50000}
+						}),
+					Typed = Table.TransformColumnTypes(Source, {{"Region", type text}, {"RegionOrder", Int64.Type}, {"Product", type text}, {"ProductOrder", Int64.Type}, {"Revenue", type nullable number}}, "en-US")
 				in
-					Amounts
+					Typed

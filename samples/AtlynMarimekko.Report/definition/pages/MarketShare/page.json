@@ -3,6 +3,18 @@
   "name": "MarketShare",
   "displayName": "Product-region market share",
   "displayOption": "FitToPage",
-  "height": 720,
-  "width": 1280
+  "width": 1440,
+  "height": 900,
+  "visualInteractions": [
+    {
+      "source": "MarketMarimekko",
+      "target": "MarketBaseline",
+      "type": "DataFilter"
+    },
+    {
+      "source": "MarketBaseline",
+      "target": "MarketMarimekko",
+      "type": "HighlightFilter"
+    }
+  ]
 }
