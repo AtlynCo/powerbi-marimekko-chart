@@ -1,0 +1,263 @@
+import type powerbi from "powerbi-visuals-api";
+import type { Page } from "@playwright/test";
+import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
+import JSZip from "jszip";
+
+export const GUID = "AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472";
+type Identity = powerbi.visuals.ISelectionId;
+type Parts = Record<string, string>;
+type NativePromiseManager = Omit<powerbi.extensibility.ISelectionManager, "select" | "clear" | "showContextMenu" | "toggleExpandCollapse"> & {
+    select(ids: powerbi.extensibility.ISelectionId | powerbi.extensibility.ISelectionId[], multiple?: boolean): Promise<Identity[]>;
+    clear(): Promise<object>;
+    showContextMenu(id: powerbi.extensibility.ISelectionId, position: powerbi.extensibility.IPoint): Promise<object>;
+    toggleExpandCollapse(): Promise<object>;
+};
+export interface Fixture {
+    segments?: (string | number | null)[];
+    components?: (string | number | null)[];
+    values?: (number | string | null)[][];
+    highlights?: (number | null)[][];
+    format?: string;
+    dynamicFormat?: string;
+    categoryFormat?: string;
+    componentFormat?: string;
+    additive?: boolean;
+    partial?: boolean;
+    showTable?: boolean;
+    showLabels?: boolean;
+    labelContent?: "raw" | "segmentShare" | "overallShare";
+    direction?: "auto" | "ltr" | "rtl";
+    noCategoryIdentity?: boolean;
+    noSeriesIdentity?: boolean;
+    duplicateCategoryIdentity?: boolean;
+    invalidBinding?: boolean;
+}
+export interface HostOptions {
+    locale?: string;
+    highContrast?: boolean;
+    allowInteractions?: boolean;
+    fetchResult?: boolean;
+    rejectInteractions?: boolean;
+    tooltipEnabled?: boolean;
+}
+export interface HostLog {
+    select: { key: string; multiple: boolean }[];
+    clear: number;
+    context: { key: string; x: number; y: number }[];
+    fetch: (boolean | undefined)[];
+    tooltip: { kind: string; keys?: string[]; dataItems?: powerbi.extensibility.VisualTooltipDataItem[];
+        coordinates?: number[]; immediately?: boolean }[];
+    events: string[];
+    failures: string[];
+    localization: string[];
+}
+interface BrowserHarness {
+    visual: powerbi.extensibility.visual.IVisual;
+    log: HostLog;
+    update(fixture?: Fixture, width?: number, height?: number, append?: boolean): void;
+    resize(width: number, height: number): void;
+    clearData(): void;
+    external(parts: Parts[]): void;
+    ids: Identity[];
+}
+declare global {
+    interface Window {
+        powerbi: { visuals: { plugins: Record<string, {
+            create(options: powerbi.extensibility.visual.VisualConstructorOptions): powerbi.extensibility.visual.IVisual
+        }> } };
+        harness: BrowserHarness;
+    }
+}
+
+export async function mount(page: Page, fixture: Fixture = {}, hostOptions: HostOptions = {}): Promise<string[]> {
+    const requests: string[] = [];
+    page.on("request", request => requests.push(request.url()));
+    await page.route("**/*", route => route.abort());
+    await page.setContent("<!doctype html><html><head></head><body style='margin:0'><div id='visual'></div></body></html>");
+    const zip = await JSZip.loadAsync(await readFile(resolve("dist", `${GUID}.1.0.0.0.pbiviz`)));
+    const resource = zip.file(`resources/${GUID}.pbiviz.json`);
+    if (!resource) throw new Error("Packaged visual resource is missing");
+    const packaged = JSON.parse(await resource.async("string")) as { content: { js: string; css: string } };
+    if (!packaged.content.js || !packaged.content.css) throw new Error("PBIVIZ must include JavaScript and CSS");
+    await page.evaluate(() => { window.powerbi = { visuals: { plugins: {} } } as typeof window.powerbi; });
+    await page.addStyleTag({ content: packaged.content.css });
+    await page.addScriptTag({ content: packaged.content.js });
+    await page.evaluate(({ guid, fixture, options }) => {
+        const log: HostLog = { select: [], clear: 0, context: [], fetch: [], tooltip: [], events: [], failures: [], localization: [] };
+        let selected: Identity[] = [];
+        let callback: (ids: Identity[]) => void = () => undefined;
+        const ids: Identity[] = [];
+        const identityParts = new Map<string, Parts>();
+        const identity = (parts: Parts): Identity => {
+            const key = JSON.stringify(Object.entries(parts).sort(([a], [b]) => a.localeCompare(b)));
+            identityParts.set(key, parts);
+            const id: Identity = {
+                getKey: () => key,
+                equals: other => key === other.getKey(),
+                includes: other => {
+                    const compared = identityParts.get(other.getKey()) ?? {};
+                    return Object.keys(parts).length > 0 &&
+                        Object.entries(parts).every(([name, value]) => compared[name] === value);
+                },
+                hasIdentity: () => Object.keys(parts).length > 0,
+                getSelector: () => ({ data: Object.entries(parts).filter(([name]) => name !== "measure")
+                    .map(([, value]) => ({ key: value })), metadata: parts.measure }),
+                getSelectorsByColumn: () => ({
+                    dataMap: Object.fromEntries(Object.entries(parts).filter(([name]) => name !== "measure")
+                        .map(([name, value]) => [name, { key: value }])),
+                    metadata: parts.measure
+                })
+            };
+            ids.push(id);
+            return id;
+        };
+        const builder = (): powerbi.visuals.ISelectionIdBuilder => {
+            const parts: Parts = {};
+            return {
+                withCategory(column, index) {
+                    const native = column.identity?.[index];
+                    if (native) parts.category = (native as { key: string }).key;
+                    return this;
+                },
+                withSeries(_column, group) {
+                    if (group.identity) parts.series = (group.identity as { key: string }).key;
+                    return this;
+                },
+                withMeasure(measure) { parts.measure = measure; return this; },
+                withMatrixNode() { throw new Error("Unexpected matrix binding"); },
+                withTable() { throw new Error("Unexpected table binding"); },
+                createSelectionId() { return identity({ ...parts }); }
+            };
+        };
+        const manager: NativePromiseManager = {
+            select(input, multiple = false) {
+                const incoming = (Array.isArray(input) ? input : [input]) as Identity[];
+                log.select.push(...incoming.map(id => ({ key: id.getKey(), multiple })));
+                if (options.rejectInteractions) return Promise.reject(new Error("Selection rejected"));
+                selected = multiple ? [...selected.filter(old => !incoming.some(id => id.equals(old))),
+                    ...incoming.filter(id => !selected.some(old => id.equals(old)))] : incoming;
+                return Promise.resolve(selected);
+            },
+            clear() {
+                log.clear++;
+                if (options.rejectInteractions) return Promise.reject(new Error("Clear rejected"));
+                selected = [];
+                return Promise.resolve({});
+            },
+            hasSelection: () => selected.length > 0,
+            getSelectionIds: () => selected,
+            registerOnSelectCallback: handler => { callback = handler; },
+            showContextMenu(id, position) {
+                log.context.push({ key: (id as Identity).getKey(), ...position });
+                return options.rejectInteractions ? Promise.reject(new Error("Context rejected")) : Promise.resolve({});
+            },
+            toggleExpandCollapse: () => Promise.resolve({})
+        };
+        const palette: powerbi.extensibility.ISandboxExtendedColorPalette = {
+            isHighContrast: options.highContrast ?? false,
+            foreground: { value: "#ffff00" }, background: { value: "#000000" },
+            foregroundSelected: { value: "#ffffff" }, hyperlink: { value: "#00ffff" },
+            foregroundLight: { value: "#ffff00" }, foregroundDark: { value: "#ffff00" },
+            foregroundNeutralLight: { value: "#ffff00" }, foregroundNeutralDark: { value: "#ffff00" },
+            foregroundNeutralSecondary: { value: "#ffff00" }, foregroundNeutralSecondaryAlt: { value: "#ffff00" },
+            foregroundNeutralSecondaryAlt2: { value: "#ffff00" }, foregroundNeutralTertiary: { value: "#ffff00" },
+            foregroundNeutralTertiaryAlt: { value: "#ffff00" }, foregroundButton: { value: "#ffff00" },
+            backgroundLight: { value: "#000000" }, backgroundNeutral: { value: "#000000" }, backgroundDark: { value: "#000000" },
+            visitedHyperlink: { value: "#00ffff" }, mapPushpin: { value: "#ffff00" }, shapeStroke: { value: "#ffff00" },
+            getColor: () => ({ value: "#1665a7" }),
+            reset() { return this; }
+        };
+        const host: Pick<powerbi.extensibility.visual.IVisualHost, "createSelectionIdBuilder" | "createSelectionManager" |
+            "locale" | "instanceId" | "hostCapabilities" | "colorPalette" | "eventService" | "tooltipService" |
+            "fetchMoreData" | "createLocalizationManager"> = {
+            createSelectionIdBuilder: builder,
+            // Power BI's legacy IPromise declaration differs from the native Promise used by this host double.
+            createSelectionManager: () => manager as unknown as powerbi.extensibility.ISelectionManager,
+            locale: options.locale ?? "en-US",
+            instanceId: "browser:packaged-instance/one",
+            hostCapabilities: { allowInteractions: options.allowInteractions ?? true },
+            colorPalette: palette,
+            eventService: {
+                renderingStarted: () => { log.events.push("started"); },
+                renderingFinished: () => { log.events.push("finished"); },
+                renderingFailed: (_event, reason) => { log.events.push("failed"); log.failures.push(reason ?? "unknown"); }
+            },
+            tooltipService: {
+                enabled: () => options.tooltipEnabled ?? true,
+                show: event => { log.tooltip.push({ kind: "show", keys: event.identities?.map(id => (id as Identity).getKey()),
+                    dataItems: event.dataItems, coordinates: event.coordinates }); },
+                move: event => { log.tooltip.push({ kind: "move", keys: event.identities?.map(id => (id as Identity).getKey()),
+                    coordinates: event.coordinates }); },
+                hide: event => { log.tooltip.push({ kind: "hide", immediately: event.immediately }); }
+            },
+            fetchMoreData: aggregate => { log.fetch.push(aggregate); return options.fetchResult ?? false; },
+            createLocalizationManager: () => ({
+                getDisplayName: key => { log.localization.push(key); return key; }
+            })
+        };
+        const dataView = (input: Fixture): powerbi.DataView => {
+            const segments = input.segments ?? ["Enterprise", "Consumer"];
+            const names = input.components ?? ["Services", "Products"];
+            const raw = input.values ?? [[30, 10], [20, 40]];
+            const dynamicFormat = input.dynamicFormat;
+            const category: powerbi.DataViewCategoryColumn = {
+                source: { displayName: "Segment", queryName: "Facts.Segment", roles: { segment: true }, format: input.categoryFormat },
+                values: segments as powerbi.PrimitiveValue[],
+                identity: input.noCategoryIdentity ? undefined : segments.map((_, index) =>
+                    ({ key: `category-${input.duplicateCategoryIdentity ? 0 : index}` }))
+            };
+            const groups: powerbi.DataViewValueColumnGroup[] = names.map((name, component) => ({
+                name: name ?? undefined,
+                identity: input.noSeriesIdentity ? undefined : { key: `series-${component}` },
+                values: [{
+                    source: { displayName: "Revenue", queryName: "Facts.Revenue", isMeasure: true,
+                        roles: { value: !input.invalidBinding }, format: input.format ?? "#,0.00", groupName: name ?? undefined },
+                    values: segments.map((_, segment) => raw[segment]?.[component] ?? null) as powerbi.PrimitiveValue[],
+                    highlights: input.highlights ?
+                        segments.map((_, segment) => input.highlights?.[segment]?.[component] ?? null) as powerbi.PrimitiveValue[] : undefined,
+                    objects: dynamicFormat ? segments.map(() => ({ general: { formatString: dynamicFormat } })) : undefined
+                }]
+            }));
+            const values = groups.flatMap(group => group.values) as powerbi.DataViewValueColumns;
+            values.source = { displayName: "Component", queryName: "Facts.Component", roles: { component: true }, format: input.componentFormat };
+            values.grouped = () => groups;
+            return {
+                metadata: { columns: [category.source, values.source, ...values.map(column => column.source)],
+                    segment: input.partial ? {} : undefined,
+                    objects: { dataContract: { additiveConfirmed: input.additive ?? true }, appearance: {
+                        showTable: input.showTable ?? false, showLabels: input.showLabels ?? true,
+                        labelContent: input.labelContent ?? "segmentShare", direction: input.direction ?? "auto"
+                    } } },
+                categorical: { categories: [category], values }
+            };
+        };
+        const plugin = window.powerbi.visuals.plugins[guid];
+        if (!plugin) throw new Error("Packaged script did not register the Power BI visual plugin");
+        const element = document.getElementById("visual");
+        if (!element) throw new Error("Missing visual container");
+        const visual = plugin.create({ element, host: host as powerbi.extensibility.visual.IVisualHost });
+        let current = fixture;
+        let viewport = { width: 900, height: 650 };
+        window.harness = {
+            visual, log, ids,
+            update(next = current, width = viewport.width, height = viewport.height, append = false) {
+                current = next;
+                viewport = { width, height };
+                visual.update({ dataViews: [dataView(current)], viewport, type: 2, operationKind: append ? 1 : 0 });
+            },
+            resize(width, height) {
+                viewport = { width, height };
+                visual.update({ dataViews: [], viewport, type: 4 });
+            },
+            clearData() { visual.update({ dataViews: [], viewport, type: 2 }); },
+            external(parts) { selected = parts.map(identity); callback(selected); }
+        };
+        window.harness.update();
+    }, { guid: GUID, fixture, options: hostOptions });
+    return requests;
+}
+
+export async function hostLog(page: Page): Promise<HostLog> {
+    return page.evaluate(() => window.harness.log);
+}

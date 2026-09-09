@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.tmp/
+coverage/
+playwright-report/
+test-results/
+*.log
+.powerbi/
+.pbi/
+*.abf
+*.pfx
+*.key
+*.pbix

@@ -1,0 +1,53 @@
+table BusinessUnitMix
+	lineageTag: d15a9c25-c79b-4b8b-85d8-f7cbdcb44746
+
+	measure 'Revenue Amount' = SUM(BusinessUnitMix[Revenue])
+		formatString: $#,##0;($#,##0);$0
+		lineageTag: a50fcd37-a55b-43d6-bc84-6e534db798e6
+
+	column BusinessUnit
+		dataType: string
+		sourceColumn: BusinessUnit
+		sortByColumn: BusinessUnitOrder
+		summarizeBy: none
+		lineageTag: 3aa29a4c-30cf-4e4b-87cf-38fb07c82d99
+
+	column BusinessUnitOrder
+		dataType: int64
+		isHidden
+		sourceColumn: BusinessUnitOrder
+		summarizeBy: none
+		lineageTag: 30a47d0b-a678-4a56-a2f5-d0ab237d4166
+
+	column Product
+		dataType: string
+		sourceColumn: Product
+		sortByColumn: ProductOrder
+		summarizeBy: none
+		lineageTag: 51b3f043-124d-4b2c-8d7c-fdc8d3e905e1
+
+	column ProductOrder
+		dataType: int64
+		isHidden
+		sourceColumn: ProductOrder
+		summarizeBy: none
+		lineageTag: 5f3d6a7b-f0eb-4e1e-9a85-fdf1499ad5cf
+
+	column Revenue
+		dataType: double
+		isHidden
+		sourceColumn: Revenue
+		summarizeBy: sum
+		formatString: $#,##0;($#,##0);$0
+		lineageTag: 6d7ac22d-44db-412b-a8a1-505430758ff9
+
+	partition BusinessUnitMix = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(SampleDataFolder & "\business-unit-product-mix.csv"), [Delimiter=",", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Headers, {{"BusinessUnit", type text}, {"BusinessUnitOrder", Int64.Type}, {"Product", type text}, {"ProductOrder", Int64.Type}}, "en-US"),
+					Amounts = Table.TransformColumns(Typed, {{"Revenue", each if _ = null or Text.Trim(_) = "" then null else Number.FromText(_, "en-US"), type nullable number}})
+				in
+					Amounts

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "MixInstructions",
+  "position": { "x": 24, "y": 16, "z": 0, "width": 1232, "height": 128, "tabOrder": 0 },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [{
+        "properties": {
+          "paragraphs": [
+            { "textRuns": [{ "value": "Atlyn Marimekko | Business-unit product mix", "textStyle": { "fontSize": "20pt", "fontWeight": "bold" } }] },
+            { "textRuns": [{ "value": "Synthetic offline data. Expected total: $1,000,000. Incubator is narrow (0.5%); Retired has zero width. Incubator/Comet is missing, not zero.", "textStyle": { "fontSize": "11pt" } }] },
+            { "textRuns": [{ "value": "Import the .pbiviz and add it below left. Bind BusinessUnitMix: BusinessUnit -> Segment, Product -> Component, Revenue Amount -> Additive value. Confirm additivity in Format > Data contract. Open its table to inspect tiny, zero and missing cells.", "textStyle": { "fontSize": "11pt" } }] }
+          ]
+        }
+      }]
+    }
+  }
+}
