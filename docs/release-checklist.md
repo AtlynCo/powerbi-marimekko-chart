@@ -1,6 +1,6 @@
 # Release, certification, and submission gates
 
-**Status:** release-quality candidate source and fully authored offline PBIP with the official package embedded. This document is a checklist, not a completed test report. There is no assertion of Microsoft certification, AppSource availability, native Desktop/Service validation, or legal approval.
+**Status:** existing ungated renderer approved for external Atlyn subscription acquisition; corrected self-contained PBIP has partial coordinator-reported native acceptance. This checklist is not proof of completed Desktop/Service acceptance, certification, AppSource availability or legal approval. Hold certification/main movement, merge and submission until the parent's final gate.
 
 Record the responsible reviewer, date, tested version/environment, result, and evidence for each applicable gate. A green local audit does not close manual gates. Recheck Microsoft's current requirements when submitting; requirements and host behavior can change.
 
@@ -21,6 +21,10 @@ Record the responsible reviewer, date, tested version/environment, result, and e
 
 ## 2. Native Power BI Desktop
 
+**Progress reported by the coordinator on 2026-09-10:** corrected PBIP opened and refreshed real M; nine market rows reconciled to $1M; SVG widths 60/30/10 and Atlas heights 60/40/20 were visually confirmed; a genuine 158,299-byte PBIX was saved with owner-approved Public sensitivity label and a PrintWindow screenshot obtained. Final native assets/hashes, reopen and other scenarios remain pending. Do not mark the broader gates below complete from that partial result.
+
+- [x] Coordinator identified the earlier manifest difference as pre-Desktop LF-to-CRLF conversion; saved-PBIX runtime payload is byte-identical. This does not make the earlier PBIX an all-entry byte-identical sample.
+- [ ] Prepare the corrected sample with `node scripts\prepare-native-sample.mjs` after committing. Compare every embedded SDK entry as raw bytes before native retry and in the final saved PBIX; do not normalize away differences.
 - [ ] Record exact Desktop build, Windows version, locale, tenant policy, and artifact SHA-256.
 - [ ] Import the packaged file into a clean report. Verify binding, default unconfirmed state, confirmation persistence, formatting reset, resizing, save/reopen, and replacing/upgrading the visual without changing its GUID.
 - [ ] Verify the advertised landing/empty-data, keyboard-focus, highlight, and native multi-visual-selection capabilities in the host rather than relying only on manifest flags.
@@ -57,6 +61,8 @@ Record the responsible reviewer, date, tested version/environment, result, and e
 
 ## 5. Privacy, legal, and support owner approval
 
+- [x] Owner approved existing Atlyn storefront subscriptions, ungated authoring/runtime and free report viewing. No paid-author enforcement or runtime licensing integration is required.
+- [ ] Preserve first-party source terms: no tracked LICENSE/LICENCE file is present and npm metadata remains `UNLICENSED`. Source relicensing is not authorized.
 - [ ] Owner approves distribution rights and actual customer license/EULA. `UNLICENSED` is development metadata, not customer-facing terms.
 - [ ] Owner approves a public privacy statement consistent with actual runtime behavior and host/model processing. No invented retention, jurisdiction, warranties, SLA, or certification claims.
 - [x] Coordinator approved package metadata: author **Atlyn**, `atlyn.help@gmail.com`, support URL `https://www.atlynco.com/docs/faq`, and the private source repository as `gitHubUrl`. Private source hosting is not a support-URL blocker.
@@ -67,6 +73,8 @@ Record the responsible reviewer, date, tested version/environment, result, and e
 
 ## 6. Microsoft certification / AppSource submission
 
+- [x] Owner selected Microsoft's official **Power BI certified** badge, not the "Additional purchase may be required" IAP disclosure or an in-visual/marketing asset.
+- [ ] After the final gate, the parent selects **Request Power BI certification** in Partner Center. **REQUEST/REVIEW PENDING**; only Microsoft awards/displays the badge after additional review. Do not add badge artwork or claim it is granted.
 - [ ] Read the current [certified visuals requirements](https://learn.microsoft.com/en-us/power-bi/developer/visuals/power-bi-custom-visuals-certified) and [AppSource publishing guidance](https://learn.microsoft.com/en-us/power-bi/developer/visuals/office-store).
 - [ ] Confirm eligibility, supported APIs, security restrictions, required performance/accessibility behavior, and packaging/source-review requirements.
 - [ ] Prepare the actual submission assets requested by Microsoft: package, reviewable source, native-tested sample report, listing text/screenshots/icon, approved legal/privacy/support URLs, and test instructions as applicable.
@@ -81,8 +89,8 @@ Record the responsible reviewer, date, tested version/environment, result, and e
 | Gate | Reviewer/date | Environment + package hash | Result | Evidence / issue |
 | --- | --- | --- | --- | --- |
 | Local checks | Pending | Pending | Not recorded here | Attach actual logs |
-| Desktop + PBIP | Pending | Pending | Native validation required | Attach saved native report and steps |
+| Desktop + PBIP | Coordinator report received 2026-09-10 | Exact native assets/hashes pending | Partial M/market geometry and PBIX save reported | Final file handoff, reopen and other scenarios pending |
 | Service/export | Pending | Pending | Native validation required | Record each output mode separately |
 | Accessibility/localization | Pending | Pending | Manual review required | Record assistive technology and locale |
 | Legal/privacy/support | Owner pending | Exact release candidate | Approval required | Link approved materials |
-| Certification/submission | Not asserted | Exact submitted candidate | Not certified by this checklist | Microsoft outcome, if pursued |
+| Certification/submission | Owner approved request; parent final gate pending | Exact submitted candidate | Request/review pending; not certified | Parent selects Request Power BI certification; retain Microsoft's outcome |

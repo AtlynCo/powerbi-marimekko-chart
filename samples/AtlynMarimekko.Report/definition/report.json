@@ -31,7 +31,7 @@
   "annotations": [
     {
       "name": "AtlynSampleStatus",
-      "value": "Provisional native-retry sample with self-contained inline M data. Native refresh/render validation pending; rendering-only package, not final paid build."
+      "value": "Self-contained inline M sample. Owner-approved storefront subscriptions with ungated runtime/free viewing; partial native preflight reported, final acceptance pending."
     },
     {
       "name": "AtlynPackageVersion",

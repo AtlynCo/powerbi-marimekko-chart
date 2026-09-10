@@ -1,10 +1,12 @@
 # Atlyn Marimekko — authored offline sample
 
-This is a **provisional native-retry PBIP/PBIR/TMDL sample**, with both Atlyn Marimekko instances already embedded, bound, formatted, and connected to native reconciliation tables. Its import partitions contain inline M literal tables: **no folder parameter, external file connection, manual custom-visual import or field binding is required by the authored source**.
+This is a **corrected self-contained PBIP/PBIR/TMDL sample**, with both Atlyn Marimekko instances already embedded, bound, formatted, and connected to native reconciliation tables. Its import partitions contain inline M literal tables: **no folder parameter, external file connection, manual custom-visual import or field binding is required by the authored source**.
 
-The unchanged embedded package is **1.0.1.0**, with frozen visual identity `AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472`. It is sealed rendering-only evidence without paid entitlement integration, **not a final paid/submission build**. [PACKAGE.md](PACKAGE.md) and [assembly-manifest.json](assembly-manifest.json) identify the exact embedded package version, SHA-256, payload resources, and generated source files.
+The unchanged embedded package is **1.0.1.0**, with frozen visual identity `AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472`. The owner approved existing Atlyn storefront subscriptions with **ungated runtime and free viewing**; this renderer is intended as-is, not awaiting paid entitlement integration. Final publication gates remain open. [PACKAGE.md](PACKAGE.md) and [assembly-manifest.json](assembly-manifest.json) identify the exact embedded package version, SHA-256, payload resources, and generated source files.
 
-**Native validation has not been performed by this source assembly.** The owner must open, refresh, inspect, save, and reopen in Power BI Desktop and perform Service acceptance. Public-schema and source-consistency checks do not prove native custom-visual loading, TMDL/M evaluation, host interactions, accessibility, or export behavior. No binary PBIX is generated or represented as validated here.
+**Partial native progress reported by the coordinator on 2026-09-10:** the corrected PBIP opened/refreshed real M in Desktop, nine market rows reconciled to $1M, and SVG widths 60/30/10 plus Atlas heights 60/40/20 were visually confirmed. A genuine 158,299-byte PBIX was saved with owner-approved Public sensitivity label and a PrintWindow native screenshot obtained. The coordinator holds these files; final assets/hashes, reopen and other scenarios are still pending. The source assembler does not generate PBIX files, and automated source/parser checks are not native execution evidence.
+
+The coordinator confirmed that the earlier handoff/PBIX manifest differs only by LF-to-CRLF conversion and that the runtime payload is byte-identical. The corrected byte-faithful sample still requires native retry. The owner-approved official Power BI certified badge is **request/review pending** through the parent-owned **Request Power BI certification** checkbox, not an artwork or IAP-disclosure task. Microsoft alone awards/displays that badge.
 
 All organizations, products, and amounts are **synthetic demonstration data**. The examples use additive revenue amounts in illustrative USD, not real market research or customer data.
 
@@ -12,7 +14,13 @@ All organizations, products, and amounts are **synthetic demonstration data**. T
 
 The coordinator's actual Desktop 2.157.1354.0 preflight rejected the sealed sample before rendering: `InvalidLineType`, `Unexpected line type: ReferenceObject!`, document `./model`, line 6. The table references were incorrectly indented under the model object. This correction moves `ref table` declarations to document scope and removes the obsolete `SampleDataFolder` expression.
 
-The error was reproduced with Desktop's installed official TOM parser. The corrected folder deserializes through both that parser (file version 17.0.83.18) and installed official Microsoft.AnalysisServices 19.117.0: two tables, zero relationships, zero shared expressions and zero external data sources. This validates TMDL syntax/object structure, **not M/DAX execution, native rendering or PBIX acceptance**. The coordinator must retry those separately; the original sealed baseline and certification ref are not overwritten.
+The error was reproduced with Desktop's installed official TOM parser. The corrected folder deserializes through both that parser (file version 17.0.83.18) and installed official Microsoft.AnalysisServices 19.117.0: two tables, zero relationships, zero shared expressions and zero external data sources. That parser result validates syntax/object structure, not execution. The coordinator's subsequent native report above is separate evidence; remaining scenarios and final acceptance are still open. The original sealed baseline and certification ref are not overwritten.
+
+## Preserve the embedded package bytes
+
+The earlier provisional handoff changed SDK `package.json` from **781 LF bytes**, SHA-256 `179dd39859ac4558b466aa5d6fe9d69dce6ac24ce50b635d33d92317ee0cc03a`, to **797 CRLF bytes**, SHA-256 `f8bf636e202e30f793dfe0a3813d96ace42c3ce0127780190fc395e5779b95fd`. The committed source and current assembler output already retain the original 781 bytes. The saved native payload remained exactly equal; this is not a renderer or Desktop-corruption fix.
+
+All `CustomVisuals` entries are now excluded from Git text conversion. A regression round-trips every real SDK entry and an additional CRLF byte probe through Git with Windows-style checkout settings. After committing reviewed source, run **`node scripts\prepare-native-sample.mjs`** to create a new, non-overwriting `dist\native-sample-<commit>` handoff. It reads `git archive` as binary, compares every embedded entry with the retained official PBIVIZ, and records raw-byte provenance. Never route package content through PowerShell text pipelines or normalize it to make a comparison pass. Keep previous handoffs and frozen folders unchanged; the parent owns the corrected sample's Desktop retry.
 
 ## Open and refresh
 

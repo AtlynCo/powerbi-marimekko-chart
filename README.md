@@ -21,7 +21,7 @@ This is a private-repository first-release implementation, **not a claim of Micr
    | **Additive value** (`value`) | One nonnegative additive measure | `ProductRegion[Market Revenue]` |
 
 4. Review the measure's meaning. Enable **Format → Data contract → Value is additive, not a ratio or distinct count** only if it can safely be summed across both dimensions. The setting is off by default; no geometry is drawn before confirmation.
-5. Use the included [self-contained PBIP and offline reference CSVs](samples/README.md). Both market-share and product-mix pages include a bound custom visual, the exact embedded package, inline M literal data and native reconciliation tables. The provisional sample corrects a native TMDL parsing failure; refresh it in Desktop without setting a file path. Native rendering/PBIX acceptance remains with the coordinator. The sealed package is rendering-only evidence, not a final paid/submission build.
+5. Use the included [self-contained PBIP and offline reference CSVs](samples/README.md). Both market-share and product-mix pages include a bound custom visual, the exact embedded package, inline M literal data and native reconciliation tables. The corrected sample needs no file-path parameter. The coordinator reports successful Desktop open/M refresh, market-row reconciliation, expected SVG geometry and a genuine saved PBIX; reopen and the remaining native scenarios are still pending.
 
 There is **no width-measure role in v1**. Do not bind precomputed market-share percentages, averages, ratios, or overlapping distinct counts. Known percentage-formatted measures are blocked even after confirmation. Power BI's visual API cannot reliably identify every nonadditive DAX expression; the author must verify semantics.
 
@@ -95,6 +95,12 @@ Under **Info**, the visual's **Open-source notices** button displays bundled run
 - [Maintenance and compatibility policy](docs/maintenance.md)
 - [Runtime privacy facts and support readiness](docs/privacy-and-support.md)
 
-The package's `UNLICENSED` metadata is not a published customer license. Distribution rights, public legal/privacy terms, support commitments, and final release approval require the owner's review; this repository does not invent them.
+## Acquisition and licensing status
+
+The owner approved **existing Atlyn storefront subscriptions with ungated visuals** on 2026-09-10. Acquisition is external to the visual; authoring is not subject to paid-author runtime enforcement, and report viewing is free. Normal Power BI platform and sharing requirements still apply. The current renderer is the intended implementation: no licence keys, signers, AAD/API integrations, feature gates, runtime licence checks or external licensing calls are required.
+
+The owner approved requesting Microsoft's official **Power BI certified** badge through the Partner Center checkbox **Request Power BI certification**. **Request/review pending:** only Microsoft awards and displays the badge after its additional review. This is not the "Additional purchase may be required" disclosure or an in-visual/marketing graphic; do not add badge artwork or claim certification. Final native assets, saved-PBIX package equivalence and the remaining publication gates are still pending; do not move `certification`, update `main`, merge or submit before the coordinator's final gate.
+
+**First-party source terms:** no tracked first-party `LICENSE`/`LICENCE` file is present, and `package.json` remains `UNLICENSED`. No license terms are added, changed or inferred here. This metadata is not a customer EULA; source licensing, storefront terms, public privacy/support information and distribution approval are separate matters. Third-party notices apply only to their identified dependencies.
 
 Approved package contact: **Atlyn** · `atlyn.help@gmail.com` · [Support FAQ](https://www.atlynco.com/docs/faq). Public contact ownership, reachability, and mailbox responsiveness still require publication verification. The private source repository remains the package's `gitHubUrl`; it is not the public support URL.

@@ -2,6 +2,8 @@
 
 This is an internal engineering comparison and evidence plan, reviewed against primary documentation on **2026-09-09**. It is not comparative marketing, a benchmark of other products, or a "best-in-class" assertion. No competitor package was installed or measured.
 
+**Current status update, 2026-09-10:** the owner approved external storefront subscriptions with ungated runtime/free viewing; the existing renderer is not awaiting licensing code. The coordinator reports partial real-Desktop M/market geometry acceptance and a saved PBIX. See the [current dossier](marketplace-dossier.md) for that report and remaining gates. The dated local evidence below remains unchanged and is not relabeled as native evidence.
+
 ## Composition workflow comparison
 
 | Workflow | Primary documented behavior | Atlyn's narrower choice and tradeoff |

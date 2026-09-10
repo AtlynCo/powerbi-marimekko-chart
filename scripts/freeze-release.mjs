@@ -116,10 +116,15 @@ const manifest = {
     tools: { node: process.version, npmUserAgent: userAgent, ...tools },
     environment: { platform: os.platform(), release: os.release(), architecture: os.arch() },
     evidenceScope: "Exact-package local Chromium with Power BI host mocks; raw timings include shared-machine contention. Not native acceptance.",
+    commercialModel: assembly.commercialModel,
+    certificationRequest: assembly.certificationRequest,
+    nativePreflight: assembly.nativeValidation,
     nativeHostValidated: false, microsoftCertified: false, marketplaceSubmitted: false,
     outstandingGates: ["Coordinator native Desktop/PBIX/Service/export and assistive-technology acceptance",
-        "Owner-approved publisher/distribution, EULA, privacy, pricing and support readiness",
-        "Screenshot upload validation and reviewer source access", "Parent-only Partner Center submission and Microsoft review"],
+        "Owner-finalized publisher/distribution, customer EULA, privacy and support information",
+        "Request Power BI certification checkbox: request/review pending, Microsoft alone awards/displays the official badge",
+        "Native saved-PBIX package equivalence, screenshot upload validation and reviewer source access",
+        "Parent final gate before certification/main movement, merge or Partner Center submission; Microsoft review"],
     files: inventory
 };
 const serialized = `${JSON.stringify(manifest, null, 2)}\n`;

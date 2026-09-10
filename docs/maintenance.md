@@ -19,6 +19,8 @@ Roles `segment`, `component`, and `value`, formatting objects/properties, and se
 
 Keep the package API version and SDK development version intentionally compatible; they are not expected to be textually identical. Consult Microsoft API compatibility documentation before upgrades.
 
+The owner-approved acquisition model is external Atlyn storefront subscriptions with ungated visuals and free viewing. Do not add licence-key/signing infrastructure, AAD/API integrations, paid-author enforcement, feature gates or runtime licensing calls. Preserve current first-party source licensing (`UNLICENSED` npm metadata; no tracked LICENSE/LICENCE file) without relicensing. A documentation/acquisition-policy update alone does not require repackaging or a version bump. The parent owns the **Request Power BI certification** checkbox and final gate. The official Power BI certified badge is **request/review pending**, awarded/displayed only by Microsoft; it is not an IAP disclosure or an artwork task. Certification/main movement, merge and submission remain held.
+
 ### Scoped SDK packaging
 
 Use `npm run package` for the release artifact rather than running `pbiviz` directly. The build wrapper invokes the standard **powerbi-visuals-tools 7.2.1** CLI package operation with `--all-locales --no-stats` and isolates its tool home/npm cache under the worktree. The package API is **5.11.0**, as exported by API declarations package **5.11.1**.
