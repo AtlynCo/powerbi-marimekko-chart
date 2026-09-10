@@ -116,7 +116,7 @@ emitReport("definition/report.json", {
     ],
     settings: { useStylableVisualContainerHeader: true },
     annotations: [
-        { name: "AtlynSampleStatus", value: "Provisional native-retry sample with self-contained inline M data. Native refresh/render validation pending; rendering-only package, not final paid build." },
+        { name: "AtlynSampleStatus", value: "Self-contained inline M sample. Owner-approved storefront subscriptions with ungated runtime/free viewing; partial native preflight reported, final acceptance pending." },
         { name: "AtlynPackageVersion", value: manifest.version },
         { name: "AtlynPackageSha256", value: packageHash }
     ]
@@ -233,7 +233,21 @@ const trace = {
         name: page.name, visualName: `${page.prefix}Marimekko`, entity: page.entity,
         bindings: { segment: page.segment, component: "Product", value: page.measure }, additiveConfirmed: true
     })),
-    nativeValidation: { desktop: "pending-owner-validation", service: "pending-owner-validation", pbixGenerated: false },
+    commercialModel: {
+        acquisition: "existing-atlyn-storefront-subscriptions", runtime: "ungated",
+        viewing: "free", paidAuthorEnforcement: false
+    },
+    certificationRequest: {
+        partnerCenterOption: "Request Power BI certification",
+        status: "request-review-pending", badgeGranted: false
+    },
+    nativeValidation: {
+        desktop: "partial-parent-preflight", service: "pending-owner-validation", pbixGenerated: true,
+        pbixGeneratedBy: "coordinator-native-Desktop", pbixBytes: 158299,
+        expectedPackageSha256: "841f066f1a7696151f5e0803b86eac7abe5f87bc54be6f4701d850ebe0d6b2ae",
+        savedPbixPackageEquivalence: "payload-exact-manifest-crlf-retry-required",
+        evidence: "coordinator-report-received-2026-09-10; final-native-assets-and-hashes-pending"
+    },
     sources,
     generatedFiles
 };
@@ -250,9 +264,13 @@ emit("PACKAGE.md", Buffer.from(`# Embedded package provenance\n\n` +
     `Both chart instances bind the native \`segment\`, \`component\` and \`value\` roles and confirm the synthetic additive SUM measure.\n\n` +
     `See [assembly-manifest.json](assembly-manifest.json) for per-file hashes and source references. ` +
     `The assembly command and consistency checks are local/offline; they do not invoke Power BI, a browser, hosted CI or publication APIs.\n\n` +
-    `**Native status: provisional correction awaiting owner retry.** The source uses inline M literal data, with no external file connection or folder parameter. The owner must open, refresh, inspect and save in Desktop; Service acceptance is also pending. ` +
-    `The embedded package remains sealed rendering-only evidence without paid entitlement integration, not a final paid or submission build. ` +
-    `No binary PBIX is generated or claimed. Package and source checks are not native-host evidence.\n`, "utf8"));
+    `**Commercial model approved:** existing Atlyn storefront subscriptions, ungated runtime and free viewing. The current renderer is intended as-is; no paid entitlement integration is required. ` +
+    `The parent owns the **Request Power BI certification** checkbox and final gate. The official Power BI certified badge is **request/review pending**, awarded/displayed only by Microsoft; it is not an IAP disclosure or an artwork task. ` +
+    `The source uses inline M literal data with no external file connection or folder parameter.\n\n` +
+    `**Partial native progress reported by the coordinator on 2026-09-10:** Desktop open/M refresh, nine market rows totaling $1M, SVG widths 60/30/10 and Atlas heights 60/40/20, ` +
+    `a genuine 158,299-byte PBIX saved with owner-approved Public sensitivity label, and a PrintWindow screenshot. The parent confirmed byte-identical runtime payload; the earlier handoff/PBIX manifest differed only by LF-to-CRLF conversion. ` +
+    `That earlier PBIX is not an all-entry byte-identical sample. A corrected binary-safe handoff requires native retry; final native files/hashes, reopen and remaining scenarios are pending. ` +
+    `The source assembler does not generate a PBIX. Package/source checks are not native execution evidence. Frozen folders and certification/main refs remain on hold.\n`, "utf8"));
 
 // Validate all intended bytes before the first write; --check never modifies authored or local Desktop files.
 for (const [path, bytes] of files) {

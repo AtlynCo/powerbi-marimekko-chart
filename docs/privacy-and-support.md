@@ -8,12 +8,14 @@ This is technical release documentation, **not an approved legal privacy notice,
 - The visual computes geometry and renders its SVG, controls, legend, tooltips, and accessible table locally within the Power BI visual environment.
 - `capabilities.json` declares an empty `privileges` array. The visual does not request web access, local storage, or file-export privileges. It has no runtime telemetry, network calls, or externally loaded resources.
 - Selection, context menus, tooltip services, formatting persistence, and additional-data requests are interactions with the **Power BI host**. They are not promises that Power BI itself is offline or that it never persists/processes report data.
-- The provisional corrected sample semantic model uses inline Power Query `#table` literal data, with no external file connection or folder parameter. Bundled CSVs are reference artifacts only. Native M evaluation and report acceptance remain separate checks.
+- The corrected sample semantic model uses inline Power Query `#table` literal data, with no external file connection or folder parameter. Bundled CSVs are reference artifacts only. The coordinator reports successful native M refresh; remaining report acceptance is separate.
 - Source dependency installation, package audits, and browser installation can use network services during development. They are not part of the packaged visual's runtime.
 - The **Open-source notices** button reads license text embedded in the package; it does not fetch notices or other external resources.
 - Build-only localhost certificates satisfy an SDK packaging check. The wrapper exports generated files only inside the worktree and cleans them up after packaging; it neither installs a certificate nor modifies the user's certificate store. This does not grant runtime privileges.
 
 No claim is made here about Microsoft's retention, tenant residency, consent, or Service processing. Those are governed by the customer's Power BI configuration and applicable Microsoft/organization terms. Review the packaged release for unexpected code/assets as well as the source.
+
+The approved commercial model uses existing Atlyn storefront subscriptions for external acquisition, with ungated authoring/runtime and free viewing. The visual does not exchange licence keys, account tokens or entitlement requests with that storefront. Storefront/customer terms and privacy are separate owner-managed matters; no runtime licensing integration or new data flow is required by this model.
 
 ## Approved contact metadata and publication verification
 

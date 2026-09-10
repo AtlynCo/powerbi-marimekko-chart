@@ -48,10 +48,26 @@
       "additiveConfirmed": true
     }
   ],
+  "commercialModel": {
+    "acquisition": "existing-atlyn-storefront-subscriptions",
+    "runtime": "ungated",
+    "viewing": "free",
+    "paidAuthorEnforcement": false
+  },
+  "certificationRequest": {
+    "partnerCenterOption": "Request Power BI certification",
+    "status": "request-review-pending",
+    "badgeGranted": false
+  },
   "nativeValidation": {
-    "desktop": "pending-owner-validation",
+    "desktop": "partial-parent-preflight",
     "service": "pending-owner-validation",
-    "pbixGenerated": false
+    "pbixGenerated": true,
+    "pbixGeneratedBy": "coordinator-native-Desktop",
+    "pbixBytes": 158299,
+    "expectedPackageSha256": "841f066f1a7696151f5e0803b86eac7abe5f87bc54be6f4701d850ebe0d6b2ae",
+    "savedPbixPackageEquivalence": "payload-exact-manifest-crlf-retry-required",
+    "evidence": "coordinator-report-received-2026-09-10; final-native-assets-and-hashes-pending"
   },
   "sources": {
     "reportFolder": "https://learn.microsoft.com/en-us/power-bi/developer/projects/projects-report",
@@ -81,8 +97,8 @@
     },
     {
       "path": "AtlynMarimekko.Report/definition/report.json",
-      "sha256": "d8c7f1efcee21e3bf41fe72388ef06fc4239c1f2cd66999973c517d9b8561a84",
-      "bytes": 1286
+      "sha256": "fa3e0143df3ac12258fadeb30df92d5d1bc423d04fa53dc2a4ebf72b75e0c087",
+      "bytes": 1299
     },
     {
       "path": "AtlynMarimekko.Report/definition/version.json",

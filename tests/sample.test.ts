@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { existsSync, readFileSync, readdirSync } from "node:fs";
-import { basename, join, resolve } from "node:path";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { basename, dirname, join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import { describe, it } from "node:test";
 import JSZip from "jszip";
@@ -52,7 +52,13 @@ interface Assembly {
     package: { file: string; sha256: string; bytes: number; modified: boolean };
     embedding: { root: string; metadataResource: string; javascriptSha256: string; cssSha256: string; iconSha256: string; locales: string[] };
     generatedFiles: { path: string; sha256: string; bytes: number }[];
-    nativeValidation: { desktop: string; service: string; pbixGenerated: boolean };
+    commercialModel: { acquisition: string; runtime: string; viewing: string; paidAuthorEnforcement: boolean };
+    certificationRequest: { partnerCenterOption: string; status: string; badgeGranted: boolean };
+    nativeValidation: {
+        desktop: string; service: string; pbixGenerated: boolean;
+        pbixGeneratedBy: string; pbixBytes: number; expectedPackageSha256: string;
+        savedPbixPackageEquivalence: string; evidence: string
+    };
     sources: Record<string, string>;
 }
 
@@ -237,7 +243,19 @@ describe("authored offline sample source (not native Power BI acceptance)", () =
         assert.equal(report.annotations.find(item => item.name === "AtlynPackageSha256")!.value, trace.package.sha256);
         assert.equal(report.annotations.find(item => item.name === "AtlynPackageVersion")!.value, source.visual.version);
         assert.deepEqual(trace.nativeValidation, {
-            desktop: "pending-owner-validation", service: "pending-owner-validation", pbixGenerated: false
+            desktop: "partial-parent-preflight", service: "pending-owner-validation", pbixGenerated: true,
+            pbixGeneratedBy: "coordinator-native-Desktop", pbixBytes: 158299,
+            expectedPackageSha256: "841f066f1a7696151f5e0803b86eac7abe5f87bc54be6f4701d850ebe0d6b2ae",
+            savedPbixPackageEquivalence: "payload-exact-manifest-crlf-retry-required",
+            evidence: "coordinator-report-received-2026-09-10; final-native-assets-and-hashes-pending"
+        });
+        assert.deepEqual(trace.commercialModel, {
+            acquisition: "existing-atlyn-storefront-subscriptions", runtime: "ungated",
+            viewing: "free", paidAuthorEnforcement: false
+        });
+        assert.deepEqual(trace.certificationRequest, {
+            partnerCenterOption: "Request Power BI certification",
+            status: "request-review-pending", badgeGranted: false
         });
         assert.equal(trace.package.modified, false);
         assert(trace.sources.reportResources!.startsWith("https://developer.microsoft.com/json-schemas/"));
@@ -259,6 +277,44 @@ describe("authored offline sample source (not native Power BI acceptance)", () =
             { cwd: root, encoding: "utf8" });
         assert.equal(checked.status, 0, checked.stdout + checked.stderr);
         assert.match(checked.stdout, /Verified/);
+    });
+
+    it("preserves all SDK entry bytes and CRLF input through a Windows-style Git checkout", {
+        skip: !existsSync(officialPackage) ? "The retained official package is required for raw-byte checkout coverage" : false
+    }, async () => {
+        const temporaryRoot = join(root, ".tmp");
+        mkdirSync(temporaryRoot, { recursive: true });
+        const fixture = mkdtempSync(join(temporaryRoot, "sample-byte-checkout-"));
+        try {
+            const git = (...args: string[]) => {
+                const result = spawnSync("git", [
+                    "-c", "core.longpaths=true", "-c", "core.autocrlf=true", "-c", "core.eol=crlf", ...args
+                ], { cwd: fixture, encoding: "utf8" });
+                assert.equal(result.status, 0, result.error?.message ?? result.stdout + result.stderr);
+            };
+            git("init", "--quiet", "--template=");
+            writeFileSync(join(fixture, ".gitattributes"), readFileSync(join(root, ".gitattributes")));
+            const embedded = join("samples", "AtlynMarimekko.Report", "CustomVisuals", guid);
+            const expected = new Map<string, Buffer>();
+            const zip = await JSZip.loadAsync(readFileSync(officialPackage), { checkCRC32: true });
+            for (const entry of Object.values(zip.files)) {
+                if (!entry.dir) expected.set(join(embedded, ...entry.name.split("/")), await entry.async("nodebuffer"));
+            }
+            // Future SDK entries may contain CRLF; repository text normalization must not change either form.
+            expected.set(join(embedded, "crlf-byte-probe.txt"), Buffer.from("SDK byte fidelity\r\n\r\n"));
+            for (const [path, bytes] of expected) {
+                mkdirSync(dirname(join(fixture, path)), { recursive: true });
+                writeFileSync(join(fixture, path), bytes);
+            }
+            git("add", "--all");
+            for (const path of expected.keys()) writeFileSync(join(fixture, path), "force checkout from the index");
+            git("checkout-index", "--force", "--all");
+            for (const [path, bytes] of expected) {
+                assert.deepEqual(readFileSync(join(fixture, path)), bytes, `Git changed embedded package bytes: ${path}`);
+            }
+        } finally {
+            rmSync(fixture, { recursive: true, force: true });
+        }
     });
 
     it("rejects unsupported assembler flags rather than accepting arbitrary output paths", () => {
