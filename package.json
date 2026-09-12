@@ -21,7 +21,8 @@
     "assets:icons": "node scripts/icon.mjs",
     "sample:assemble": "node scripts/assemble-sample.mjs",
     "sample:check": "node scripts/assemble-sample.mjs --check",
-    "release:freeze": "node scripts/freeze-release.mjs"
+    "release:freeze": "node scripts/freeze-release.mjs",
+    "postinstall": "node scripts/patch-loader.mjs"
   },
   "dependencies": {
     "powerbi-visuals-utils-formattingutils": "7.0.0"
