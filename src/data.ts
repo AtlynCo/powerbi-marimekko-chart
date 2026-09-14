@@ -7,9 +7,9 @@ export type DataHost = Pick<powerbi.extensibility.visual.IVisualHost, "createSel
 export function convert(view: powerbi.DataView | undefined, host: DataHost, additiveConfirmed: boolean, blankLabel: string): ChartModel {
     const category = view?.categorical?.categories?.find(column => column.source.roles?.segment);
     const values = view?.categorical?.values;
-    const groups = values?.grouped() ?? [];
+    const groups = typeof values?.grouped === "function" ? values.grouped() : [];
     const empty = () => buildModel({
-        segments: [], components: [], hasHighlights: false, partial: !!view?.metadata.segment, reduced: false,
+        segments: [], components: [], hasHighlights: false, partial: !!view?.metadata?.segment, reduced: false,
         additiveConfirmed, percentageMeasure: false, identityValid: true
     });
     if (!category || !values || !values.source?.roles?.component || !groups.length ||
@@ -55,7 +55,7 @@ export function convert(view: powerbi.DataView | undefined, host: DataHost, addi
         new Set(components.map(component => component.key)).size !== components.length) identityValid = false;
     return buildModel({
         segments, components, hasHighlights: chosen.some(group => group.values[0]?.highlights !== undefined),
-        partial: !!view?.metadata.segment, reduced: groups.length > LIMITS.components || category.values.length > segmentLimit,
+        partial: !!view?.metadata?.segment, reduced: groups.length > LIMITS.components || category.values.length > segmentLimit,
         additiveConfirmed, percentageMeasure, identityValid
     });
 }

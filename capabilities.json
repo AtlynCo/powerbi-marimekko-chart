@@ -5,7 +5,7 @@
     { "name": "value", "displayName": "Additive value", "displayNameKey": "Role_Value", "kind": "Measure", "requiredTypes": [{ "numeric": true }] }
   ],
   "dataViewMappings": [{
-    "conditions": [{ "segment": { "min": 1, "max": 1 }, "component": { "min": 1, "max": 1 }, "value": { "min": 1, "max": 1 } }],
+    "conditions": [{ "segment": { "max": 1 }, "component": { "max": 1 }, "value": { "max": 1 } }],
     "categorical": {
       "categories": { "for": { "in": "segment" }, "dataReductionAlgorithm": { "window": { "count": 100 } } },
       "values": { "group": {

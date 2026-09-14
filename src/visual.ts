@@ -105,7 +105,7 @@ export class Visual implements powerbi.extensibility.visual.IVisual {
             const rebuildModel = dataUpdate || !!options.dataViews?.[0] || !this.model || localeChanged;
             if (options.dataViews?.[0] || dataUpdate) this.view = options.dataViews?.[0];
             const previousSettings = this.settings;
-            this.settings = readSettings(this.view?.metadata.objects);
+            this.settings = readSettings(this.view?.metadata?.objects);
             if (previousSettings.showTable !== this.settings.showTable) this.tableOpen = this.settings.showTable;
             if (dataUpdate) {
                 this.fetchPending = false;
@@ -197,10 +197,10 @@ export class Visual implements powerbi.extensibility.visual.IVisual {
     }
 
     private fetchMore(): void {
-        if (!this.view?.metadata.segment || !this.model || !this.settings.additiveConfirmed ||
+        if (!this.view?.metadata?.segment || !this.model || !this.settings.additiveConfirmed ||
             this.model.diagnostics.some(item => ["binding", "invalid", "ratio", "identity", "range", "limit"].includes(item.code))) return;
         const rows = this.view.categorical?.categories?.find(column => column.source.roles?.segment)?.values.length ?? 0;
-        const components = this.view.categorical?.values?.grouped().length ?? 0;
+        const components = typeof this.view.categorical?.values?.grouped === "function" ? this.view.categorical.values.grouped().length : 0;
         if (rows >= LIMITS.segments || rows * components >= LIMITS.cells || components > LIMITS.components) {
             if (!this.model.diagnostics.some(item => item.code === "limit")) this.model.diagnostics.push({ code: "limit" });
             return;

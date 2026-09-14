@@ -5,8 +5,9 @@ import { createHash } from "node:crypto";
 import JSZip from "jszip";
 import powerbiApi from "powerbi-visuals-api";
 
-const GUID = "AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472";
-const VERSION = "1.0.1.0";
+const config = JSON.parse(readFileSync("pbiviz.json", "utf8"));
+const GUID = config.visual.guid;
+const VERSION = config.visual.version;
 const filename = `${GUID}.${VERSION}.pbiviz`;
 const files = readdirSync("dist").filter(name => name === filename);
 assert.equal(files.length, 1, "Expected the exact current release package");

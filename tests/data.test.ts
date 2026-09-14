@@ -57,7 +57,9 @@ describe("categorical binding and value normalization", () => {
         ["empty groups", fixture => { fixture.groups.splice(0); }],
         ["group with no measures", fixture => { fixture.groups[0]!.values = []; }],
         ["group with multiple measures", fixture => { fixture.groups[0]!.values.push(fixture.groups[0]!.values[0]!); }],
-        ["missing value role", fixture => { fixture.groups[0]!.values[0]!.source.roles = { other: true }; }]
+        ["missing value role", fixture => { fixture.groups[0]!.values[0]!.source.roles = { other: true }; }],
+        ["ungrouped values without grouped function", fixture => { delete (fixture.values as { grouped?: unknown }).grouped; }],
+        ["empty DataView without metadata", fixture => { fixture.view = {} as powerbi.DataView; }]
     ];
     for (const [name, mutate] of malformed) {
         it(`reports binding error for ${name}`, () => {

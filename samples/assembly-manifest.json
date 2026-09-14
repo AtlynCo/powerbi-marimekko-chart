@@ -3,20 +3,20 @@
   "visual": {
     "guid": "AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472",
     "name": "AtlynMarimekko",
-    "version": "1.0.1.0",
+    "version": "1.0.2.0",
     "apiVersion": "5.11.0"
   },
   "package": {
-    "file": "dist/AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472.1.0.1.0.pbiviz",
-    "sha256": "841f066f1a7696151f5e0803b86eac7abe5f87bc54be6f4701d850ebe0d6b2ae",
-    "bytes": 125085,
+    "file": "dist/AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472.1.0.2.0.pbiviz",
+    "sha256": "6436df6569e93023ddce75aaf7f8de7b556ec0e8f4ef3ec3b3ed44156d5b7cea",
+    "bytes": 125106,
     "modified": false
   },
   "embedding": {
     "type": "CustomVisualMetadata",
     "root": "AtlynMarimekko.Report/CustomVisuals/AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472",
     "metadataResource": "resources/AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472.pbiviz.json",
-    "javascriptSha256": "5bb61305a10614cd2eba69242128056973de86d0b47f3cbb3b50f327821d1632",
+    "javascriptSha256": "506564c27f454a0eb92f3663e191d28e20b8c40391e608a849f6337cfd479c12",
     "cssSha256": "7b450dd188f9bcba5cbb63d370d0b1c640cb8b2f700b4481c365aa59f4c2fa1f",
     "iconSha256": "86daf29f9df95caea9f3f6fa3b75d3316536d67c64f57d53830af3e09292d9c6",
     "locales": [
@@ -82,13 +82,13 @@
   "generatedFiles": [
     {
       "path": "AtlynMarimekko.Report/CustomVisuals/AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472/package.json",
-      "sha256": "179dd39859ac4558b466aa5d6fe9d69dce6ac24ce50b635d33d92317ee0cc03a",
+      "sha256": "86e734f42612828def6f90ef6c4f2b6cd832dfa963474910253e7756c10238ec",
       "bytes": 781
     },
     {
       "path": "AtlynMarimekko.Report/CustomVisuals/AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472/resources/AtlynMarimekkoC9A58644D8B64B04A31C6770C8EA9472.pbiviz.json",
-      "sha256": "d332fdd436e19d9d537c41b9bcf45e2110fa888499620593278e6b10a0b420ac",
-      "bytes": 719455
+      "sha256": "032af698f93d0f0f641b2f61fe16db5bcdd3f9eead0ac2ba0dfd860b765876e3",
+      "bytes": 719522
     },
     {
       "path": "AtlynMarimekko.Report/StaticResources/RegisteredResources/AtlynMarimekkoIcon.png",
@@ -97,7 +97,7 @@
     },
     {
       "path": "AtlynMarimekko.Report/definition/report.json",
-      "sha256": "fa3e0143df3ac12258fadeb30df92d5d1bc423d04fa53dc2a4ebf72b75e0c087",
+      "sha256": "4141ac3fefc1eae6bf23e9a0f2680f52113d9ad582714e951f471e12e7a9b3a8",
       "bytes": 1299
     },
     {
@@ -137,7 +137,7 @@
     },
     {
       "path": "AtlynMarimekko.Report/definition/pages/MarketShare/visuals/MarketInterpretation/visual.json",
-      "sha256": "b3409b2f4b8db484e113cbdf0989a4328f389f7c983d12399df7f1bd4d0ed710",
+      "sha256": "4821d081e238bae85a1b17bebcf6e056a939b40729095aa77f9d06aa3be0a572",
       "bytes": 1349
     },
     {
@@ -167,7 +167,7 @@
     },
     {
       "path": "AtlynMarimekko.Report/definition/pages/ProductMix/visuals/MixInterpretation/visual.json",
-      "sha256": "f96e66ab84f67f6749b2194a66d362c5accb8187d1fddf26f2971c2210171572",
+      "sha256": "78b813fc6c2db274d650e068d90675dd9eb8747d903e01506fb3e2c552a8a32f",
       "bytes": 1351
     }
   ]
