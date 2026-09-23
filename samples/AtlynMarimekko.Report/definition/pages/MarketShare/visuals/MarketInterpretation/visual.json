@@ -21,7 +21,7 @@
                   {
                     "value": "Read both size and mix: North America / Atlas is $360,000, 60% of its region and 36% of the total. Select a cell or a table row to compare the same revenue across both views.",
                     "textStyle": {
-                      "fontSize": "12pt",
+                      "fontSize": "11pt",
                       "color": "#172B3A"
                     }
                   }
@@ -30,9 +30,20 @@
               {
                 "textRuns": [
                   {
-                    "value": "Atlyn Marimekko 1.0.2.0 · Synthetic offline sample · Source authored; native Desktop/Service acceptance pending",
+                    "value": "Hints: Right-click empty canvas space anywhere inside the visual for Power BI basic context menu. Open visual Data table for tiny, zero, or missing cells.",
                     "textStyle": {
                       "fontSize": "10pt",
+                      "color": "#374151"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Atlyn Marimekko 1.0.3.0 · Synthetic offline sample · Source authored; native Desktop/Service acceptance pending",
+                    "textStyle": {
+                      "fontSize": "9pt",
                       "color": "#4B5563"
                     }
                   }

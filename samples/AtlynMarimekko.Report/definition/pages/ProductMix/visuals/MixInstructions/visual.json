@@ -6,7 +6,7 @@
     "y": 16,
     "z": 1,
     "width": 1336,
-    "height": 128,
+    "height": 136,
     "tabOrder": 1
   },
   "visual": {
@@ -21,7 +21,7 @@
                   {
                     "value": "Business-unit product mix",
                     "textStyle": {
-                      "fontSize": "24pt",
+                      "fontSize": "20pt",
                       "fontWeight": "bold",
                       "color": "#172B3A"
                     }
@@ -33,7 +33,7 @@
                   {
                     "value": "Synthetic revenue · $1,000,000 total · Enterprise 80% / SMB 15% / Public sector 4.5% / Incubator 0.5%",
                     "textStyle": {
-                      "fontSize": "12pt",
+                      "fontSize": "11pt",
                       "color": "#374151"
                     }
                   }
@@ -44,8 +44,31 @@
                   {
                     "value": "Width = segment share  •  Height = within-segment mix  •  Area = overall contribution",
                     "textStyle": {
-                      "fontSize": "12pt",
-                      "color": "#374151"
+                      "fontSize": "11pt",
+                      "fontWeight": "bold",
+                      "color": "#172B3A"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Roles: Segment (width) • Component (mix) • Additive value (measure). Confirm additivity in Format > Data contract.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#4B5563"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Interactions: Left-click cell to cross-filter (Ctrl/Cmd for multi-select); Escape clears. Right-click any cell for data actions; right-click blank canvas space for visual context menu.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#4B5563"
                     }
                   }
                 ]

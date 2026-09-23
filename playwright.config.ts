@@ -1,8 +1,10 @@
 import { defineConfig } from "@playwright/test";
-import { mkdirSync } from "node:fs";
+import { existsSync, mkdirSync } from "node:fs";
 import { resolve } from "node:path";
 
-process.env.PLAYWRIGHT_BROWSERS_PATH ??= resolve(".tmp", "browsers");
+if (!process.env.PLAYWRIGHT_BROWSERS_PATH && existsSync(resolve(".tmp", "browsers"))) {
+    process.env.PLAYWRIGHT_BROWSERS_PATH = resolve(".tmp", "browsers");
+}
 const cache = resolve(".tmp", "browser", "cache");
 mkdirSync(cache, { recursive: true });
 process.env.TEMP = cache;

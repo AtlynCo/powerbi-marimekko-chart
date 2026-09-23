@@ -35,11 +35,11 @@
     },
     {
       "name": "AtlynPackageVersion",
-      "value": "1.0.2.0"
+      "value": "1.0.3.0"
     },
     {
       "name": "AtlynPackageSha256",
-      "value": "6436df6569e93023ddce75aaf7f8de7b556ec0e8f4ef3ec3b3ed44156d5b7cea"
+      "value": "0cf9c597ea6313c4171d1458a64d396dd264adbe4dee66c75540bbb6d94f8f31"
     }
   ]
 }

@@ -168,12 +168,16 @@ for (const page of pages) {
     emitVisual(`${page.prefix}Instructions`, {
         visualType: "textbox",
         objects: { general: formatting({ paragraphs: [
-            { textRuns: [{ value: page.heading, textStyle: { fontSize: "24pt", fontWeight: "bold", color: "#172B3A" } }] },
-            { textRuns: [{ value: page.subtitle, textStyle: { fontSize: "12pt", color: "#374151" } }] },
+            { textRuns: [{ value: page.heading, textStyle: { fontSize: "20pt", fontWeight: "bold", color: "#172B3A" } }] },
+            { textRuns: [{ value: page.subtitle, textStyle: { fontSize: "11pt", color: "#374151" } }] },
             { textRuns: [{ value: "Width = segment share  •  Height = within-segment mix  •  Area = overall contribution",
-                textStyle: { fontSize: "12pt", color: "#374151" } }] }
+                textStyle: { fontSize: "11pt", fontWeight: "bold", color: "#172B3A" } }] },
+            { textRuns: [{ value: "Roles: Segment (width) • Component (mix) • Additive value (measure). Confirm additivity in Format > Data contract.",
+                textStyle: { fontSize: "10pt", color: "#4B5563" } }] },
+            { textRuns: [{ value: "Interactions: Left-click cell to cross-filter (Ctrl/Cmd for multi-select); Escape clears. Right-click any cell for data actions; right-click blank canvas space for visual context menu.",
+                textStyle: { fontSize: "10pt", color: "#4B5563" } }] }
         ] }) }
-    }, position(80, 16, 1336, 128, 1));
+    }, position(80, 16, 1336, 136, 1));
     const sortDefinition = { sort: [
         { field: field(page.entity, page.segment), direction: "Ascending" },
         { field: field(page.entity, "Product"), direction: "Ascending" }
@@ -212,9 +216,11 @@ for (const page of pages) {
     emitVisual(`${page.prefix}Interpretation`, {
         visualType: "textbox",
         objects: { general: formatting({ paragraphs: [
-            { textRuns: [{ value: page.interpretation, textStyle: { fontSize: "12pt", color: "#172B3A" } }] },
+            { textRuns: [{ value: page.interpretation, textStyle: { fontSize: "11pt", color: "#172B3A" } }] },
+            { textRuns: [{ value: "Hints: Right-click empty canvas space anywhere inside the visual for Power BI basic context menu. Open visual Data table for tiny, zero, or missing cells.",
+                textStyle: { fontSize: "10pt", color: "#374151" } }] },
             { textRuns: [{ value: `Atlyn Marimekko ${manifest.version} · Synthetic offline sample · Source authored; native Desktop/Service acceptance pending`,
-                textStyle: { fontSize: "10pt", color: "#4B5563" } }] }
+                textStyle: { fontSize: "9pt", color: "#4B5563" } }] }
         ] }) }
     }, position(24, 800, 1392, 84, 4));
 }

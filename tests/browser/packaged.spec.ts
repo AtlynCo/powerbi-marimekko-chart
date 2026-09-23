@@ -248,6 +248,52 @@ test("tooltip uses native identity and model raw format; right click and keyboar
     expect((await hostLog(page)).clear).toBe(1);
 });
 
+test("right-click on empty visual space across genuine canvas blank regions opens basic context menu", async ({ page }) => {
+    await mount(page, { dynamicFormat: "$#,0.00" });
+    const log = () => hostLog(page);
+    const triggerContext = (selector: string, clientX: number, clientY: number) =>
+        page.locator(selector).first().evaluate((node, coords) => node.dispatchEvent(
+            new MouseEvent("contextmenu", { bubbles: true, cancelable: true, clientX: coords.x, clientY: coords.y })
+        ), { x: clientX, y: clientY });
+
+    // 1. Right-click root container padding / margin
+    await triggerContext(".atlyn-marimekko", 5, 5);
+    expect((await log()).context.at(-1)).toEqual({ key: "[]", x: 5, y: 5 });
+
+    // 2. Right-click header area
+    await triggerContext(".header", 50, 15);
+    expect((await log()).context.at(-1)).toEqual({ key: "[]", x: 50, y: 15 });
+
+    // 3. Right-click legend caption / whitespace
+    await triggerContext(".legend-caption", 80, 35);
+    expect((await log()).context.at(-1)).toEqual({ key: "[]", x: 80, y: 35 });
+
+    // 4. Right-click plot container whitespace
+    await triggerContext(".plot-container", 200, 200);
+    expect((await log()).context.at(-1)).toEqual({ key: "[]", x: 200, y: 200 });
+
+    // 5. Right-click chart SVG footer area (below bars)
+    await triggerContext(".chart", 150, 630);
+    expect((await log()).context.at(-1)).toEqual({ key: "[]", x: 150, y: 630 });
+
+    // 6. Right-click width label in footer
+    await triggerContext(".width-label", 100, 620);
+    expect((await log()).context.at(-1)).toEqual({ key: "[]", x: 100, y: 620 });
+
+    // 7. Right-click during onboarding / unmapped / landing state
+    await page.evaluate(() => window.harness.clearData());
+    await expect(page.locator(".onboarding")).toBeVisible();
+    await triggerContext(".onboarding", 300, 250);
+    expect((await log()).context.at(-1)).toEqual({ key: "[]", x: 300, y: 250 });
+
+    // 8. Keyboard Shift+F10 on root triggers empty-space context menu
+    await page.locator(".atlyn-marimekko").press("Shift+F10");
+    const last = (await log()).context.at(-1)!;
+    expect(last.key).toBe("[]");
+    expect(last.x).toBeGreaterThanOrEqual(0);
+    expect(last.y).toBeGreaterThanOrEqual(0);
+});
+
 test("high contrast has distinguishable patterns and an equivalent, operable data table", async ({ page }) => {
     await mount(page, { showTable: true }, { highContrast: true });
     await expect(page.locator(".atlyn-marimekko")).toHaveClass(/high-contrast/);

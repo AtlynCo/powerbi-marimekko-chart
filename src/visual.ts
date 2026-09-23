@@ -84,7 +84,18 @@ export class Visual implements powerbi.extensibility.visual.IVisual {
             if (event.key === "Escape") {
                 event.preventDefault();
                 this.clear();
+            } else if (event.key === "F10" && event.shiftKey) {
+                event.preventDefault();
+                const bounds = this.root.getBoundingClientRect();
+                this.context(this.host.createSelectionIdBuilder().createSelectionId(), bounds.left, bounds.top);
             }
+        });
+        this.root.addEventListener("contextmenu", event => {
+            event.preventDefault();
+            const mouseEvent = event as MouseEvent;
+            const x = typeof mouseEvent.clientX === "number" && Number.isFinite(mouseEvent.clientX) ? mouseEvent.clientX : 0;
+            const y = typeof mouseEvent.clientY === "number" && Number.isFinite(mouseEvent.clientY) ? mouseEvent.clientY : 0;
+            this.context(this.host.createSelectionIdBuilder().createSelectionId(), x, y);
         });
     }
 
@@ -395,9 +406,12 @@ export class Visual implements powerbi.extensibility.visual.IVisual {
         const background = svg("rect", { class: "chart-background", width, height: plotHeight, fill: this.background });
         background.addEventListener("click", () => this.clear());
         background.addEventListener("contextmenu", event => {
-            if (!(event instanceof MouseEvent)) return;
             event.preventDefault();
-            this.context(this.host.createSelectionIdBuilder().createSelectionId(), event.clientX, event.clientY);
+            event.stopPropagation();
+            const mouseEvent = event as MouseEvent;
+            const x = typeof mouseEvent.clientX === "number" && Number.isFinite(mouseEvent.clientX) ? mouseEvent.clientX : 0;
+            const y = typeof mouseEvent.clientY === "number" && Number.isFinite(mouseEvent.clientY) ? mouseEvent.clientY : 0;
+            this.context(this.host.createSelectionIdBuilder().createSelectionId(), x, y);
         });
         chart.append(background);
         for (const segment of model.segments) {
@@ -591,10 +605,12 @@ export class Visual implements powerbi.extensibility.visual.IVisual {
             this.select(identity, event.ctrlKey || event.metaKey);
         });
         node.addEventListener("contextmenu", event => {
-            if (!(event instanceof MouseEvent)) return;
             event.preventDefault();
             event.stopPropagation();
-            this.context(identity, event.clientX, event.clientY);
+            const mouseEvent = event as MouseEvent;
+            const x = typeof mouseEvent.clientX === "number" && Number.isFinite(mouseEvent.clientX) ? mouseEvent.clientX : 0;
+            const y = typeof mouseEvent.clientY === "number" && Number.isFinite(mouseEvent.clientY) ? mouseEvent.clientY : 0;
+            this.context(identity, x, y);
         });
         node.addEventListener("keydown", event => {
             if (!(event instanceof KeyboardEvent)) return;
@@ -604,6 +620,7 @@ export class Visual implements powerbi.extensibility.visual.IVisual {
                 this.select(identity, event.ctrlKey || event.metaKey);
             } else if (event.key === "F10" && event.shiftKey) {
                 event.preventDefault();
+                event.stopPropagation();
                 const bounds = node.getBoundingClientRect();
                 this.context(identity, bounds.left, bounds.bottom);
             }
