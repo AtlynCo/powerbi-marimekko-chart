@@ -6,7 +6,7 @@
     "visualClassName": "Visual",
     "version": "1.0.3.0",
     "description": "Variable-width 100% stacked composition of nonnegative additive values. Width is segment share; height is within-segment share; area is overall contribution.",
-    "supportUrl": "https://www.atlynco.com/docs/faq",
+    "supportUrl": "https://atlynco.github.io/atlyn-powerbi-support/docs/faq/",
     "gitHubUrl": "https://github.com/AtlynCo/powerbi-marimekko-chart"
   },
   "apiVersion": "5.11.0",

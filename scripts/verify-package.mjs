@@ -34,7 +34,7 @@ assert.equal(payload.apiVersion, powerbiApi.version);
 assert.equal(payload.apiVersion, JSON.parse(readFileSync("pbiviz.json", "utf8")).apiVersion);
 assert.equal(payload.visual.visualClassName, "Visual");
 assert.equal(payload.author.email, "atlyn.help@gmail.com");
-assert.equal(payload.visual.supportUrl, "https://www.atlynco.com/docs/faq");
+assert.equal(payload.visual.supportUrl, "https://atlynco.github.io/atlyn-powerbi-support/docs/faq/");
 assert.deepEqual(payload.visual, JSON.parse(readFileSync("pbiviz.json", "utf8")).visual);
 assert.deepEqual(payload.capabilities, JSON.parse(readFileSync("capabilities.json", "utf8")));
 assert.deepEqual(payload.capabilities.privileges, []);

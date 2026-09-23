@@ -60,11 +60,11 @@ Current detailed listing/publishing pages request 1-5 PNG screenshots at 1366x76
 | --- | --- |
 | Publisher identity and distribution rights | Owner approval required. |
 | First-party source license | No tracked LICENSE/LICENCE file; npm `UNLICENSED` unchanged. No relicensing authorized. |
-| Customer EULA or Marketplace standard contract | Separate owner publication requirement; do not infer terms from npm metadata or the ungated renderer. |
-| Acquisition/runtime model | Approved: existing Atlyn storefront subscriptions, ungated authoring/runtime and free viewing. No runtime licensing implementation blocker. |
+| Customer EULA or Marketplace standard contract | Verified public terms: `https://atlynco.github.io/atlyn-powerbi-support/legal/terms/` |
+| Acquisition/runtime model | Approved: existing Atlyn storefront subscriptions, ungated authoring/runtime and free viewing. Authors require active paid/trial Atlyn all-access subscription; viewers no separate subscription. No runtime key/check required. |
 | Official Power BI certified badge | Owner approved **Request Power BI certification** in Partner Center. **REQUEST/REVIEW PENDING**, parent-owned after the final gate; only Microsoft awards/displays it. No IAP-disclosure substitution or artwork task. |
-| Public privacy policy | Owner-authored/approved public URL required; source behavior notes are not legal terms. |
-| Support | Approved metadata: Atlyn, `atlyn.help@gmail.com`, `https://www.atlynco.com/docs/faq`; owner must verify public readiness and response ownership. |
+| Public privacy policy | Verified public policy: `https://atlynco.github.io/atlyn-powerbi-support/legal/privacy/` |
+| Support | Approved metadata: Atlyn, `atlyn.help@gmail.com`, `https://atlynco.github.io/atlyn-powerbi-support/docs/faq/`; owner verified public readiness. |
 | Native Desktop/PBIX/Service/export/accessibility | Partial Desktop/M/market geometry and saved PBIX reported. Runtime payload exact; earlier manifest differs only by CRLF. Corrected byte-faithful sample retry, final files/hashes, reopen and remaining scenarios pending with parent. |
 | Screenshot upload suitability | Parent verifies dimensions, accurate provenance and intended-host expectations. |
 | Source branch and reviewer access | Hold `certification` and `main` movement, merge and submission until the coordinator's final gate; then arrange matching source/reviewer access. |

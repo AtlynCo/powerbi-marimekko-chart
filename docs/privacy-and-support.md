@@ -15,11 +15,11 @@ This is technical release documentation, **not an approved legal privacy notice,
 
 No claim is made here about Microsoft's retention, tenant residency, consent, or Service processing. Those are governed by the customer's Power BI configuration and applicable Microsoft/organization terms. Review the packaged release for unexpected code/assets as well as the source.
 
-The approved commercial model uses existing Atlyn storefront subscriptions for external acquisition, with ungated authoring/runtime and free viewing. The visual does not exchange licence keys, account tokens or entitlement requests with that storefront. Storefront/customer terms and privacy are separate owner-managed matters; no runtime licensing integration or new data flow is required by this model.
+The approved commercial model uses existing Atlyn storefront subscriptions for external acquisition, with ungated authoring/runtime and free viewing. Authors require an active paid or trial Atlyn all-access subscription, while report viewers require no separate Atlyn subscription. The visual does not exchange licence keys, account tokens or runtime entitlement requests with that storefront. Storefront/customer terms and privacy are hosted at verified public destinations: Terms of Service at `https://atlynco.github.io/atlyn-powerbi-support/legal/terms/` and Privacy Policy at `https://atlynco.github.io/atlyn-powerbi-support/legal/privacy/`.
 
 ## Approved contact metadata and publication verification
 
-The coordinator has approved the existing `pbiviz.json` contact metadata: author **Atlyn**, email `atlyn.help@gmail.com`, and support URL `https://www.atlynco.com/docs/faq`. The private source repository `https://github.com/AtlynCo/powerbi-marimekko-chart` remains the approved `gitHubUrl`; it is distinct from the public support destination. Private source hosting is **not a support-URL blocker**.
+The coordinator has approved the updated `pbiviz.json` contact metadata: author **Atlyn**, email `atlyn.help@gmail.com`, and support URL `https://atlynco.github.io/atlyn-powerbi-support/docs/faq/`. The private source repository `https://github.com/AtlynCo/powerbi-marimekko-chart` remains the approved `gitHubUrl`; it is distinct from the public support destination. Private source hosting is **not a support-URL blocker**.
 
 Approval of these metadata values does not establish public contact ownership, reachability, or mailbox responsiveness. Those checks, public support instructions, privacy/EULA links, and escalation responsibilities remain manual publication verification. No response time or service commitment is promised here.
 

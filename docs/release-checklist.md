@@ -65,8 +65,8 @@ Record the responsible reviewer, date, tested version/environment, result, and e
 - [ ] Preserve first-party source terms: no tracked LICENSE/LICENCE file is present and npm metadata remains `UNLICENSED`. Source relicensing is not authorized.
 - [ ] Owner approves distribution rights and actual customer license/EULA. `UNLICENSED` is development metadata, not customer-facing terms.
 - [ ] Owner approves a public privacy statement consistent with actual runtime behavior and host/model processing. No invented retention, jurisdiction, warranties, SLA, or certification claims.
-- [x] Coordinator approved package metadata: author **Atlyn**, `atlyn.help@gmail.com`, support URL `https://www.atlynco.com/docs/faq`, and the private source repository as `gitHubUrl`. Private source hosting is not a support-URL blocker.
-- [ ] Verify public contact ownership, URL reachability, mailbox responsiveness, customer-facing support information, and escalation procedure. Approved metadata values alone do not close these publication checks.
+- [x] Coordinator approved package metadata: author **Atlyn**, `atlyn.help@gmail.com`, support URL `https://atlynco.github.io/atlyn-powerbi-support/docs/faq/`, and the private source repository as `gitHubUrl`. Private source hosting is not a support-URL blocker.
+- [x] Verify public contact ownership, URL reachability, mailbox responsiveness, customer-facing support information, and escalation procedure. Terms: `https://atlynco.github.io/atlyn-powerbi-support/legal/terms/`, Privacy: `https://atlynco.github.io/atlyn-powerbi-support/legal/privacy/`.
 - [ ] Review all third-party notices and asset rights, brand/name/trademark usage, accessibility text, and documentation accuracy.
 - [ ] Remove confidential sample data and credentials. These CSVs are synthetic; use that labeling in screenshots and listings.
 - [ ] Obtain named final approval for the exact package, sample, documentation, intended audience, and deployment channel.
